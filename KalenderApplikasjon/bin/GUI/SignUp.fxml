@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="344.0" prefWidth="455.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button layoutX="173.0" layoutY="293.0" mnemonicParsing="false" text="Meld deg inn" />
+      <Label layoutX="33.0" layoutY="88.0" text="Fornavn:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="134.0" text="Etternavn:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="185.0" text="Brukernavn:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="34.0" layoutY="240.0" text="Passord:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <PasswordField layoutX="159.0" layoutY="239.0" promptText="Passord" />
+      <TextField layoutX="159.0" layoutY="87.0" promptText="Fornavn" />
+      <TextField layoutX="159.0" layoutY="133.0" promptText="Etternavn" />
+      <TextField layoutX="159.0" layoutY="184.0" promptText="Brukernavn" />
+      <Label layoutX="147.0" layoutY="21.0" text="Innmelding">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
