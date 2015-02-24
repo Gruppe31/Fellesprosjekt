@@ -162,7 +162,7 @@
           <tags>removeOnHide</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_LR1kcLt7EeSQi4F1sbJJlw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="skjema.fxml" iconURI="platform:/plugin/org.eclipse.fx.ide.fxml/icons/page_white_code_red.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.fx.ide.fxml.editors.FXMLEditor&quot; name=&quot;skjema.fxml&quot; partName=&quot;skjema.fxml&quot; title=&quot;skjema.fxml&quot; tooltip=&quot;KalenderApplikasjon/src/GUI/skjema.fxml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/KalenderApplikasjon/src/GUI/skjema.fxml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;237&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.fx.ide.fxml.editors.FXMLEditor&quot; name=&quot;skjema.fxml&quot; partName=&quot;skjema.fxml&quot; title=&quot;skjema.fxml&quot; tooltip=&quot;KalenderApplikasjon/src/GUI/skjema.fxml&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/KalenderApplikasjon/src/GUI/skjema.fxml&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;907&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.fx.ide.fxml.editors.FXMLEditor</tags>
           <tags>removeOnHide</tags>
@@ -278,7 +278,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qkW3ELt5EeSQi4F1sbJJlw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qkfZ8Lt5EeSQi4F1sbJJlw" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_qRVNf7t5EeSQi4F1sbJJlw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Z9bicLu4EeSvJMu3cFuqZg" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_qRVNf7t5EeSQi4F1sbJJlw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qkXeILt5EeSQi4F1sbJJlw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -299,7 +299,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qkYsQLt5EeSQi4F1sbJJlw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qkmusLt5EeSQi4F1sbJJlw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_qRT_ULt5EeSQi4F1sbJJlw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Z9iQIbu4EeSvJMu3cFuqZg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_qRT_ULt5EeSQi4F1sbJJlw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qkYsQbt5EeSQi4F1sbJJlw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
