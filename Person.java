@@ -5,13 +5,14 @@ import java.security.KeyStore.PasswordProtection;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.PasswordField;
 
 public class Person {
 	
 	private StringProperty FornavnProperty = new SimpleStringProperty();
 	private StringProperty EtternavnProperty = new SimpleStringProperty();
 	private StringProperty BrukernavnProperty = new SimpleStringProperty();
-	private StringProperty PassordProperty = new SimpleStringProperty();
+	private PasswordField PassordField = new PasswordField();
 		
 
 	public String getFornavn() {
@@ -50,16 +51,16 @@ public class Person {
 		BrukernavnProperty.setValue(Brukernavn);
 	}
 	
-	public StringProperty PassordProperty(){
-		return PassordProperty;
+	public PasswordField PassordField(){
+		return PassordField;
 	}
 	
 	public String getPassord(){
-		return PassordProperty.getValue();
+		return PassordField.getText();
 	}
 	
 	public void setPassord(String Passord){
-		PassordProperty.setValue(Passord);
+		PassordField.setText(Passord);
 	}
 
 }
