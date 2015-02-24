@@ -1,6 +1,6 @@
 # Fellesprosjekt
 #Fellesprosjekt
 
-La fellesprosjekt vaere workspacet deres i java.
+La fellesprosjekt være workspacet deres i java.
 
 testtest123
