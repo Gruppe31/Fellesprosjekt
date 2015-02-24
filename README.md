@@ -1,6 +1,6 @@
 # Fellesprosjekt
 #Fellesprosjekt
 
-La fellesprosjekt være workspacet deres i java.
+La KalenderApplikasjon være et prosjekt i eclipse.
 
 testtest123
