@@ -17,7 +17,7 @@ public class Connector {
   public void readDataBase() throws Exception {
     try {
       Class.forName("com.mysql.jdbc.Driver");
-      connect = DriverManager.getConnection("jdbc:mysql://78.91.47.115/feedback?" + "user=oystein&password=sqluserpw");
+      connect = DriverManager.getConnection("jdbc:mysql://78.91.47.115/feedback?" + "user=sqluser&password=sqluserpw");
 
       statement = connect.createStatement();
       resultSet = statement.executeQuery("SELECT * FROM comments");
