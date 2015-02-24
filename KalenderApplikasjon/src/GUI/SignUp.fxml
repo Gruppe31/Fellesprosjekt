@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
+<!-- Hei her er det endra -->
 <AnchorPane prefHeight="344.0" prefWidth="455.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
    <children>
       <Button layoutX="173.0" layoutY="293.0" mnemonicParsing="false" text="Meld deg inn" />
