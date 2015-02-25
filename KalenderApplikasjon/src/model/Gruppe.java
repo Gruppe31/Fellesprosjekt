@@ -7,11 +7,13 @@ public class Gruppe {
 	
 	private String gruppenavn;
 	private int gruppeid;
+	private int kalenderID;
 	private List<Person> brukerListe = new ArrayList();
 	
-	public Gruppe(String gruppenavn, int gruppeid){
+	public Gruppe(String gruppenavn, int gruppeid, int kalenderID){
 		setGruppenavn(gruppenavn);
 		setGruppeid(gruppeid);
+		this.kalenderID = kalenderID;
 	}
 	
 	public void setGruppeid(int gruppeid) {
