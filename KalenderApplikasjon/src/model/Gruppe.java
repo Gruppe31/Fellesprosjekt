@@ -10,7 +10,7 @@ public class Gruppe {
 	private int kalenderID;
 	private List<Person> brukerListe = new ArrayList();
 	
-	public Gruppe(String gruppenavn, int gruppeid, int kalenderID){
+	public Gruppe(int gruppeid, String gruppenavn, int kalenderID){
 		setGruppenavn(gruppenavn);
 		setGruppeid(gruppeid);
 		this.kalenderID = kalenderID;
