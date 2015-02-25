@@ -30,9 +30,9 @@ public class Kalender {
 		return avtaler;
 	}
 	
-	public ArrayList<Avtale> getBrukere(){
+	public ArrayList<Bruker> getBrukere() throws Exception{
 		ResultSet rs = con.les("SELECT * FROM bruker WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Avtale> brukere = new ArrayList<Avtale>();
+		ArrayList<Bruker> brukere = new ArrayList<Bruker>();
 		while(rs.next()){
 			String brukernavn = rs.getString("Brukernavn");
 			String passord = rs.getString("Passord");
@@ -45,9 +45,9 @@ public class Kalender {
 		return brukere;
 	}
 	
-	public ArrayList<Gruppe> getGrupper{
+	public ArrayList<Gruppe> getGrupper() throws Exception{
 		ResultSet rs = con.les("SELECT * FROM gruppe WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Avtale> grupper = new ArrayList<Avtale>();
+		ArrayList<Gruppe> grupper = new ArrayList<Gruppe>();
 		while(rs.next()){
 			String gruppeIDString = rs.getString("GruppeID");
 			String gruppenavn = rs.getString("Gruppenavn");
