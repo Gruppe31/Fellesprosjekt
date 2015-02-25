@@ -13,9 +13,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.DatePicker?>
 
-<AnchorPane prefHeight="588.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oving2.AppointmentController">
+<AnchorPane prefHeight="588.0" prefWidth="445.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oving2.AppointmentController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b8ccc861" height="590.0" stroke="BLACK" strokeType="INSIDE" width="455.0" />
       <TextArea fx:id="formal" layoutX="27.0" layoutY="76.0" onFocusedChange="#formalFocusChange" onTextChange="#formalChange" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
       <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" onChange="#datoChange" onFocusedChange="#datoFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
       <TextField fx:id="fra" layoutX="236.0" layoutY="195.0" onFocusedChange="#fraFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
