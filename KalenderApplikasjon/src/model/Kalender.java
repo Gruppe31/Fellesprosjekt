@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import mysql.Connector;
 
 public class Kalender {
-	Connector con = new Connector();
-	int id;
+	private Connector con = new Connector();
+	private int id;
 	
 	public Kalender(int i){
 		this.id = i;
@@ -31,7 +31,29 @@ public class Kalender {
 	}
 	
 	public ArrayList<Avtale> getBrukere(){
-		
+		ResultSet rs = con.les("SELECT * FROM bruker WHERE(KalenderID =" + this.id + ")");
+		ArrayList<Avtale> brukere = new ArrayList<Avtale>();
+		while(rs.next()){
+			String brukernavn = rs.getString("Brukernavn");
+			String passord = rs.getString("Passord");
+			String kalenderID = rs.getString("KalenderID");
+			
+			brukere.add(new Bruker(brukernavn, passord));
+		}
+		return brukere;
+	}
+	
+	public ArrayList<Gruppe> getGrupper{
+		ResultSet rs = con.les("SELECT * FROM gruppe WHERE(KalenderID =" + this.id + ")");
+		ArrayList<Avtale> grupper = new ArrayList<Avtale>();
+		while(rs.next()){
+			String brukernavn = rs.getString("Brukernavn");
+			String passord = rs.getString("Passord");
+			String kalenderID = rs.getString("KalenderID");
+			
+			grupper.add(new Gruppe(brukernavn, passord, kalenderID));
+		}
+		return grupper;
 	}
 	
 	public void removeAvtale(Avtale avtale){
