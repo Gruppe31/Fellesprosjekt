@@ -18,7 +18,7 @@ public class Kalender {
 		ResultSet rs = con.les("SELECT * FROM avtale WHERE(KalenderID =" + this.id + ")");
 		ArrayList<Avtale> avtaler = new ArrayList<Avtale>();
 		while(rs.next()){
-			String avtaleID = rs.getString("AvtaleID");
+			String avtaleIDString = rs.getString("AvtaleID");
 			String tid = rs.getString("Starttid");
 			String dato = rs.getString("Dato");
 			String tittel = rs.getString("Tittel");
@@ -36,9 +36,11 @@ public class Kalender {
 		while(rs.next()){
 			String brukernavn = rs.getString("Brukernavn");
 			String passord = rs.getString("Passord");
-			String kalenderID = rs.getString("KalenderID");
+			String kalenderIDString = rs.getString("KalenderID");
 			
-			brukere.add(new Bruker(brukernavn, passord));
+			int kalenderID = Integer.parseInt(kalenderIDString);
+			
+			brukere.add(new Bruker(brukernavn, passord, kalenderID));
 		}
 		return brukere;
 	}
@@ -47,11 +49,14 @@ public class Kalender {
 		ResultSet rs = con.les("SELECT * FROM gruppe WHERE(KalenderID =" + this.id + ")");
 		ArrayList<Avtale> grupper = new ArrayList<Avtale>();
 		while(rs.next()){
-			String brukernavn = rs.getString("Brukernavn");
-			String passord = rs.getString("Passord");
-			String kalenderID = rs.getString("KalenderID");
+			String gruppeIDString = rs.getString("GruppeID");
+			String gruppenavn = rs.getString("Gruppenavn");
+			String kalenderIDString = rs.getString("KalenderID");
 			
-			grupper.add(new Gruppe(brukernavn, passord, kalenderID));
+			int gruppeID = Integer.parseInt(gruppeIDString);
+			int kalenderID = Integer.parseInt(kalenderIDString);
+			
+			grupper.add(new Gruppe(gruppeID, gruppenavn, kalenderID));
 		}
 		return grupper;
 	}
