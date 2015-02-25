@@ -1,0 +1,21 @@
+Êþº¾   4 D  model/Gruppe  java/lang/Object 
+gruppenavn Ljava/lang/String; gruppeid I 
+kalenderID brukerListe Ljava/util/List; 	Signature  Ljava/util/List<Lmodel/Person;>; <init> (ILjava/lang/String;I)V Code
+     ()V  java/util/ArrayList
+  	   
+ 
+     
+setGruppenavn (Ljava/lang/String;)V
+      setGruppeid (I)V	  " 	  LineNumberTable LocalVariableTable this Lmodel/Gruppe;	  (   
+StackMapTable getGruppeid ()I -  	  /   
+getGruppenavn ()Ljava/lang/String; 
+leggTilGruppe (Lmodel/Person;)V 5 7 6 java/util/List 8 9 add (Ljava/lang/Object;)Z person Lmodel/Person; slettPersonFraGruppe 5 > ? 9 remove getGruppeliste ()Ljava/util/List; 
+SourceFile Gruppe.java !                 	     
+       
+         {     *· *» Y· µ *,¶ *¶ *µ !±    #       
+           $   *     % &                  	           O     
+ž *µ '±    #          	  $       
+ % &     
+    )    	  * +     /     *´ '¬    #        $        % &          Q     +,¥ *+µ .±    #           ! $        % &         )      0 1     /     *´ .°    #       $ $        % &    2 3     D     *´ +¹ 4 W±    #   
+    (  ) $        % &      : ;   < 3     D     *´ +¹ = W±    #   
+    ,  - $        % &      : ;   @ A     /     *´ °    #       0 $        % &    B    C
