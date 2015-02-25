@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import mysql.Connector;
 
 public class Kalender {
-	private Connector con = new Connector();
+	private Connector con;
 	private int id;
 	
 	public Kalender(int i){
 		this.id = i;
+		con = new Connector();
 	}
 	
 	public ArrayList<Avtale> getAvtaler() throws Exception{
@@ -25,6 +26,9 @@ public class Kalender {
 			String beskrivelse = rs.getString("Beskrivelse");
 			String oppdatert = rs.getString("oppdatert");
 			String kalenderID = rs.getString("KalenderID");
+			
+			int avtaleID = Integer.parseInt(avtaleIDString);
+			
 			avtaler.add(new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID)); //Maa kanskje legge til rom og en liste over personer som kommer.
 		}
 		return avtaler;
