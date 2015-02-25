@@ -7,7 +7,7 @@ public class Gruppe {
 	
 	private String gruppenavn;
 	private int gruppeid;
-	private List<Person> gruppeListe = new ArrayList();
+	private List<Person> brukerListe = new ArrayList();
 	
 	public Gruppe(String gruppenavn, int gruppeid){
 		setGruppenavn(gruppenavn);
@@ -35,15 +35,15 @@ public class Gruppe {
 	}
 
 	public void leggTilGruppe(Person person){
-		gruppeListe.add(person);
+		this.brukerListe.add(person);
 	}
 	
 	public void slettPersonFraGruppe(Person person){
-		gruppeListe.remove(person);
+		this.brukerListe.remove(person);
 	}
 	
 	public List getGruppeliste(){
-		return this.gruppeListe;
+		return this.brukerListe;
 	}
 	
 }
