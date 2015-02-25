@@ -25,7 +25,7 @@ public class Kalender {
 			String beskrivelse = rs.getString("Beskrivelse");
 			String oppdatert = rs.getString("oppdatert");
 			String kalenderID = rs.getString("KalenderID");
-			avtaler.add(new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID));
+			avtaler.add(new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID)); //Maa kanskje legge til rom og en liste over personer som kommer.
 		}
 		return avtaler;
 	}
