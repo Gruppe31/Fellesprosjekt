@@ -7,7 +7,7 @@ public class Gruppe {
 	
 	private String gruppenavn;
 	private int gruppeid;
-	priavte int kalenderID;
+	private int kalenderID;
 	private List<Person> brukerListe = new ArrayList();
 	
 	public Gruppe(String gruppenavn, int gruppeid, int kalenderID){
