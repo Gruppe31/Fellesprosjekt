@@ -11,14 +11,12 @@ public class Connector {
   private Statement statement = null;
   private ResultSet resultSet = null;
   private PreparedStatement preparedStatement = null;
+  private String url = "jdbc:mysql://129.241.184.237/kalender";
+  private String user = "magnus";
+  private String password = "ok";
   
-  public Connector() throws Exception{
-	  
-	  String url = "jdbc:mysql://129.241.184.237/feedback";
-      String user = "magnus";
-      String password = "ok";
-	  
-	  try {
+  public void start() throws Exception{
+	  	try {
 		  
 		  
 	      Class.forName("com.mysql.jdbc.Driver");
@@ -29,12 +27,14 @@ public class Connector {
   }
 
   public ResultSet les(String sqlstatement) throws Exception {
+	  start();
 	  statement = connect.createStatement();
       resultSet = statement.executeQuery(sqlstatement);
       return resultSet;
   }
   
   public int skriv(String sqlstatement) throws Exception {
+	  start();
 	  preparedStatement = connect.prepareStatement(sqlstatement);
 	  return preparedStatement.executeUpdate();
   }

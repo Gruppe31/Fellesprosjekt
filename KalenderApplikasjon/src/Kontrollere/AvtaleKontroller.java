@@ -63,9 +63,15 @@ public class AvtaleKontroller {
 	
 	@FXML
 	boolean inviter() throws Exception{
+		
 		String brukerNavn = leggTilPerson.getText();
-		ResultSet rs = con.les("SELECT brukerNavn FROM Bruker WHERE(brukerNavn =" + brukerNavn + ")");
-		String bruker = rs.getString("brukerNavn");
+		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
+		
+		String bruker = null;
+		
+		while(rs.next()){
+			bruker = rs.getString("Brukernavn");
+		}
 		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
 		if(bruker == null){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
