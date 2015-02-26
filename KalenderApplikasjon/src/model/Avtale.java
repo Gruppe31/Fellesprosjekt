@@ -51,22 +51,26 @@ public class Avtale {
 	}
 	
 	
-	Avtale getAvtale() throws Exception{
-		ResultSet rs = con.les("SELECT * FROM avtale WHERE(avtaleID =" + avtaleID + ")");
-		String avtaleID = rs.getString("AvtaleID");
-		String tid = rs.getString("Starttid");
-		String dato = rs.getString("Dato");
-		String tittel = rs.getString("Tittel");
-		String beskrivelse = rs.getString("Beskrivelse");
-		String oppdatert = rs.getString("oppdatert");
-		String kalenderID = rs.getString("KalenderID");
-		String rom  = rs.getString("rom");
-		Avtale avtale = new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID, rom);
-		return avtale;
-	}
+//	Avtale getAvtale() throws Exception{
+//		ResultSet rs = con.les("SELECT * FROM avtale WHERE(avtaleID =" + avtaleID + ")");
+//		String avtaleID = rs.getString("AvtaleID");
+//		String tid = rs.getString("Starttid");
+//		String dato = rs.getString("Dato");
+//		String tittel = rs.getString("Tittel");
+//		String beskrivelse = rs.getString("Beskrivelse");
+//		String oppdatert = rs.getString("oppdatert");
+//		String kalenderID = rs.getString("KalenderID");
+//		String rom  = rs.getString("rom");
+//		Avtale avtale = new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID, rom);
+//		return avtale;
+//	}
 	
-	public void setTid(String tid){
-		this.tid = tid;
+	public void setFraTid(String tid){
+		this.fraTid = tid;
+	}
+
+	public void setTilTid(String tid){
+		this.tilTid = tid;
 	}
 	
 	public void setDato(String dato){
@@ -77,8 +81,12 @@ public class Avtale {
 		this.rom = rom;
 	}
 
-	public String getTid() {
-		return tid;
+	public String getFraTid() {
+		return fraTid;
+	}
+	
+	public String getTilTid() {
+		return tilTid;
 	}
 
 	public String getDato() {
