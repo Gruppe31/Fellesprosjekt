@@ -20,7 +20,7 @@ import mysql.Connector;
 
 public class AvtaleKontroller {
 	Avtale model = new Avtale();
-	//private Connector con = new Connector();
+	private Connector con = new Connector();
 	
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
@@ -68,6 +68,7 @@ public class AvtaleKontroller {
 		
 		String brukerNavn = leggTilPerson.getText();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
 		
 		String bruker = null;
@@ -80,6 +81,10 @@ public class AvtaleKontroller {
 //		ResultSet rs = con.les("SELECT brukerNavn FROM Bruker WHERE(brukerNavn =" + brukerNavn + ")");
 //		String bruker = rs.getString("brukerNavn");
 >>>>>>> origin/master
+=======
+		ResultSet rs = con.les("SELECT brukerNavn FROM Bruker WHERE(brukerNavn =" + brukerNavn + ")");
+		String bruker = rs.getString("brukerNavn");
+>>>>>>> f910e755c23ed9cd3565b3404041ea5eb9191a4e
 		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
 		if(bruker == null){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
