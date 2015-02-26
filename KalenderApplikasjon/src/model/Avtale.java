@@ -30,7 +30,7 @@ public class Avtale {
 		this.tittel = tittel;
 		this.beskrivelse = beskrivelse;
 		this.oppdatert = oppdatert;
-		this.rom = rom;
+		//this.rom = rom; må gjøre slik at en finner rom med nøkkel
 	}
 	
 	
