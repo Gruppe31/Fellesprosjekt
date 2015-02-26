@@ -15,11 +15,11 @@
 
 <AnchorPane prefHeight="588.0" prefWidth="445.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.AvtaleKontroller">
    <children>
-      <TextField fx:id="tittel" layoutX="27.0" layoutY="39.0" onFocusedChange="#fraFocusChange" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
-      <TextArea fx:id="beskrivelse" layoutX="27.0" layoutY="76.0" onFocusedChange="#formalFocusChange" onTextChange="#formalChange" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
-      <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" onChange="#datoChange" onFocusedChange="#datoFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
-      <TextField fx:id="fra" layoutX="236.0" layoutY="195.0" onFocusedChange="#fraFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
-      <TextField fx:id="til" layoutX="236.0" layoutY="237.0" onFocusedChange="#tilFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
+      <TextField fx:id="tittel" layoutX="27.0" layoutY="39.0" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
+      <TextArea fx:id="beskrivelse" layoutX="27.0" layoutY="76.0" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
+      <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
+      <TextField fx:id="fra" layoutX="236.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
+      <TextField fx:id="til" layoutX="236.0" layoutY="237.0" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
       <Text layoutX="226.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
       <ListView fx:id="rom" layoutX="227.0" layoutY="362.0" prefHeight="163.0" prefWidth="205.0" />
       <Text layoutX="204.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møte">
