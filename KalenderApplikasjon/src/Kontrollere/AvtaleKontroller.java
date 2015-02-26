@@ -72,7 +72,6 @@ public class AvtaleKontroller {
 		while(rs.next()){
 			bruker = rs.getString("Brukernavn");
 		}
-
 		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
 		if(bruker == null){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
@@ -87,6 +86,7 @@ public class AvtaleKontroller {
 				}
 			}
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
+			leggTilPerson.setText("");
 			brukere.add(bruker);
 			deltagere.setItems(brukere);
 			return true;
