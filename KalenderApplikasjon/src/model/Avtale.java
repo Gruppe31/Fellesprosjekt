@@ -15,22 +15,39 @@ import mysql.Connector;
 public class Avtale {
 	private Connector con = new Connector();
 	
-	private String tid;
+	private String leder;
+	private String fraTid;
+	private String tilTid;
 	private String avtaleID;
 	private String dato;
 	private String tittel;
 	private String beskrivelse;
 	private String oppdatert;
 	private Rom rom;
-	private ArrayList<Person> folkSomKommer;
+	private ArrayList<Person> invitert;
+	private ArrayList<Person> folkSomIkkeKommer;
 	
-	Avtale(String avtaleID, String tid, String dato, String tittel, String beskrivelse, String oppdatert, String kalenderID, String rom){
-		this.tid = tid;
+	public Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder){
+		this.fraTid = fraTid;
+		this.tilTid = tilTid;
 		this.dato = dato;
 		this.tittel = tittel;
 		this.beskrivelse = beskrivelse;
 		this.oppdatert = oppdatert;
+		this.leder = leder;
 		//this.rom = rom; må gjøre slik at en finner rom med nøkkel
+	}
+	
+	public Avtale(){
+		this.avtaleID = 123456 + "";
+	}
+	
+	public String getLeder(){
+		return this.leder;
+	}
+	
+	public void removeFolkSomIkkeKommer(Person person){
+		folkSomIkkeKommer.remove(person);
 	}
 	
 	
@@ -72,8 +89,8 @@ public class Avtale {
 		return rom;
 	}
 
-	public ArrayList<Person> getFolkSomKommer() {
-		return folkSomKommer;
+	public ArrayList<Person> getInvited() {
+		return invitert;
 	}
 	
 	
