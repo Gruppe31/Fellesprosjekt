@@ -2,11 +2,15 @@ package mysql;
 
 import java.sql.ResultSet;
 
+
 public class Main {
 	public static void main(String[] args) throws Exception {
 	    Connector dao = new Connector();
-	    dao.skriv("INSERT INTO kuer values (45)");
+	    ResultSet rs = dao.les("SELECT antall FROM kuer");
 	    
-	    dao.close();
+	    while(rs.next()){
+	    	System.out.println(rs.getString("Antall"));
+	    }
+	    
 	}
 }
