@@ -13,7 +13,7 @@ import mysql.Connector;
 // Hvordan vite hvilke person spm kommer
 
 public class Avtale {
-	private Connector con = new Connector();
+	//private Connector con = new Connector();
 	
 	private String leder;
 	private String fraTid;
