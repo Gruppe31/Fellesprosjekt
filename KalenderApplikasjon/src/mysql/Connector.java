@@ -2,34 +2,44 @@ package mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+import java.sql.PreparedStatement;
 
 public class Connector {
   private Connection connect = null;
   private Statement statement = null;
   private ResultSet resultSet = null;
+  private PreparedStatement preparedStatement = null;
+  
+  public Connector() throws Exception{
+	  
+	  String url = "jdbc:mysql://129.241.184.237/feedback";
+      String user = "magnus";
+      String password = "ok";
+	  
+	  try {
+		  
+		  
+	      Class.forName("com.mysql.jdbc.Driver");
+	      connect = DriverManager.getConnection(url, user, password);
+	    } catch (Exception e) {
+	      throw e;
+	    }
+  }
 
   public ResultSet les(String sqlstatement) throws Exception {
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-      connect = DriverManager.getConnection("jdbc:mysql://localhost/fp?" + "user=root&password=passwd");
-
-      statement = connect.createStatement();
+	  statement = connect.createStatement();
       resultSet = statement.executeQuery(sqlstatement);
       return resultSet;
-    } catch (Exception e) {
-      throw e;
-    } finally {
-      close();
-    }
-
   }
   
-  private void close() {
+  public int skriv(String sqlstatement) throws Exception {
+	  preparedStatement = connect.prepareStatement(sqlstatement);
+	  return preparedStatement.executeUpdate();
+  }
+
+  public void close() throws Exception {
     try {
       if (resultSet != null) {
         resultSet.close();
@@ -43,7 +53,7 @@ public class Connector {
         connect.close();
       }
     } catch (Exception e) {
-
+    	throw e;
     }
   }
 
