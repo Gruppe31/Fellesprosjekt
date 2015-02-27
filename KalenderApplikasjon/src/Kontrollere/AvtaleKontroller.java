@@ -28,10 +28,13 @@ public class AvtaleKontroller {
 	@FXML private DatePicker dato;
 	@FXML private TextField fraTid;
 	@FXML private TextField tilTid;
-	@FXML private ListView rom;
+	
+	@FXML private Button finnRom;
+	// ObservableList må brukes for å oppdatere ListViewet
+	ObservableList<String> romListe  = FXCollections.observableArrayList();
+	@FXML private ListView rom = new ListView<String>(romListe);
 	
 	@FXML private TextField leggTilPerson;
-	// ObservableList må brukes for å oppdatere ListViewet
 	ObservableList<String> brukere  = FXCollections.observableArrayList();
 	@FXML private ListView<String> deltagere = new ListView<String>(brukere);
 
@@ -41,11 +44,29 @@ public class AvtaleKontroller {
 	@FXML private Button avbryt;
 	
 	@FXML
+	void finnRom() throws Exception{
+		LocalDate avtaleDato = dato.getValue();
+		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(avtaleDato)){
+			ResultSet rs = con.les("SELECT romNavn FROM Avtale, Rom WHERE avtale.romnavn = rom.romnavn AND avtale.fraTid !=" + fraTid + "AND avtale.dato !=" + avtaleDato);
+			while(rs.next()){
+				romListe.add(rs.getString("romNavn"));
+			}
+		}else{
+			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
+			if (!erFraTidRiktig(fraTid.getText())) {
+				fraTid.setStyle("-fx-background-color: #FFFFFF");
+			}if(erTilTidRiktig(tilTid.getText())){
+				tilTid.setStyle("-fx-background-color: #FFFFFF");
+			}if(erDatoRiktig(avtaleDato)){
+				dato.setStyle("-fx-background-color: #FFFFFF");
+			}
+		}
+	}
+	
+	@FXML
 	void fjernDeltager(){
 		//Fjerner deltagere fra listen
-		System.out.println(deltagere.selectionModelProperty().toString());
-		System.out.println("Knappen fungerer ikke");
-		brukere.remove(deltagere.selectionModelProperty());
+		brukere.remove(deltagere.getSelectionModel().getSelectedIndex());
 	}
 	
 	@FXML
@@ -66,12 +87,13 @@ public class AvtaleKontroller {
 	@FXML
 	boolean inviter() throws Exception{
 		String brukerNavn = leggTilPerson.getText();
-		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
-		String bruker = null;
-		
-		while(rs.next()){
-			bruker = rs.getString("Brukernavn");
-		}
+//		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
+//		String bruker = null;
+//		
+//		while(rs.next()){
+//			bruker = rs.getString("Brukernavn");
+//		}
+		String bruker = "Lars";
 		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
 		if(bruker == null){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
@@ -88,6 +110,7 @@ public class AvtaleKontroller {
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
 			brukere.add(bruker);
+			brukere.add("Lina");
 			deltagere.setItems(brukere);
 			return true;
 		}
@@ -105,6 +128,17 @@ public class AvtaleKontroller {
 		catch(Exception e){
 			return false;
 		}
+	}
+	
+	boolean erFraTidRiktig(String nyVerdi){
+		try{
+			// Sjekker om strengen fraTid kan parses til LocalTime
+			LocalTime fraTid = LocalTime.parse(nyVerdi);
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}		
 	}
 	
 	private boolean erDatoRiktig(LocalDate newValue){
