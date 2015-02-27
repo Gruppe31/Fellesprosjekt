@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,13 +15,21 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import model.Avtale;
+import model.Person;
 import mysql.Connector;
 
 public class AvtaleKontroller {
+	
+	// Kanskje ha en konstruktør som tar inn KalenderID
+	
 	Avtale model = new Avtale();
 	private Connector con = new Connector();
+	
+	@FXML private AnchorPane pane;
 	
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
@@ -32,7 +41,7 @@ public class AvtaleKontroller {
 	@FXML private Button finnRom;
 	// ObservableList må brukes for å oppdatere ListViewet
 	ObservableList<String> romListe  = FXCollections.observableArrayList();
-	@FXML private ListView rom = new ListView<String>(romListe);
+	@FXML private ListView<String> rom = new ListView<String>(romListe);
 	
 	@FXML private TextField leggTilPerson;
 	ObservableList<String> brukere  = FXCollections.observableArrayList();
@@ -71,29 +80,34 @@ public class AvtaleKontroller {
 	
 	@FXML
 	void lagre(){
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) ){
-			model.setFraTid(fraTid.getText());
-			model.setTilTid(tilTid.getText());
-			model.setDato(dato.toString());
-		}
+		// Lager en ny innstans av Avtale.
+		// Avtale lagrer i databasen.
+//		Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
+//				String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder)
+//		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) ){
+//			
+//			model.setFraTid(fraTid.getText());
+//			model.setTilTid(tilTid.getText());
+//			model.setDato(dato.toString());
+//			model.setTitel()
+//		}
 	}
 	
 	@FXML
 	void avbryt(){
-		System.out.println("Knappen fungerer ikke");
-		// Her går man ut uten å ha lagre noe
+		Stage stage = (Stage) avbryt.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML
 	boolean inviter() throws Exception{
 		String brukerNavn = leggTilPerson.getText();
-//		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
-//		String bruker = null;
-//		
-//		while(rs.next()){
-//			bruker = rs.getString("Brukernavn");
-//		}
-		String bruker = "Lars";
+		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
+		String bruker = null;
+		
+		while(rs.next()){
+			bruker = rs.getString("Brukernavn");
+		}
 		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
 		if(bruker == null){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
@@ -110,7 +124,6 @@ public class AvtaleKontroller {
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
 			brukere.add(bruker);
-			brukere.add("Lina");
 			deltagere.setItems(brukere);
 			return true;
 		}
