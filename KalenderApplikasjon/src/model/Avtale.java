@@ -27,7 +27,10 @@ public class Avtale{
 	private ArrayList<Person> invitert;
 	private ArrayList<Person> folkSomIkkeKommer;
 	
-	public Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder){
+	public Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
+			String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder){
+		// Herfra lagres ting i databasen.
+		// Må ha en spørring til databasen for å finne avtaleID så den ikke krasjer med andre avtaleIDer
 		this.fraTid = fraTid;
 		this.tilTid = tilTid;
 		this.dato = dato;
@@ -80,6 +83,10 @@ public class Avtale{
 	public void setRom(Rom rom){
 		this.rom = rom;
 	}
+	
+	public void setTittel(String tittel){
+		this.tittel = tittel;
+	}
 
 	public String getFraTid() {
 		return fraTid;
@@ -99,6 +106,10 @@ public class Avtale{
 
 	public ArrayList<Person> getInvited() {
 		return invitert;
+	}
+	
+	public String getTittel(){
+		return this.tittel;
 	}
 	
 	
