@@ -22,7 +22,7 @@ public class LoggInnKontroller {
 	@FXML
 	void loggInn(){
 		// her skal alt valideres og bruker bli logget inn i systemet
-		if(erBrukernavnRiktigOgPassordRiktig()){
+		if(erBrukernavnOgPassordRiktig()){
 			//logg inn
 		} else {
 			// får melding om at brukernavn og/eller passord er feil
