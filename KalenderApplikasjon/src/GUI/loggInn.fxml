@@ -34,7 +34,9 @@
             </GridPane>
             <Button fx:id="loggInn" layoutX="12.0" layoutY="235.0" mnemonicParsing="false" text="Logg inn" />
             <Button fx:id="meldInn" layoutX="91.0" layoutY="235.0" mnemonicParsing="false" text="Ikke bruker? Meld deg inn!" />
+            <TextField fx:id="feil" layoutX="59.0" layoutY="198.0" visible="false" />
          </children>
       </Pane>
    </children>
 </AnchorPane>
+
