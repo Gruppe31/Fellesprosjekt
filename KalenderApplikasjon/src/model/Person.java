@@ -13,6 +13,8 @@ public class Person {
 	private StringProperty EtternavnProperty = new SimpleStringProperty();
 	private StringProperty BrukernavnProperty = new SimpleStringProperty();
 	private PasswordField PassordField = new PasswordField();
+	
+	
 		
 
 	public String getFornavn() {
