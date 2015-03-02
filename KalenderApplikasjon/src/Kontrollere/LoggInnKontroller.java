@@ -27,7 +27,7 @@ public class LoggInnKontroller {
 	private boolean loggetInn = false;
 	
 	@FXML
-	void loggInn(){
+	void LoggInn(){
 		// her skal alt valideres og bruker bli logget inn i systemet
 		while(! loggetInn){
 			if(erBrukernavnOgPassordRiktig()){
@@ -39,7 +39,7 @@ public class LoggInnKontroller {
 	}
 	
 	@FXML
-	void meldInn(){
+	void MeldInn(){
 		// her skal ny bruker bli sendt videre til innmeldingsvindu
 		
 	}
