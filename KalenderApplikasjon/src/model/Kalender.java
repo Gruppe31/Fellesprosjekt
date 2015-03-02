@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import mysql.Connector;
 
 public class Kalender {
+	// Alt initialiseres i denne klassen. Derfor vil denne opprette alle nye avtaler som ligger i databasen.
 	private Connector con;
 	private int id;
 	
@@ -16,6 +17,7 @@ public class Kalender {
 	}
 	
 	public ArrayList<Avtale> getAvtaler() throws Exception{
+		// Maa endre paa databasetabellen saa de blir riktig i forhold til kontrolleren og fxml skjema.
 		ResultSet rs = con.les("SELECT * FROM avtale WHERE(KalenderID =" + this.id + ")");
 		ArrayList<Avtale> avtaler = new ArrayList<Avtale>();
 		while(rs.next()){
