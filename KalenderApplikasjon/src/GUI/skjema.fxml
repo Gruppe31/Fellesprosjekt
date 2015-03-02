@@ -18,8 +18,8 @@
       <TextField fx:id="tittel" layoutX="27.0" layoutY="39.0" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
       <TextArea fx:id="beskrivelse" layoutX="27.0" layoutY="76.0" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
       <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
-      <TextField fx:id="fra" layoutX="236.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
-      <TextField fx:id="til" layoutX="236.0" layoutY="237.0" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
+      <TextField fx:id="fraTid" layoutX="236.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
+      <TextField fx:id="tilTid" layoutX="236.0" layoutY="237.0" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
       <Text layoutX="226.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
       <ListView fx:id="rom" layoutX="227.0" layoutY="362.0" prefHeight="163.0" prefWidth="205.0" />
       <Button fx:id="finnRom" layoutX="352.0" layoutY="324.0" mnemonicParsing="false" onAction="#finnRom" text="Finn rom" />

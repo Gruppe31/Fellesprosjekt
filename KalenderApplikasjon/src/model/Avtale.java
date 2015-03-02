@@ -23,9 +23,10 @@ public class Avtale{
 	private String tittel;
 	private String beskrivelse;
 	private String oppdatert;
+	private String kalenderID;
 	private Rom rom;
-	private ArrayList<Person> invitert;
-	private ArrayList<Person> folkSomIkkeKommer;
+	private ArrayList<String> invitert = new ArrayList<String>();
+	private ArrayList<String> folkSomIkkeKommer;
 	
 	public Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
 			String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder){
@@ -39,6 +40,12 @@ public class Avtale{
 		this.oppdatert = oppdatert;
 		this.leder = leder;
 		//this.rom = rom; må gjøre slik at en finner rom med nøkkel
+	}
+	
+	public void databaseSettInn() throws Exception{
+		con.les("INSERT INTO AVTALE(dato,fraTid,tilTid,Tittel,Beskrivelse,Oppdatert,KalenderID,Romnavn "
+				+ "VALUES" + this.dato + " " + this.tilTid + " " + this.fraTid + " " + this.tittel
+				+ " " + this.beskrivelse + " " + this.oppdatert + " " + this.kalenderID + this.rom.getRomnavn());
 	}
 	
 	public Avtale(){
@@ -80,12 +87,25 @@ public class Avtale{
 		this.dato = dato;
 	}
 	
-	public void setRom(Rom rom){
-		this.rom = rom;
+	public void setRom(String rom){
+		Rom newRom = new Rom(rom, 10);
+		this.rom = newRom;
 	}
 	
 	public void setTittel(String tittel){
 		this.tittel = tittel;
+	}
+	
+	public void setInviter(ArrayList<String> invitert){
+		this.invitert = invitert;
+	}
+	
+	public void setBeskrivelse(String beskrivelse){
+		this.beskrivelse = beskrivelse;
+	}
+	
+	public void addInvitert(String brukerNavn){
+		invitert.add(brukerNavn);
 	}
 
 	public String getFraTid() {
@@ -104,12 +124,17 @@ public class Avtale{
 		return rom;
 	}
 
-	public ArrayList<Person> getInvited() {
+	public ArrayList<String> getInvited() {
 		return invitert;
 	}
 	
 	public String getTittel(){
 		return this.tittel;
+	}
+	
+	@Override
+	public String toString() {
+		return beskrivelse + " " + tittel + " " + rom.getRomnavn() + " " + invitert;
 	}
 	
 	
