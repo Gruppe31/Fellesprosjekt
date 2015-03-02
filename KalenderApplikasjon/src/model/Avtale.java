@@ -18,7 +18,7 @@ public class Avtale {
 	}
 	
 	setTid(LocalTime tid){
-		this.tid = tid
+		this.tid = tid;
 	}
 	
 	setDato(LocalDate dato){
