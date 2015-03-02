@@ -52,6 +52,7 @@ public class Avtale{
 		this.avtaleID = 123456 + "";
 	}
 	
+
 	public String getLeder(){
 		return this.leder;
 	}
@@ -81,6 +82,7 @@ public class Avtale{
 
 	public void setTilTid(String tid){
 		this.tilTid = tid;
+>>>>>>> master
 	}
 	
 	public void setDato(String dato){

@@ -24,7 +24,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Varsling extends Application {
+public class VarslingerTest extends Application {
 	
 	public static void main(String[] args){
 		launch(args);
@@ -37,6 +37,8 @@ public class Varsling extends Application {
 		primaryStage.setTitle("Varsling");
 		
 		
+		LaunchGUI launchGui = new LaunchGUI();
+		
 		Popup popup = new Popup();
 		popup.setX(1300);
 		popup.setY(600);
@@ -48,22 +50,13 @@ public class Varsling extends Application {
 		
 		EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 			public void handle(InputEvent event) {
-				try{
-		            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/Varsling.fxml"));
-		            Parent root1 = (Parent) fxmlLoader.load();
-		            Stage stage = new Stage();
-		            stage.initModality(Modality.APPLICATION_MODAL);
-		            stage.initStyle(StageStyle.UNDECORATED);
-		            stage.setTitle("ABC");
-		            stage.setScene(new Scene(root1));  
-		            stage.show();
-		          }
-				catch (IOException e) {
+				try {
+					launchGui.start(primaryStage);
+					popup.hide();
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("SEND VIDERE TIL VARSLINGER GUI!");
-				event.consume();
 			}
 		};
 		
@@ -79,31 +72,24 @@ public class Varsling extends Application {
 			}
 		});
 		
+		Stage testStage = new Stage();
+		
 		Button hide = new Button("Hide");
 		hide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
-				try{
-		            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/Main.fxml"));
-		            Parent root1 = (Parent) fxmlLoader.load();
-		            Stage stage = new Stage();
-		            stage.initModality(Modality.APPLICATION_MODAL);
-		            stage.initStyle(StageStyle.UNDECORATED);
-		            stage.setTitle("ABC");
-		            stage.setScene(new Scene(root1));  
-		            stage.show();
-		          }
-				catch (IOException e) {
+				popup.hide();
+				try {
+					launchGui.start2(testStage);
+					popup.hide();
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("SEND VIDERE TIL VARSLINGER GUI!");
-				event.consume();
-			}
 				
-			
-			
+			}
 		});
 		
+	    
 		
 		HBox layout = new HBox(10);
 		layout.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
