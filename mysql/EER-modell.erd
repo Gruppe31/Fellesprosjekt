@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram height="600" made_with_version="1.5" name="Default" width="800">
-<entity id="0" is_weak="false" name="Avtale" x="449" y="258">
+<entity id="0" is_weak="false" name="Avtale" x="440" y="242">
 <attributes>
 <attribute is_hidden="false" is_key="true" name="AvtaleID" type=""/>
-<attribute is_hidden="false" is_key="false" name="Startdato" type=""/>
-<attribute is_hidden="false" is_key="false" name="Sluttdato" type=""/>
+<attribute is_hidden="false" is_key="false" name="dato" type=""/>
+<attribute is_hidden="false" is_key="false" name="fraTid" type=""/>
+<attribute is_hidden="false" is_key="false" name="tilTid" type=""/>
 <attribute is_hidden="false" is_key="false" name="Tittel" type=""/>
 <attribute is_hidden="false" is_key="false" name="Beskrivelse" type=""/>
 <attribute is_hidden="false" is_key="false" name="Oppdatert" type=""/>
@@ -26,7 +27,7 @@
 <attribute is_hidden="false" is_key="true" name="KalenderID" type=""/>
 </attributes>
 </entity>
-<entity id="13" is_weak="false" name="Rom" x="492" y="480">
+<entity id="13" is_weak="false" name="Rom" x="675" y="271">
 <attributes>
 <attribute is_hidden="false" is_key="true" name="Romnavn" type=""/>
 <attribute is_hidden="false" is_key="false" name="Antall" type=""/>
@@ -44,7 +45,7 @@
 <diamond id="10" is_weak="false" name="Brukergruppe" x="182" y="170">
 <attributes/>
 </diamond>
-<diamond id="14" is_weak="false" name="reservasjon" x="492" y="412">
+<diamond id="14" is_weak="false" name="reservasjon" x="562" y="287">
 <attributes/>
 </diamond>
 <diamond id="17" is_weak="false" name="Kalendergruppe" x="291" y="126">
@@ -64,8 +65,16 @@
 <attribute name="hvemSomIkkeKommer" type=""/>
 </attributes>
 </diamond>
+<comment id="32" x="44" y="534">
+<text>
+<line>Endret avtale</line>
+<line>Erstattet startDato og sluttDato med dato</line>
+<line>la til fraTid og tilTid istedet for bare tidspunkt</line>
+<line>Har ikke endret på tabellene - Øystein</line>
+</text>
+</comment>
 <line cardinality_string="(0,n)" has_u="false" id="3" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="0" direction="0" object_id="0" relation_point_x="449" relation_point_y="298"/>
+<connection connection_side="0" direction="0" object_id="0" relation_point_x="440" relation_point_y="287"/>
 <connection connection_side="2" direction="0" object_id="2" relation_point_x="339" relation_point_y="304"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="4" is_weak="false" role="" style="0" turned="false">
@@ -73,7 +82,7 @@
 <connection connection_side="0" direction="0" object_id="2" relation_point_x="307" relation_point_y="304"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="8" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="1" direction="1" object_id="0" relation_point_x="486" relation_point_y="258"/>
+<connection connection_side="1" direction="1" object_id="0" relation_point_x="477" relation_point_y="242"/>
 <connection connection_side="3" direction="1" object_id="7" relation_point_x="461" relation_point_y="81"/>
 </line>
 <line cardinality_string="(0,1)" has_u="false" id="9" is_weak="false" role="" style="0" turned="false">
@@ -89,12 +98,12 @@
 <connection connection_side="3" direction="1" object_id="10" relation_point_x="198" relation_point_y="202"/>
 </line>
 <line cardinality_string="(0,1)" has_u="false" id="15" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="3" direction="1" object_id="0" relation_point_x="497" relation_point_y="378"/>
-<connection connection_side="1" direction="1" object_id="14" relation_point_x="508" relation_point_y="412"/>
+<connection connection_side="2" direction="0" object_id="0" relation_point_x="513" relation_point_y="310"/>
+<connection connection_side="3" direction="1" object_id="14" relation_point_x="578" relation_point_y="319"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="16" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="1" direction="1" object_id="13" relation_point_x="523" relation_point_y="480"/>
-<connection connection_side="3" direction="1" object_id="14" relation_point_x="508" relation_point_y="444"/>
+<connection connection_side="0" direction="0" object_id="13" relation_point_x="675" relation_point_y="301"/>
+<connection connection_side="2" direction="0" object_id="14" relation_point_x="594" relation_point_y="303"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="18" is_weak="false" role="" style="0" turned="false">
 <connection connection_side="3" direction="1" object_id="6" relation_point_x="324" relation_point_y="93"/>
@@ -113,7 +122,7 @@
 <connection connection_side="3" direction="1" object_id="20" relation_point_x="170" relation_point_y="90"/>
 </line>
 <line cardinality_string="" has_u="false" id="24" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="3" direction="1" object_id="0" relation_point_x="473" relation_point_y="378"/>
+<connection connection_side="3" direction="1" object_id="0" relation_point_x="477" relation_point_y="377"/>
 <connection connection_side="2" direction="0" object_id="23" relation_point_x="338" relation_point_y="443"/>
 </line>
 <line cardinality_string="" has_u="false" id="25" is_weak="false" role="" style="0" turned="false">
@@ -129,7 +138,7 @@
 <connection connection_side="1" direction="1" object_id="26" relation_point_x="380" relation_point_y="248"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="30" is_weak="false" role="" style="0" turned="false">
-<connection connection_side="0" direction="0" object_id="0" relation_point_x="449" relation_point_y="338"/>
+<connection connection_side="0" direction="0" object_id="0" relation_point_x="440" relation_point_y="332"/>
 <connection connection_side="2" direction="0" object_id="29" relation_point_x="334" relation_point_y="375"/>
 </line>
 <line cardinality_string="(0,n)" has_u="false" id="31" is_weak="false" role="" style="0" turned="false">

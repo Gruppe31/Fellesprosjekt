@@ -13,26 +13,27 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.DatePicker?>
 
-<AnchorPane prefHeight="588.0" prefWidth="445.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oving2.AppointmentController">
+<AnchorPane fx:id="pane" prefHeight="588.0" prefWidth="460.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.AvtaleKontroller">
    <children>
-      <TextArea fx:id="formal" layoutX="27.0" layoutY="76.0" onFocusedChange="#formalFocusChange" onTextChange="#formalChange" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
-      <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" onChange="#datoChange" onFocusedChange="#datoFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
-      <TextField fx:id="fra" layoutX="236.0" layoutY="195.0" onFocusedChange="#fraFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
-      <TextField fx:id="til" layoutX="236.0" layoutY="237.0" onFocusedChange="#tilFocusChange" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
+      <TextField fx:id="tittel" layoutX="27.0" layoutY="39.0" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
+      <TextArea fx:id="beskrivelse" layoutX="27.0" layoutY="76.0" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
+      <DatePicker fx:id="dato" layoutX="28.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
+      <TextField fx:id="fraTid" layoutX="236.0" layoutY="195.0" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
+      <TextField fx:id="tilTid" layoutX="236.0" layoutY="237.0" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
+      <Text layoutX="226.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
+      <ListView fx:id="rom" layoutX="227.0" layoutY="362.0" prefHeight="163.0" prefWidth="205.0" />
+      <Button fx:id="finnRom" layoutX="352.0" layoutY="324.0" mnemonicParsing="false" onAction="#finnRom" text="Finn rom" />
       <Text layoutX="204.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møte">
          <font>
-            <Font size="20.0" />
+            <Font size="20.0" />	
          </font></Text>
       <Text layoutX="19.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Button layoutX="367.0" layoutY="535.0" mnemonicParsing="false" text="Avbryt" />
-      <Button fx:id="OK" layoutX="301.0" layoutY="535.0" mnemonicParsing="false" onAction="#handle" text="Lagre" />
-      <ListView layoutX="227.0" layoutY="362.0" prefHeight="163.0" prefWidth="205.0" />
       <Text layoutX="28.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deltagere:" />
-      <Button layoutX="236.0" layoutY="287.0" mnemonicParsing="false" text="Inviter" />
-      <ListView layoutX="28.0" layoutY="362.0" prefHeight="163.0" prefWidth="187.0" />
-      <TextField layoutX="28.0" layoutY="287.0" promptText="Legg til person" />
-      <Button layoutX="103.0" layoutY="535.0" mnemonicParsing="false" text="Fjern deltager" />
-      <TextField fx:id="fra1" layoutX="27.0" layoutY="39.0" onFocusedChange="#fraFocusChange" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
-      <Text layoutX="226.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
+      <Button fx:id="inviter" layoutX="153.0" layoutY="279.0" mnemonicParsing="false" onAction="#inviter" text="Inviter" />
+      <TextField fx:id="leggTilPerson" layoutX="28.0" layoutY="237.0" promptText="Legg til person" />
+      <ListView fx:id="deltagere" layoutX="28.0" layoutY="362.0" prefHeight="163.0" prefWidth="187.0" />
+      <Button fx:id="fjernDeltager" layoutX="103.0" layoutY="535.0" mnemonicParsing="false" onAction="#fjernDeltager" text="Fjern deltager" />
+      <Button fx:id="lagre" layoutX="301.0" layoutY="535.0" mnemonicParsing="false" onAction="#lagre" text="Lagre" />
+      <Button fx:id="avbryt" layoutX="367.0" layoutY="535.0" mnemonicParsing="false" onAction="#avbryt" text="Avbryt" />
    </children>
 </AnchorPane>

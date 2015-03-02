@@ -1,39 +1,124 @@
 package model;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Avtale {
-	private LocalTime tid;
-	private LocalDate dato;
+import mysql.Connector;
+
+// Avtale spør databasen hvem som kommer
+
+// Har ikke løst:
+// Hvordan vite hvilke person spm kommer
+
+public class Avtale{
+	private Connector con = new Connector();
+	
+	private String leder;
+	private String fraTid;
+	private String tilTid;
+	private String avtaleID;
+	private String dato;
+	private String tittel;
+	private String beskrivelse;
+	private String oppdatert;
+	private String kalenderID;
 	private Rom rom;
-	private ArrayList<Person> folkSomKommer;
+	private ArrayList<String> invitert = new ArrayList<String>();
+	private ArrayList<String> folkSomIkkeKommer;
 	
-	Avtale(LocalTime tid, LocalDate dato, Rom rom, ArrayList<Person> person){
-		this.tid = tid;
+	public Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
+			String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder){
+		// Herfra lagres ting i databasen.
+		// Må ha en spørring til databasen for å finne avtaleID så den ikke krasjer med andre avtaleIDer
+		this.fraTid = fraTid;
+		this.tilTid = tilTid;
 		this.dato = dato;
-		this.rom = rom;
-		this.person = person;
+		this.tittel = tittel;
+		this.beskrivelse = beskrivelse;
+		this.oppdatert = oppdatert;
+		this.leder = leder;
+		//this.rom = rom; må gjøre slik at en finner rom med nøkkel
 	}
 	
-	setTid(LocalTime tid){
-		this.tid = tid;
+	public void databaseSettInn() throws Exception{
+		con.les("INSERT INTO AVTALE(dato,fraTid,tilTid,Tittel,Beskrivelse,Oppdatert,KalenderID,Romnavn "
+				+ "VALUES" + this.dato + " " + this.tilTid + " " + this.fraTid + " " + this.tittel
+				+ " " + this.beskrivelse + " " + this.oppdatert + " " + this.kalenderID + this.rom.getRomnavn());
 	}
 	
-	setDato(LocalDate dato){
-		this.dato = dato;
+	public Avtale(){
+		this.avtaleID = 123456 + "";
 	}
 	
-	setRom(Rom rom){
-		this.rom = rom;
+
+	public String getLeder(){
+		return this.leder;
+	}
+	
+	public void removeFolkSomIkkeKommer(Person person){
+		folkSomIkkeKommer.remove(person);
+	}
+	
+	
+//	Avtale getAvtale() throws Exception{
+//		ResultSet rs = con.les("SELECT * FROM avtale WHERE(avtaleID =" + avtaleID + ")");
+//		String avtaleID = rs.getString("AvtaleID");
+//		String tid = rs.getString("Starttid");
+//		String dato = rs.getString("Dato");
+//		String tittel = rs.getString("Tittel");
+//		String beskrivelse = rs.getString("Beskrivelse");
+//		String oppdatert = rs.getString("oppdatert");
+//		String kalenderID = rs.getString("KalenderID");
+//		String rom  = rs.getString("rom");
+//		Avtale avtale = new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID, rom);
+//		return avtale;
+//	}
+	
+	public void setFraTid(String tid){
+		this.fraTid = tid;
 	}
 
-	public LocalTime getTid() {
-		return tid;
+	public void setTilTid(String tid){
+		this.tilTid = tid;
+>>>>>>> master
+	}
+	
+	public void setDato(String dato){
+		this.dato = dato;
+	}
+	
+	public void setRom(String rom){
+		Rom newRom = new Rom(rom, 10);
+		this.rom = newRom;
+	}
+	
+	public void setTittel(String tittel){
+		this.tittel = tittel;
+	}
+	
+	public void setInviter(ArrayList<String> invitert){
+		this.invitert = invitert;
+	}
+	
+	public void setBeskrivelse(String beskrivelse){
+		this.beskrivelse = beskrivelse;
+	}
+	
+	public void addInvitert(String brukerNavn){
+		invitert.add(brukerNavn);
 	}
 
-	public LocalDate getDato() {
+	public String getFraTid() {
+		return fraTid;
+	}
+	
+	public String getTilTid() {
+		return tilTid;
+	}
+
+	public String getDato() {
 		return dato;
 	}
 
@@ -41,8 +126,17 @@ public class Avtale {
 		return rom;
 	}
 
-	public ArrayList<Person> getFolkSomKommer() {
-		return folkSomKommer;
+	public ArrayList<String> getInvited() {
+		return invitert;
+	}
+	
+	public String getTittel(){
+		return this.tittel;
+	}
+	
+	@Override
+	public String toString() {
+		return beskrivelse + " " + tittel + " " + rom.getRomnavn() + " " + invitert;
 	}
 	
 	

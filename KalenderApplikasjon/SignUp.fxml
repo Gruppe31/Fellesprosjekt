@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root prefHeight="344.0" prefWidth="455.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.SignUpKontroller">
+<fx:root prefHeight="344.0" prefWidth="455.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logikk.SignUpKontroller">
    <children>
       <Button fx:id="MeldDegInn" layoutX="255.0" layoutY="293.0" mnemonicParsing="false" text="Meld deg inn" />
       <Label fx:id="ForNavnRule" layoutX="33.0" layoutY="88.0" text="Fornavn:">

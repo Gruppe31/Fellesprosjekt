@@ -7,11 +7,13 @@ public class Gruppe {
 	
 	private String gruppenavn;
 	private int gruppeid;
-	private List<Person> gruppeListe = new ArrayList();
+	private int kalenderID;
+	private List<Person> brukerListe = new ArrayList();
 	
-	public Gruppe(String gruppenavn, int gruppeid){
+	public Gruppe(int gruppeid, String gruppenavn, int kalenderID){
 		setGruppenavn(gruppenavn);
 		setGruppeid(gruppeid);
+		this.kalenderID = kalenderID;
 	}
 	
 	public void setGruppeid(int gruppeid) {
@@ -35,15 +37,15 @@ public class Gruppe {
 	}
 
 	public void leggTilGruppe(Person person){
-		gruppeListe.add(person);
+		this.brukerListe.add(person);
 	}
 	
 	public void slettPersonFraGruppe(Person person){
-		gruppeListe.remove(person);
+		this.brukerListe.remove(person);
 	}
 	
 	public List getGruppeliste(){
-		return this.gruppeListe;
+		return this.brukerListe;
 	}
 	
 }

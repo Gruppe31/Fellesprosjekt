@@ -1,4 +1,4 @@
-package model;
+package logikk;
 
 
 import java.security.KeyStore.PasswordProtection;

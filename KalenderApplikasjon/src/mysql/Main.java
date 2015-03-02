@@ -1,8 +1,16 @@
 package mysql;
 
+import java.sql.ResultSet;
+
+
 public class Main {
 	public static void main(String[] args) throws Exception {
-	    Connector dao = new Connector();
-	    dao.readDataBase();
-	 }
+	    Connector con = new Connector();
+		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = 'Lars')");
+		while(rs.next()){
+			String bruker = rs.getString("Brukernavn");
+			System.out.println(bruker);
+		}
+	    
+	}
 }
