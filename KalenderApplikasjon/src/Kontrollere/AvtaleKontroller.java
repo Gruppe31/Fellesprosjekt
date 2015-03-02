@@ -1,5 +1,10 @@
 package Kontrollere;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +14,9 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -54,20 +62,24 @@ public class AvtaleKontroller {
 	
 	@FXML
 	void finnRom() throws Exception{
-		LocalDate avtaleDato = dato.getValue();
-		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(avtaleDato)){
-			ResultSet rs = con.les("SELECT romNavn FROM Avtale, Rom WHERE avtale.romnavn = rom.romnavn AND avtale.fraTid !=" + fraTid + "AND avtale.dato !=" + avtaleDato);
+		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
+			ResultSet rs = con.les("SELECT romNavn FROM Avtale, Rom WHERE avtale.romnavn = rom.romnavn AND avtale.fraTid != " + fraTid + " AND avtale.dato !=" + dato.getValue().toString() + " AND Rom.Antall >" + brukere.size());
 			while(rs.next()){
 				romListe.add(rs.getString("romNavn"));
+				rom.setItems(romListe);
 			}
 		}else{
 			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
+//			for (String romNavn : romListe) {
+//				romListe.remove(romNavn);
+//			}
+//			rom.setItems(romListe);
 			if (!erFraTidRiktig(fraTid.getText())) {
-				fraTid.setStyle("-fx-background-color: #FFFFFF");
-			}if(erTilTidRiktig(tilTid.getText())){
-				tilTid.setStyle("-fx-background-color: #FFFFFF");
-			}if(erDatoRiktig(avtaleDato)){
-				dato.setStyle("-fx-background-color: #FFFFFF");
+				fraTid.setStyle("-fx-background-color: #FF00000");
+			}if(!erTilTidRiktig(tilTid.getText())){
+				tilTid.setStyle("-fx-background-color: #FF0000");
+			}if(!erDatoRiktig(dato.getValue())){
+				dato.setStyle("-fx-background-color: #FF0000");
 			}
 		}
 	}
@@ -84,13 +96,28 @@ public class AvtaleKontroller {
 		// Avtale lagrer i databasen.
 //		Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
 //				String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder)
-//		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) ){
-//			
-//			model.setFraTid(fraTid.getText());
-//			model.setTilTid(tilTid.getText());
-//			model.setDato(dato.toString());
-//			model.setTitel()
-//		}
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
+			
+			model.setFraTid(fraTid.getText());
+			model.setTilTid(tilTid.getText());
+			model.setDato(dato.toString());
+			model.setTittel(tittel.getText());
+			model.setBeskrivelse(beskrivelse.getText());
+			//itererer over brukernavn og legger de til.
+			for (String brukerNavn : brukere) {
+				model.addInvitert(brukerNavn);
+			}
+			model.setRom(romListe.get(rom.getSelectionModel().getSelectedIndex()));
+			System.out.println(model.toString());
+		}else{
+			if (!erFraTidRiktig(fraTid.getText())) {
+				fraTid.setStyle("-fx-background-color: #FF00000");
+			}if(!erTilTidRiktig(tilTid.getText())){
+				tilTid.setStyle("-fx-background-color: #FF0000");
+			}if(!erDatoRiktig(dato.getValue())){
+				dato.setStyle("-fx-background-color: #FF0000");
+			}
+		}
 	}
 	
 	@FXML
@@ -131,8 +158,8 @@ public class AvtaleKontroller {
 	
 	boolean erTilTidRiktig(String nyVerdi){
 		try{
-			LocalTime tilTid = LocalTime.parse(nyVerdi);
-			if (!tilTid.isAfter(LocalTime.parse(fraTid.getText()))) {
+			LocalTime til = LocalTime.parse(nyVerdi);
+			if (!til.isAfter(LocalTime.parse(fraTid.getText()))) {
 				return false;
 			}else{
 				return true;
@@ -146,7 +173,7 @@ public class AvtaleKontroller {
 	boolean erFraTidRiktig(String nyVerdi){
 		try{
 			// Sjekker om strengen fraTid kan parses til LocalTime
-			LocalTime fraTid = LocalTime.parse(nyVerdi);
+			LocalTime fra = LocalTime.parse(nyVerdi);
 			return true;
 		}
 		catch(Exception e){
