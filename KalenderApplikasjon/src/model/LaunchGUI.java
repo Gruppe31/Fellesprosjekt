@@ -15,8 +15,7 @@ public class LaunchGUI extends Application{
 	@Override
 	public void start(Stage primaryStage) throws IOException{
 		  FXMLLoader fxmlLoader = new FXMLLoader();
-		  fxmlLoader.setController(new Varsling());
-	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Varsling.fxml"));
+	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/skjema.fxml"));
 	        primaryStage.setScene(new Scene(root));
 	        primaryStage.setTitle("VARSLINGER");
 	        primaryStage.show();
@@ -25,10 +24,9 @@ public class LaunchGUI extends Application{
 	
 	public void start2(Stage testStage) throws IOException{
 		  FXMLLoader fxmlLoader = new FXMLLoader();
-		  fxmlLoader.setController(new Varsling());
 	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Main.fxml"));
 	        testStage.setScene(new Scene(root));
-	        testStage.setTitle("VARSLINGER");
+	        testStage.setTitle("MAIN");
 	        testStage.show();
 		
 	}
