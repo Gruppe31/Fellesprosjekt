@@ -80,7 +80,7 @@ public class VarslingerTest extends Application {
 			@Override public void handle(ActionEvent event) {
 				popup.hide();
 				try {
-					launchGUI.start2(testStage);
+					launchGUI.startMain(testStage);
 					popup.hide();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

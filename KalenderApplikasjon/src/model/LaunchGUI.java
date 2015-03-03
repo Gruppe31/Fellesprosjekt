@@ -22,12 +22,21 @@ public class LaunchGUI extends Application{
 		
 	}
 	
-	public void start2(Stage testStage) throws IOException{
+	public void startMain(Stage testStage) throws IOException{
 		  FXMLLoader fxmlLoader = new FXMLLoader();
 	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Main.fxml"));
 	        testStage.setScene(new Scene(root));
 	        testStage.setTitle("MAIN");
 	        testStage.show();
+		
+	}
+	
+	public void startSkjema(Stage skjemaStage) throws IOException{
+		  FXMLLoader fxmlLoader = new FXMLLoader();
+	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/skjema.fxml"));
+	        skjemaStage.setScene(new Scene(root));
+	        skjemaStage.setTitle("AVTALE");
+	        skjemaStage.show();
 		
 	}
 
