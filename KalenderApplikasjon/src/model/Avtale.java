@@ -7,7 +7,7 @@ import mysql.Connector;
 public class Avtale{
 	private Connector con = new Connector();
 	
-	private String kalenderID;
+	private int kalenderID;
 	private String rom;
 	private String leder;
 	private String fraTid;
@@ -38,7 +38,7 @@ public class Avtale{
 	}
 	
 	public Avtale(String fraTid, String tilTid, String dato, String tittel, 
-			String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, String kalenderID){
+			String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
 		this.fraTid = fraTid;
 		this.tilTid = tilTid;
 		this.dato = dato;
@@ -68,7 +68,7 @@ public class Avtale{
 		return this.oppdatert;
 	}
 	
-	public String getKalenderID(){
+	public int getKalenderID(){
 		return this.kalenderID;
 	}
 	
