@@ -35,7 +35,7 @@ public class KalenderKontroller {
 	Stage skjemaStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	@FXML
-	void sokEnterFelt(){
+	public void sokTrykkEnter(){
 		sok.setOnKeyPressed(new EventHandler<KeyEvent>(){
 			@Override
 			public void handle(KeyEvent ke){
@@ -57,7 +57,7 @@ public class KalenderKontroller {
 	@FXML 
 	void NyAvtale(){
 		// nyAvtale-vinduet skal komme opp
-		nyAvtale.requestFocus();
+		nyAvtale.requestFocus(); //Virker ikke?
 		nyAvtale.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
 				try {
