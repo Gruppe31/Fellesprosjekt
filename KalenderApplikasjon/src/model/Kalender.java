@@ -22,33 +22,38 @@ public class Kalender {
 		ArrayList<Avtale> avtaler = new ArrayList<Avtale>();
 		while(rs.next()){
 			String avtaleIDString = rs.getString("AvtaleID");
-			String tid = rs.getString("Starttid");
+			String fraTid = rs.getString("fraTid");
+			String tilTid = rs.getString("tilTid");
 			String dato = rs.getString("Dato");
 			String tittel = rs.getString("Tittel");
 			String beskrivelse = rs.getString("Beskrivelse");
 			String oppdatert = rs.getString("oppdatert");
+			String rom = rs.getString("Romnavn");
 			String kalenderID = rs.getString("KalenderID");
-			
+			String leder = rs.getString("leder");
+			//hente rom her.
 			int avtaleID = Integer.parseInt(avtaleIDString);
-			
-			avtaler.add(new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID)); //Maa kanskje legge til rom og en liste over personer som kommer.
+			avtaler.add(new Avtale(fraTid, tilTid, dato, tittel, beskrivelse, oppdatert, rom, leder, avtaleID, kalenderID)); 
 		}
 		return avtaler;
 	}
 	
-	public ArrayList<Bruker> getBrukere() throws Exception{
-		ResultSet rs = con.les("SELECT * FROM bruker WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Bruker> brukere = new ArrayList<Bruker>();
+	public Person getBrukere() throws Exception{
+		ResultSet rs = con.les("SELECT * FROM Person WHERE(KalenderID =" + this.id + ")");
+		Person bruker = new Person();
 		while(rs.next()){
 			String brukernavn = rs.getString("Brukernavn");
 			String passord = rs.getString("Passord");
 			String kalenderIDString = rs.getString("KalenderID");
-			
 			int kalenderID = Integer.parseInt(kalenderIDString);
 			
-			brukere.add(new Bruker(brukernavn, passord, kalenderID));
+			//Person har ikke konstruktør
+			bruker.setBrukernavn(brukernavn);
+			bruker.setPassord(passord);
+			//Person klassen har ingen kalenderID felt 
+			//bruker.setKalenderID(kalenderID);
 		}
-		return brukere;
+		return bruker;
 	}
 	
 	public ArrayList<Gruppe> getGrupper() throws Exception{

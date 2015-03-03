@@ -2,7 +2,7 @@ CREATE TABLE Kalender(
 KalenderID INT AUTO_INCREMENT PRIMARY KEY
 );
 
-CREATE TABLE Bruker(
+CREATE TABLE Person(
 Brukernavn VARCHAR(70) PRIMARY KEY,
 Passord VARCHAR(70),
 KalenderID INT,
@@ -44,13 +44,16 @@ FOREIGN KEY (Super) REFERENCES Gruppe(GruppeID)
 
 CREATE TABLE Avtale(
 AvtaleID INT AUTO_INCREMENT PRIMARY KEY,
-Startdato DATETIME,
-Sluttdato DATETIME,
+tilTid DATETIME,
+fraTid DATETIME,
+Dato DATE,
 Tittel VARCHAR(50),
 Beskrivelse VARCHAR(255),
 Oppdatert TIMESTAMP,
 KalenderID INT, 
+leder VARCHAR(70),
 Romnavn VARCHAR(70),
+
 FOREIGN KEY (KalenderID) REFERENCES Kalender(KalenderID),
 FOREIGN KEY (Romnavn) REFERENCES Rom(Romnavn)
 );
@@ -69,13 +72,6 @@ CREATE TABLE Varsel(
 Brukernavn VARCHAR(70),
 AvtaleID INT,
 PRIMARY KEY (Brukernavn, AvtaleID),
-FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
-FOREIGN KEY (Brukernavn) REFERENCES Bruker(Brukernavn)
-);
-
-CREATE TABLE Administrator(
-Brukernavn VARCHAR(70),
-AvtaleID INT,
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
 FOREIGN KEY (Brukernavn) REFERENCES Bruker(Brukernavn)
 );
