@@ -20,8 +20,6 @@ public class Testtest1 extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		String test;
-		
 		
 		HBox hbox = new HBox(10);
 		hbox.setLayoutX(25);
@@ -33,8 +31,6 @@ public class Testtest1 extends Application {
 		primaryStage.setScene(new Scene(hbox));
 		primaryStage.show();
 		
-		test = textField.getText();
-		textField.onKeyPressedProperty();
 		
 		
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>(){
