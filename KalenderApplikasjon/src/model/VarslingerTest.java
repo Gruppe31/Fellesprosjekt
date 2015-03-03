@@ -73,14 +73,14 @@ public class VarslingerTest extends Application {
 			}
 		});
 		
-		Stage testStage = new Stage();
+		Stage mainStage = new Stage();
 		
 		Button hide = new Button("Main.fxml");
 		hide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
 				popup.hide();
 				try {
-					launchGUI.startMain(testStage);
+					launchGUI.startMain(mainStage);
 					popup.hide();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
