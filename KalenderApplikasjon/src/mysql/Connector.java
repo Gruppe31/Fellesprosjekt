@@ -11,8 +11,8 @@ public class Connector {
   private Statement statement = null;
   private ResultSet resultSet = null;
   private PreparedStatement preparedStatement = null;
-  private String url = "jdbc:mysql://129.241.184.237/kalender";
-  private String user = "magnus";
+  private String url = "jdbc:mysql://78.91.47.120/fp";
+  private String user = "kalender";
   private String password = "ok";
   
   public void start() throws Exception{
