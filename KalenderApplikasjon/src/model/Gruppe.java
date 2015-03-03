@@ -10,6 +10,14 @@ public class Gruppe {
 	private int kalenderID;
 	private List<Person> brukerListe = new ArrayList();
 	
+	public Gruppe(){
+		// default konstruktør.
+		this.gruppenavn = null;
+		this.gruppeid = 0;
+		this.kalenderID = 0;
+		
+	}
+	
 	public Gruppe(int gruppeid, String gruppenavn, int kalenderID){
 		setGruppenavn(gruppenavn);
 		setGruppeid(gruppeid);
