@@ -10,6 +10,7 @@ public class Kalender {
 	// Alt initialiseres i denne klassen. Derfor vil denne opprette alle nye avtaler som ligger i databasen.
 	private Connector con;
 	private int id;
+	ArrayList<Avtale> avtaler;
 	
 	public Kalender(int i){
 		this.id = i;
@@ -19,41 +20,47 @@ public class Kalender {
 	public ArrayList<Avtale> getAvtaler() throws Exception{
 		// Maa endre paa databasetabellen saa de blir riktig i forhold til kontrolleren og fxml skjema.
 		ResultSet rs = con.les("SELECT * FROM avtale WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Avtale> avtaler = new ArrayList<Avtale>();
+		avtaler = new ArrayList<Avtale>();
 		while(rs.next()){
 			String avtaleIDString = rs.getString("AvtaleID");
-			String tid = rs.getString("Starttid");
+			String fraTid = rs.getString("fraTid");
+			String tilTid = rs.getString("tilTid");
 			String dato = rs.getString("Dato");
 			String tittel = rs.getString("Tittel");
 			String beskrivelse = rs.getString("Beskrivelse");
 			String oppdatert = rs.getString("oppdatert");
-			String kalenderID = rs.getString("KalenderID");
-			
+			String rom = rs.getString("Romnavn");
+			String kalenderIDString = rs.getString("KalenderID");
+			String leder = rs.getString("leder");
+			//hente rom her.
+			int kalenderID = Integer.parseInt(kalenderIDString);
 			int avtaleID = Integer.parseInt(avtaleIDString);
-			
-			avtaler.add(new Avtale(avtaleID, tid, dato, tittel, beskrivelse, oppdatert, kalenderID)); //Maa kanskje legge til rom og en liste over personer som kommer.
+			avtaler.add(new Avtale(fraTid, tilTid, dato, tittel, beskrivelse, oppdatert, rom, leder, avtaleID, kalenderID)); 
 		}
 		return avtaler;
 	}
 	
-	public ArrayList<Bruker> getBrukere() throws Exception{
-		ResultSet rs = con.les("SELECT * FROM bruker WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Bruker> brukere = new ArrayList<Bruker>();
+	public Person getBruker() throws Exception{
+		ResultSet rs = con.les("SELECT * FROM Person WHERE(KalenderID =" + this.id + ")");
+		Person bruker = new Person();
 		while(rs.next()){
 			String brukernavn = rs.getString("Brukernavn");
 			String passord = rs.getString("Passord");
 			String kalenderIDString = rs.getString("KalenderID");
-			
 			int kalenderID = Integer.parseInt(kalenderIDString);
 			
-			brukere.add(new Bruker(brukernavn, passord, kalenderID));
+			//Person har ikke konstruktør
+			bruker.setBrukernavn(brukernavn);
+			bruker.setPassord(passord);
+			//Person klassen har ingen kalenderID felt 
+			//bruker.setKalenderID(kalenderID);
 		}
-		return brukere;
+		return bruker;
 	}
 	
-	public ArrayList<Gruppe> getGrupper() throws Exception{
+	public Gruppe getGruppe() throws Exception{
 		ResultSet rs = con.les("SELECT * FROM gruppe WHERE(KalenderID =" + this.id + ")");
-		ArrayList<Gruppe> grupper = new ArrayList<Gruppe>();
+		Gruppe gruppe = new Gruppe();
 		while(rs.next()){
 			String gruppeIDString = rs.getString("GruppeID");
 			String gruppenavn = rs.getString("Gruppenavn");
@@ -62,15 +69,17 @@ public class Kalender {
 			int gruppeID = Integer.parseInt(gruppeIDString);
 			int kalenderID = Integer.parseInt(kalenderIDString);
 			
-			grupper.add(new Gruppe(gruppeID, gruppenavn, kalenderID));
+			gruppe = new Gruppe(gruppeID, gruppenavn, kalenderID);
 		}
-		return grupper;
+		return gruppe;
 	}
 	
 	public void removeAvtale(Avtale avtale){
-		
+		avtaler.remove(avtale);
 	}
+	
 	public void addAvtale(Avtale avtale){
-		
+		avtaler.add(avtale);
 	}
+	
 }

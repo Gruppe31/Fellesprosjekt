@@ -23,6 +23,7 @@ import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.LaunchGUI;
 
 public class VarslingerTest extends Application {
 	
@@ -37,7 +38,7 @@ public class VarslingerTest extends Application {
 		primaryStage.setTitle("Varsling");
 		
 		
-		LaunchGUI launchGui = new LaunchGUI();
+		LaunchGUI launchGUI = new LaunchGUI();
 		
 		Popup popup = new Popup();
 		popup.setX(1300);
@@ -51,7 +52,7 @@ public class VarslingerTest extends Application {
 		EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 			public void handle(InputEvent event) {
 				try {
-					launchGui.start(primaryStage);
+					launchGUI.start(primaryStage);
 					popup.hide();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -65,7 +66,7 @@ public class VarslingerTest extends Application {
 			
 		
 	
-		Button show = new Button("Show");
+		Button show = new Button("Vis popup");
 		show.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
 				popup.show(primaryStage);
@@ -74,12 +75,12 @@ public class VarslingerTest extends Application {
 		
 		Stage testStage = new Stage();
 		
-		Button hide = new Button("Hide");
+		Button hide = new Button("Main.fxml");
 		hide.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
 				popup.hide();
 				try {
-					launchGui.start2(testStage);
+					launchGUI.startMain(testStage);
 					popup.hide();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

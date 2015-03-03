@@ -1,8 +1,5 @@
 package Kontrollere;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.ResultSet;
@@ -24,17 +21,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import model.Avtale;
 import model.Person;
 import mysql.Connector;
 
 public class AvtaleKontroller {
-	
-	// Kanskje ha en konstruktør som tar inn KalenderID
-	
-	Avtale model = new Avtale();
 	private Connector con = new Connector();
 	
 	@FXML private AnchorPane pane;
@@ -94,21 +85,15 @@ public class AvtaleKontroller {
 	void lagre(){
 		// Lager en ny innstans av Avtale.
 		// Avtale lagrer i databasen.
-//		Avtale(String avtaleID, String fraTid, String tilTid, String dato, String tittel, 
-//				String beskrivelse, String oppdatert, String kalenderID, String rom, ArrayList<Person> invitert, String leder)
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
+			Avtale model = new Avtale(fraTid.getText(), tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
+					beskrivelse.getText(), romListe.get(rom.getSelectionModel().getSelectedIndex()));
 			
-			model.setFraTid(fraTid.getText());
-			model.setTilTid(tilTid.getText());
-			model.setDato(dato.toString());
-			model.setTittel(tittel.getText());
-			model.setBeskrivelse(beskrivelse.getText());
 			//itererer over brukernavn og legger de til.
 			for (String brukerNavn : brukere) {
 				model.addInvitert(brukerNavn);
 			}
-			model.setRom(romListe.get(rom.getSelectionModel().getSelectedIndex()));
-			System.out.println(model.toString());
+			
 		}else{
 			if (!erFraTidRiktig(fraTid.getText())) {
 				fraTid.setStyle("-fx-background-color: #FF00000");

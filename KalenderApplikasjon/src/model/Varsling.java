@@ -6,21 +6,16 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -54,7 +49,7 @@ public class Varsling extends Application {
 		            Stage stage = new Stage();
 		            stage.initModality(Modality.APPLICATION_MODAL);
 		            stage.initStyle(StageStyle.UNDECORATED);
-		            stage.setTitle("ABC");
+		            stage.setTitle("VARSLING");
 		            stage.setScene(new Scene(root1));  
 		            stage.show();
 		          }
@@ -88,7 +83,7 @@ public class Varsling extends Application {
 		            Stage stage = new Stage();
 		            stage.initModality(Modality.APPLICATION_MODAL);
 		            stage.initStyle(StageStyle.UNDECORATED);
-		            stage.setTitle("ABC");
+		            stage.setTitle("MAIN");
 		            stage.setScene(new Scene(root1));  
 		            stage.show();
 		          }
