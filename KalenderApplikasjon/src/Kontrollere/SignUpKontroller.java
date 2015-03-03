@@ -1,12 +1,19 @@
 package Kontrollere;
 
+import java.io.IOException;
+
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import model.LaunchGUI;
 import model.Person;
+import model.LaunchGUI;
 
 public class SignUpKontroller {
 	
@@ -24,9 +31,26 @@ public class SignUpKontroller {
 	@FXML Button Avbryt;
 	
 	
-	public void initialize(){
 		
+	
+	Stage mainStage = new Stage();
+	LaunchGUI launchGUI = new LaunchGUI();
+	
+	@FXML
+	void meldDegInn(){
+		MeldDegInn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent event) {
+				try {
+					launchGUI.startSignup(mainStage);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 	}
+	
 	
 	
 	//sjekke om Fornavn er gyldig
