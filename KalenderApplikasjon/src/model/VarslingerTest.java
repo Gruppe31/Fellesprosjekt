@@ -44,7 +44,7 @@ public class VarslingerTest extends Application {
 		popup.setX(1300);
 		popup.setY(600);
 		
-		Label label = new Label("Du har en ny varsling!");
+		Label label = new Label("Du har 3 nye varslinger!");
 		Rectangle rect = new Rectangle(200, 100, Color.AQUAMARINE);
 		
 		popup.getContent().addAll(rect, label);
