@@ -1,23 +1,26 @@
 package Kontrollere;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
-import mysql.Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import model.Kalender;
 import model.LaunchGUI;
+import mysql.Connector;
 
-public class KalenderKontroller {
+public class KalenderKontroller implements Initializable{
 	
 	private Connector con = new Connector();
 	
@@ -73,6 +76,24 @@ public class KalenderKontroller {
 	
 	@FXML void LoggUt(){
 		//sendes tilbake til loggInn-vinduet
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		String s = "SELECT Kalender.KalenderID FROM Kalender JOIN Bruker ON (Kalender.KalenderID = Bruker.KalenderID) WHERE(Brukernavn='Magnus')";
+		try {
+			ResultSet rs = con.les(s);
+			while(rs.next()){
+				String kalenderID = rs.getString("kalenderID");
+				
+				kalenderListe.add(kalenderID);
+			}
+			mineKalendere.setItems(kalenderListe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
