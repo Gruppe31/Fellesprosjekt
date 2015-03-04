@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -52,9 +53,24 @@ public class Avtale{
 	
 	public void databaseSettInn() throws Exception{
 		java.util.Date date= new java.util.Date();
-		String s = "INSERT INTO Avtale VALUES ('0','" + this.tilTid + "','" + this.fraTid + "','" + this.dato + "',' " + this.tittel
+		ResultSet rs = con.les("SELECT Auto_increment FROM information_schema.tables WHERE table_name='Avtale'");
+		String autoInc = null;
+		while(rs.next()){
+			autoInc = rs.getString("Auto_Increment");
+		}
+		System.out.println(autoInc);
+		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.tilTid + "','" + this.fraTid + "','" + this.dato + "',' " + this.tittel
 				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
-		con.skriv(s);
+		System.out.println(s1);
+		con.skriv(s1);
+		
+		
+		for(String deltaker : invitert){
+			System.out.println(deltaker);
+			String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + autoInc + "', '0','" + this.dato.toString() + " " + this.fraTid + ":00')";
+			System.out.println(s2);
+			con.skriv(s2);
+		}
 	}
 	
 	public int getAvtaleID(){

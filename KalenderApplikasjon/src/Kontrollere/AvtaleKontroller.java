@@ -92,6 +92,7 @@ public class AvtaleKontroller {
 			
 			//itererer over brukernavn og legger de til.
 			for (String brukerNavn : brukere) {
+				System.out.println(brukerNavn);
 				model.addInvitert(brukerNavn);
 			}
 			model.databaseSettInn();
