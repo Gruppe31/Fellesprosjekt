@@ -17,7 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import model.Context;
 import model.LaunchGUI;
+import model.Person;
 import mysql.Connector;
 
 public class KalenderKontroller implements Initializable{
@@ -38,9 +40,22 @@ public class KalenderKontroller implements Initializable{
 	Stage skjemaStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
-	public void initialize(){
-		//Lager ny kalender som tar inn ID. Saa hentes avtaler og slikt ut fra databasen
-		//Kalender kalender = new Kalender(123456);
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) { //Trenger ikke argumentene her.
+		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
+		String s = "SELECT Kalender.KalenderID FROM Kalender JOIN Bruker ON (Kalender.KalenderID = Bruker.KalenderID) WHERE(Brukernavn=" + brukerNavn;
+		try {
+			ResultSet rs = con.les(s);
+			while(rs.next()){
+				String kalenderID = rs.getString("kalenderID");
+				
+				kalenderListe.add(kalenderID);
+			}
+			mineKalendere.setItems(kalenderListe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@FXML
@@ -84,23 +99,6 @@ public class KalenderKontroller implements Initializable{
 		//sendes tilbake til loggInn-vinduet
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		String s = "SELECT Kalender.KalenderID FROM Kalender JOIN Bruker ON (Kalender.KalenderID = Bruker.KalenderID) WHERE(Brukernavn='Magnus')";
-		try {
-			ResultSet rs = con.les(s);
-			while(rs.next()){
-				String kalenderID = rs.getString("kalenderID");
-				
-				kalenderListe.add(kalenderID);
-			}
-			mineKalendere.setItems(kalenderListe);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
 	
 	
 
