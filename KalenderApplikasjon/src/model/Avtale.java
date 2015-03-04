@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import mysql.Connector;
@@ -22,8 +23,7 @@ public class Avtale{
 	private ArrayList<String> folkSomIkkeKommer;
 	
 	
-	public Avtale(String fraTid, String tilTid, String dato, String tittel, 
-			String beskrivelse, String rom){
+	public Avtale(String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String rom){
 		// Herfra lagres ting i databasen.
 		// Må ha en spørring til databasen for å finne avtaleID så den ikke krasjer med andre avtaleIDer
 		this.fraTid = fraTid;
@@ -37,8 +37,8 @@ public class Avtale{
 		//må gjøre slik at en finner rom med nøkkel
 	}
 	
-	public Avtale(String fraTid, String tilTid, String dato, String tittel, 
-			String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
+	public Avtale(String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
+		this.kalenderID = kalenderID;
 		this.fraTid = fraTid;
 		this.tilTid = tilTid;
 		this.dato = dato;
@@ -51,9 +51,10 @@ public class Avtale{
 	}
 	
 	public void databaseSettInn() throws Exception{
-		con.les("INSERT INTO AVTALE(dato,fraTid,tilTid,Tittel,Beskrivelse,Oppdatert,KalenderID,Romnavn "
-				+ "VALUES" + this.dato + " " + this.tilTid + " " + this.fraTid + " " + this.tittel
-				+ " " + this.beskrivelse + " " + this.oppdatert + " " + this.kalenderID + this.rom);
+		java.util.Date date= new java.util.Date();
+		String s = "INSERT INTO Avtale VALUES ('0','" + this.tilTid + "','" + this.fraTid + "','" + this.dato + "',' " + this.tittel
+				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
+		con.skriv(s);
 	}
 	
 	public int getAvtaleID(){

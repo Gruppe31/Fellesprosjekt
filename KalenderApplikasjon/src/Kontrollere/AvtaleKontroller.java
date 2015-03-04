@@ -54,7 +54,8 @@ public class AvtaleKontroller {
 	@FXML
 	void finnRom() throws Exception{
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
-			ResultSet rs = con.les("SELECT romNavn FROM Avtale, Rom WHERE avtale.romnavn = rom.romnavn AND avtale.fraTid != " + fraTid + " AND avtale.dato !=" + dato.getValue().toString() + " AND Rom.Antall >" + brukere.size());
+			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" + fraTid.getText() + "' AND Avtale.Dato ='" + dato.getValue().toString() +"' AND Rom.Antall >'" + brukere.size() + "'))";
+			ResultSet rs = con.les(s);
 			while(rs.next()){
 				romListe.add(rs.getString("romNavn"));
 				rom.setItems(romListe);
@@ -82,17 +83,18 @@ public class AvtaleKontroller {
 	}
 	
 	@FXML
-	void lagre(){
+	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagrer i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
 			Avtale model = new Avtale(fraTid.getText(), tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(), romListe.get(rom.getSelectionModel().getSelectedIndex()));
+					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), "Magnus" , 0 ,1);
 			
 			//itererer over brukernavn og legger de til.
 			for (String brukerNavn : brukere) {
 				model.addInvitert(brukerNavn);
 			}
+			model.databaseSettInn();
 			
 		}else{
 			if (!erFraTidRiktig(fraTid.getText())) {
@@ -136,6 +138,7 @@ public class AvtaleKontroller {
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
 			brukere.add(bruker);
+			System.out.println(brukere.size());
 			deltagere.setItems(brukere);
 			return true;
 		}
