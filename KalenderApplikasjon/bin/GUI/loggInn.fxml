@@ -32,8 +32,8 @@
                   <PasswordField fx:id="passord" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="loggInn" layoutX="12.0" layoutY="235.0" mnemonicParsing="false" onAction="#LoggInn" text="Logg inn" />
-            <Button fx:id="meldInn" layoutX="91.0" layoutY="235.0" mnemonicParsing="false" onAction="#MeldInn" text="Ikke bruker? Meld deg inn!" />
+            <Button fx:id="loggInn" layoutX="12.0" layoutY="235.0" mnemonicParsing="false" onAction="#loggInn" text="Logg inn" />
+            <Button fx:id="meldInn" layoutX="91.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldInn" text="Ikke bruker? Meld deg inn!" />
             <TextField fx:id="feil" layoutX="59.0" layoutY="198.0" visible="false" />
          </children>
       </Pane>

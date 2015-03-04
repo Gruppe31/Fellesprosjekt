@@ -27,7 +27,7 @@ import mysql.Connector;
 
 public class AvtaleKontroller {
 	private Connector con = new Connector();
-	
+	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
 	@FXML private AnchorPane pane;
 	
 	@FXML private TextField tittel;

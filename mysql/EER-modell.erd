@@ -33,6 +33,9 @@
 <attribute is_hidden="false" is_key="false" name="Antall" type=""/>
 </attributes>
 </entity>
+<entity id="32" is_weak="false" name="&quot;no name&quot;" x="636" y="489">
+<attributes/>
+</entity>
 <diamond id="2" is_weak="false" name="har" x="308" y="280">
 <attributes>
 <attribute name="statusKommer" type=""/>
@@ -62,7 +65,7 @@
 </diamond>
 <diamond id="29" is_weak="false" name="Varsel" x="282" y="346">
 <attributes>
-<attribute name="hvemSomIkkeKommer" type=""/>
+<attribute name="hvemKommerIkke" type=""/>
 <attribute name="avtaleEndret" type=""/>
 </attributes>
 </diamond>
@@ -74,11 +77,11 @@
 <connection connection_side="2" direction="0" object_id="1" relation_point_x="227" relation_point_y="307"/>
 <connection connection_side="0" direction="0" object_id="2" relation_point_x="308" relation_point_y="296"/>
 </line>
-<line cardinality_string="(0,n)" has_u="false" id="8" is_weak="false" role="" style="0" turned="false">
+<line cardinality_string="(1,n)" has_u="false" id="8" is_weak="false" role="" style="0" turned="false">
 <connection connection_side="1" direction="1" object_id="0" relation_point_x="488" relation_point_y="233"/>
 <connection connection_side="3" direction="1" object_id="7" relation_point_x="461" relation_point_y="81"/>
 </line>
-<line cardinality_string="(0,1)" has_u="false" id="9" is_weak="false" role="" style="0" turned="false">
+<line cardinality_string="(0,n)" has_u="false" id="9" is_weak="false" role="" style="0" turned="false">
 <connection connection_side="2" direction="0" object_id="6" relation_point_x="346" relation_point_y="61"/>
 <connection connection_side="0" direction="0" object_id="7" relation_point_x="445" relation_point_y="65"/>
 </line>

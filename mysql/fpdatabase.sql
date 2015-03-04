@@ -55,6 +55,7 @@ leder VARCHAR(70),
 Romnavn VARCHAR(70),
 
 FOREIGN KEY (KalenderID) REFERENCES Kalender(KalenderID),
+FOREIGN KEY (leder) REFERENCES Person(Brukernavn),
 FOREIGN KEY (Romnavn) REFERENCES Rom(Romnavn)
 );
 
@@ -72,10 +73,9 @@ CREATE TABLE Varsel(
 Brukernavn VARCHAR(70),
 AvtaleID INT,
 avtaleEndret VARCHAR(30),
-kommerIkke VARCHAR(70),
+hvemKommerIkke VARCHAR(70),
 PRIMARY KEY (Brukernavn, AvtaleID),
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
 FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn)
-FOREIGN KEY (kommerIkke) REFERENCES Person
-(Brukernavn)
+FOREIGN KEY (kommerIkke) REFERENCES Person Brukernavn)
 );
