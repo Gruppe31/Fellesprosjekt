@@ -1,5 +1,5 @@
 CREATE TABLE Kalender(
-KalenderID INT AUTO_INCREMENT PRIMARY KEY
+KalenderID AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE Person(
@@ -31,7 +31,7 @@ CREATE TABLE Brukergruppe(
 Brukernavn VARCHAR(70),
 GruppeID INT,
 PRIMARY KEY(Brukernavn, GruppeID),
-FOREIGN KEY (Brukernavn) REFERENCES Bruker(Brukernavn),
+FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn),
 FOREIGN KEY (GruppeID) REFERENCES Gruppe(GruppeID)
 );
 
@@ -64,14 +64,18 @@ AvtaleID INT,
 statusKommer BOOL,
 alarmtid DATETIME,
 PRIMARY KEY (Brukernavn, AvtaleID),
-FOREIGN KEY (Brukernavn) REFERENCES Bruker(Brukernavn),
+FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn),
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID)
 );
 
 CREATE TABLE Varsel(
 Brukernavn VARCHAR(70),
 AvtaleID INT,
+avtaleEndret VARCHAR(30),
+kommerIkke VARCHAR(70),
 PRIMARY KEY (Brukernavn, AvtaleID),
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
-FOREIGN KEY (Brukernavn) REFERENCES Bruker(Brukernavn)
+FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn)
+FOREIGN KEY (kommerIkke) REFERENCES Person
+(Brukernavn)
 );
