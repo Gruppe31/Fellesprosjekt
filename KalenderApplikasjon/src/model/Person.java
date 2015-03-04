@@ -3,6 +3,8 @@ package model;
 
 import java.security.KeyStore.PasswordProtection;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.PasswordField;
@@ -11,11 +13,18 @@ public class Person {
 	
 	private StringProperty FornavnProperty = new SimpleStringProperty();
 	private StringProperty EtternavnProperty = new SimpleStringProperty();
-	private StringProperty BrukernavnProperty = new SimpleStringProperty();
+	public StringProperty BrukernavnProperty = new SimpleStringProperty();
+	public IntegerProperty kalenderIDProperty = new SimpleIntegerProperty();
 	private PasswordField PassordField = new PasswordField();
 	
 	
-		
+	public int getKalenderID(){
+		return kalenderIDProperty.getValue();
+	}
+	
+	public void setKalenderID(int kalenderID){
+		kalenderIDProperty.set(kalenderID);
+	}
 
 	public String getFornavn() {
 		return FornavnProperty.getValue();
@@ -46,7 +55,7 @@ public class Person {
 	}
 	
 	public String getBrukernavn(){
-		return FornavnProperty.getValue();
+		return BrukernavnProperty.getValue();
 	}
 	
 	public void setBrukernavn(String Brukernavn){

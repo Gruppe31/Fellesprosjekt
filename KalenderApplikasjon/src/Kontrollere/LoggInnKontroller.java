@@ -2,7 +2,7 @@ package Kontrollere;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-
+import model.Context;
 import model.LaunchGUI;
 import model.Person;
 import mysql.Connector;
@@ -40,6 +40,8 @@ public class LoggInnKontroller {
 			//logg inn
 			//åpne kalendervinduet
 			try{
+				Context.getInstance().getPerson().setBrukernavn(brukernavn.getText());
+				Context.getInstance().getPerson().setPassord(passord.getText());
 				launchGUI.startMain(mainStage);
 			}catch(IOException e){
 				e.printStackTrace();
@@ -59,24 +61,23 @@ public class LoggInnKontroller {
 	}
 	
 	private boolean erBrukernavnOgPassordRiktig(){
-//		String brukerNavn = brukernavn.getText();
-//		String passOrd = passord.getText();
-//		try {
-//			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
-//			if (rs == null) {
-//				feil.setText("Brukernavn/Passord er feil");
-//				feil.setVisible(true);
-//				return false;
-//			} else {
-//				feil.setVisible(false);
-//				return true;
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return false;
-		return true;
+		String brukerNavn = brukernavn.getText();
+		String passOrd = passord.getText();
+		try {
+			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
+			if (rs == null) {
+				feil.setText("Brukernavn/Passord er feil");
+				feil.setVisible(true);
+				return false;
+			} else {
+				feil.setVisible(false);
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
 

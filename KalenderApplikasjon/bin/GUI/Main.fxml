@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1300.0" style="-fx-background-color: b8ccc861;" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.KalenderKontroller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1300.0" style="-fx-background-color: b8ccc861;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.KalenderKontroller">
    <children>
       <GridPane layoutX="300.0" prefHeight="600.0" prefWidth="1000.0">
         <columnConstraints>
@@ -196,4 +196,4 @@
       <ListView fx:id="varslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <TextField fx:id="sok" alignment="CENTER" layoutX="33.0" layoutY="24.0" onKeyPressed="#sokTrykkEnter" promptText="Søk + Enter" AnchorPane.bottomAnchor="546.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="20.0" />
    </children>
-</fx:root>
+</AnchorPane>
