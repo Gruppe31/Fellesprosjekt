@@ -115,36 +115,51 @@ public class AvtaleKontroller {
 	}
 	
 	@FXML
-	boolean inviter() throws Exception{
+	void inviter() throws Exception{
 		String brukerNavn = leggTilPerson.getText();
 		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
+		ResultSet rs2 = con.les("SELECT Gruppenavn FROM Gruppe WHERE(Gruppenavn = '" + brukerNavn + "')");
 		String bruker = null;
-		
+		String gruppe = null;
 		while(rs.next()){
 			bruker = rs.getString("Brukernavn");
 		}
-		//Sjekker om bruker eksisterer. Hvis den gjør det blir den lagt til i listView
+		
 		if(bruker == null){
-			leggTilPerson.setStyle("-fx-background-color: #FF0000");
-			return false;
+			System.out.println("pls");
+			// leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
-			//Trenger ikke dette siden SQl gjør det for oss.
-			int lengde = Math.max(bruker.length(),brukerNavn.length());
-			for (int i = 0; i < lengde; i++) {
-				if(bruker.charAt(i) != brukerNavn.charAt(i)){
-					leggTilPerson.setStyle("-fx-background-color: #FF0000");
-					return false;
-				}
-			}
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
-			brukere.add(bruker);
-			System.out.println(brukere.size());
+			if(!brukere.contains(bruker)){
+				brukere.add(bruker);
+			}
 			deltagere.setItems(brukere);
-			return true;
+		}	
+		while(rs2.next()){
+			System.out.println("YO");
+			gruppe = rs2.getString("Gruppenavn");
+			System.out.println(gruppe);
 		}
-	}
-	
+		
+		if(gruppe == null){
+			//leggTilPerson.setStyle("-fx-background-color: #FF0000");
+		}else{
+			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
+			leggTilPerson.setText("");
+			String s3 = "SELECT Brukernavn From Brukergruppe JOIN Gruppe ON(Brukergruppe.GruppeID = Gruppe.GruppeID) WHERE(Gruppenavn ='" + gruppe + "')";
+			System.out.println(s3);
+			ResultSet rs3 = con.les(s3);
+			while(rs3.next()){
+				String bruker2 = rs3.getString("Brukernavn");
+				if(!brukere.contains(bruker2)){
+					brukere.add(bruker2);
+				}
+			}
+			deltagere.setItems(brukere);
+		}
+				
+		}
 	boolean erTilTidRiktig(String nyVerdi){
 		try{
 			LocalTime til = LocalTime.parse(nyVerdi);
