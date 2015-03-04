@@ -1,9 +1,13 @@
 package Kontrollere;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 
+import model.LaunchGUI;
 import model.Person;
 import mysql.Connector;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,47 +27,56 @@ public class LoggInnKontroller {
 	@FXML private Button loggInn;
 	@FXML private Button meldInn;
 	
+	Stage mainStage = new Stage();
+	Stage signUpStage = new Stage();
+	LaunchGUI launchGUI = new LaunchGUI();
+	
 	private Connector con = new Connector();
 	
-	private boolean loggetInn = false;
-	
 	@FXML
-	void LoggInn(){
+	void loggInn(){
 		// her skal alt valideres og bruker bli logget inn i systemet
-		while(! loggetInn){
-			if(erBrukernavnOgPassordRiktig()){
-				//logg inn
-				loggetInn = true;
-				//åpne kalendervinduet
-			} 
-		}
+		if(erBrukernavnOgPassordRiktig()){
+			//logg inn
+			//åpne kalendervinduet
+			try{
+				launchGUI.startMain(mainStage);
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		} 
 	}
 	
 	@FXML
-	void MeldInn(){
+	void meldInn(){
 		// her skal ny bruker bli sendt videre til innmeldingsvindu
+		try{
+			launchGUI.startSignup(signUpStage);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 		
 	}
 	
 	private boolean erBrukernavnOgPassordRiktig(){
-		String brukerNavn = brukernavn.getText();
-		String passOrd = passord.getText();
-		try {
-			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
-			if (rs == null) {
-				feil.setText("Brukernavn/Passord er feil");
-				feil.setVisible(true);
-				return false;
-			} else {
-				feil.setVisible(false);
-				return true;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+//		String brukerNavn = brukernavn.getText();
+//		String passOrd = passord.getText();
+//		try {
+//			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
+//			if (rs == null) {
+//				feil.setText("Brukernavn/Passord er feil");
+//				feil.setVisible(true);
+//				return false;
+//			} else {
+//				feil.setVisible(false);
+//				return true;
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return false;
+		return true;
 	}
-
 }
 

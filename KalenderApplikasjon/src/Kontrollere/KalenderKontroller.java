@@ -34,6 +34,12 @@ public class KalenderKontroller {
 	
 	Stage skjemaStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
+	
+	public void initialize(){
+		//Lager ny kalender som tar inn ID. Saa hentes avtaler og slikt ut fra databasen
+		//Kalender kalender = new Kalender(123456);
+	}
+	
 	@FXML
 	public void sokTrykkEnter(){
 		sok.setOnKeyPressed(new EventHandler<KeyEvent>(){
@@ -55,7 +61,7 @@ public class KalenderKontroller {
 	}
 	
 	@FXML 
-	void NyAvtale(){
+	void NyAvtale(){//trenger ikke den handlingen innerst her.
 		// nyAvtale-vinduet skal komme opp
 		nyAvtale.requestFocus(); //Virker ikke?
 		nyAvtale.setOnAction(new EventHandler<ActionEvent>() {
