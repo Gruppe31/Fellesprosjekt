@@ -117,7 +117,7 @@ public class AvtaleKontroller {
 	@FXML
 	void inviter() throws Exception{
 		String brukerNavn = leggTilPerson.getText();
-		ResultSet rs = con.les("SELECT Brukernavn FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "')");
+		ResultSet rs = con.les("SELECT Brukernavn FROM Person WHERE(Brukernavn = '" + brukerNavn + "')");
 		ResultSet rs2 = con.les("SELECT Gruppenavn FROM Gruppe WHERE(Gruppenavn = '" + brukerNavn + "')");
 		String bruker = null;
 		String gruppe = null;
