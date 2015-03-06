@@ -28,8 +28,8 @@
                <children>
                   <Label fx:id="BrukerNavnRule" text="Brukernavn:" />
                   <Label fx:id="PassordRule" text="Passord:" GridPane.rowIndex="1" />
-                  <TextField fx:id="BrukerNavnField" onInputMethodTextChanged="#BrukerNavnFieldChange" promptText="Brukernavn" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="PassordField" onInputMethodTextChanged="#PassordFieldChange" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="BrukerNavnField" promptText="Brukernavn" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="PassordField" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" text="Meld deg inn" />
