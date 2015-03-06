@@ -40,16 +40,18 @@ public class KalenderKontroller implements Initializable{
 	Stage skjemaStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
-	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) { //Trenger ikke argumentene her.
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
-		String s = "SELECT Kalender.KalenderID FROM Kalender JOIN Bruker ON (Kalender.KalenderID = Bruker.KalenderID) WHERE(Brukernavn=" + brukerNavn;
+		brukerNavn = "Magnus";
+		kalenderListe.add(brukerNavn + " sin kalender");
+		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
+		System.out.println(s);
 		try {
 			ResultSet rs = con.les(s);
 			while(rs.next()){
-				String kalenderID = rs.getString("kalenderID");
+				String gruppeNavn = rs.getString("Gruppenavn");
 				
-				kalenderListe.add(kalenderID);
+				kalenderListe.add(gruppeNavn);
 			}
 			mineKalendere.setItems(kalenderListe);
 		} catch (Exception e) {
@@ -99,7 +101,6 @@ public class KalenderKontroller implements Initializable{
 		//sendes tilbake til loggInn-vinduet
 	}
 
-	
 	
 
 }
