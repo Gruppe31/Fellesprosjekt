@@ -31,7 +31,9 @@ public class KalenderKontroller implements Initializable{
 	ObservableList<String> kalenderListe  = FXCollections.observableArrayList();
 	@FXML private ListView<String> mineKalendere= new ListView<String>(kalenderListe);
 	
-	@FXML private TextField Varslinger;
+	ObservableList<String> varslingListe  = FXCollections.observableArrayList();
+	@FXML private ListView<String> mineVarslinger = new ListView<String>(kalenderListe);
+	
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
 	
@@ -42,7 +44,6 @@ public class KalenderKontroller implements Initializable{
 	
 	public void initialize(URL arg0, ResourceBundle arg1) { //Trenger ikke argumentene her.
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
-		brukerNavn = "Magnus";
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
 		System.out.println(s);
@@ -57,6 +58,22 @@ public class KalenderKontroller implements Initializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		String sql2 = "SELECT Tittel FROM Avtale JOIN Brukeravtale ON (Avtale.AvtaleID = Brukeravtale.AvtaleID) WHERE (Brukernavn = '" + brukerNavn + "')"
+				+ "";
+		System.out.println(sql2);
+		try {
+			ResultSet rs = con.les(sql2);
+			while(rs.next()){
+				String avtaleVarsling = rs.getString("Tittel");
+				
+				varslingListe.add("Ny avtale: " + avtaleVarsling);
+			}
+			mineVarslinger.setItems(varslingListe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 	

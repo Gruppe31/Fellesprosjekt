@@ -63,9 +63,12 @@ public class LoggInnKontroller {
 	private boolean erBrukernavnOgPassordRiktig(){
 		String brukerNavn = brukernavn.getText();
 		String passOrd = passord.getText();
+		String sql = "SELECT Brukernavn, Passord FROM Person WHERE(Brukernavn = '" + brukerNavn + "' AND Passord = '" + passOrd + "')";
+		System.out.println(sql);
 		try {
-			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
-			if (rs == null) {
+			ResultSet rs = con.les(sql);
+			System.out.println(rs == null);
+			if (!rs.next()) {
 				feil.setText("Brukernavn/Passord er feil");
 				feil.setVisible(true);
 				return false;

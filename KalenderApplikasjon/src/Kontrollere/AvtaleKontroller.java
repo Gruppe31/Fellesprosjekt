@@ -1,31 +1,29 @@
 package Kontrollere;
 
-import javafx.stage.Stage;
-
+import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Avtale;
-import model.Person;
+import model.Context;
 import mysql.Connector;
 
-public class AvtaleKontroller {
+public class AvtaleKontroller implements Initializable{
+	
+	private String bruker;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
 	@FXML private AnchorPane pane;
@@ -87,8 +85,8 @@ public class AvtaleKontroller {
 		// Lager en ny innstans av Avtale.
 		// Avtale lagrer i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
-			Avtale model = new Avtale(fraTid.getText(), tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), "Magnus" , 0 ,1);
+			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
+					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 ,1);
 			
 			//itererer over brukernavn og legger de til.
 			for (String brukerNavn : brukere) {
@@ -194,5 +192,11 @@ public class AvtaleKontroller {
 		}else{
 			return true;
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		this.bruker = Context.getInstance().getPerson().getBrukernavn();
+		
 	}
 }
