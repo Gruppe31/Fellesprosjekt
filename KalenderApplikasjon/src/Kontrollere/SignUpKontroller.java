@@ -28,6 +28,8 @@ public class SignUpKontroller {
 	@FXML Button MeldDegInn;
 	@FXML Button Avbryt;
 	
+	private String sql;
+	
 	
 		
 	
@@ -35,27 +37,34 @@ public class SignUpKontroller {
 	LaunchGUI launchGUI = new LaunchGUI();
 	
 	@FXML
-	void meldDegInn(){
+	public void meldDegInn(){
 		MeldDegInn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
-				String sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "')";
-				try {
-					con.skriv(sql);
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				try {
-					Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
-					Context.getInstance().getPerson().setPassord(PassordField.getText());
-					launchGUI.startSignup(mainStage);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(riktigPassord(PassordField.getText()))
+					sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "')";
+					try {
+						con.skriv(sql);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					try {
+						Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
+						Context.getInstance().getPerson().setPassord(PassordField.getText());
+						launchGUI.startSignup(mainStage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 				}
 				
 			}
 		});
+	}
+	public boolean riktigPassord(String passord){
+		if(passord.length() < 3){
+			return false;
+		}
+		return true;
+		
 	}
 		
 
