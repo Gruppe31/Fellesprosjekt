@@ -7,6 +7,7 @@ public class Context {
 	Stage skjemaStage = new Stage();
 	public static Context instance = new Context();
 	
+	
 	public Person bruker = new Person();
 	public Kalender kalender;
 	

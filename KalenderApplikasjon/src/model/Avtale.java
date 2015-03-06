@@ -59,7 +59,7 @@ public class Avtale{
 			autoInc = rs.getString("Auto_Increment");
 		}
 		System.out.println(autoInc);
-		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.tilTid + "','" + this.fraTid + "','" + this.dato + "',' " + this.tittel
+		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.fraTid + "','" + this.tilTid + "','" + this.dato + "',' " + this.tittel
 				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
 		System.out.println(s1);
 		con.skriv(s1);
