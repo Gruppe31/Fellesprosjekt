@@ -32,7 +32,7 @@
                   <PasswordField fx:id="PassordField" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" text="Meld deg inn" />
+            <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" text="Meld deg inn" onAction="#meldDegInn"/>
             <Button fx:id="Avbryt" layoutX="161.0" layoutY="235.0" mnemonicParsing="false" text="Avbryt" />
          </children>
       </Pane>
