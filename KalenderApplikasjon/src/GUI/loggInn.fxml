@@ -34,7 +34,11 @@
             </GridPane>
             <Button fx:id="loggInn" layoutX="12.0" layoutY="235.0" mnemonicParsing="false" onAction="#loggInn" text="Logg inn" />
             <Button fx:id="meldInn" layoutX="91.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldInn" text="Ikke bruker? Meld deg inn!" />
-            <TextField fx:id="feil" layoutX="59.0" layoutY="198.0" visible="false" />
+            <Text fx:id="feil" fill="#ff1111" layoutX="30.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn/passord er feil!" visible="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
