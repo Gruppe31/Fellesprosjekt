@@ -2,6 +2,7 @@ package Kontrollere;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+
 import model.Context;
 import model.LaunchGUI;
 import model.Person;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoggInnKontroller {
@@ -22,7 +24,7 @@ public class LoggInnKontroller {
 	Person model = new Person();
 	@FXML private TextField brukernavn;
 	@FXML private PasswordField passord;
-	@FXML private TextField feil;
+	@FXML private Text feil;
 	
 	@FXML private Button loggInn;
 	@FXML private Button meldInn;
@@ -66,10 +68,15 @@ public class LoggInnKontroller {
 		String sql = "SELECT Brukernavn, Passord FROM Person WHERE(Brukernavn = '" + brukerNavn + "' AND Passord = '" + passOrd + "')";
 		System.out.println(sql);
 		try {
+<<<<<<< HEAD
+			ResultSet rs = con.les("SELECT Brukernavn, Passord FROM Bruker WHERE(Brukernavn = '" + brukerNavn + "') AND(Passord = '" + passOrd + "')");
+			if (rs == null) {
+=======
 			ResultSet rs = con.les(sql);
 			System.out.println(rs == null);
 			if (!rs.next()) {
 				feil.setText("Brukernavn/Passord er feil");
+>>>>>>> 9ef533225a8a1be9e51985f99ab4764f93f2c1a8
 				feil.setVisible(true);
 				return false;
 			} else {

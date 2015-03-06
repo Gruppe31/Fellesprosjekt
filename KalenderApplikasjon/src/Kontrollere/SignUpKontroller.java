@@ -21,8 +21,12 @@ public class SignUpKontroller {
 	
 	private Person model;
 	
+
+	@FXML Label BrukerNavnRule;
+	@FXML Label PassordRule;
+
 	Connector con = new Connector();
-	
+
 	@FXML TextField BrukerNavnField;
 	@FXML PasswordField PassordField;
 	@FXML Button MeldDegInn;
@@ -59,6 +63,7 @@ public class SignUpKontroller {
 			}
 		});
 	}
+<<<<<<< HEAD
 	public boolean riktigPassord(String passord){
 		if(passord.length() < 3){
 			return false;
@@ -69,4 +74,6 @@ public class SignUpKontroller {
 		
 
 
+=======
+>>>>>>> origin/master
 }
