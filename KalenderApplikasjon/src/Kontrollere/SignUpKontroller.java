@@ -19,12 +19,8 @@ public class SignUpKontroller {
 	
 	private Person model;
 	
-	@FXML Label ForNavnRule;
-	@FXML Label EtterNavnRule;
 	@FXML Label BrukerNavnRule;
 	@FXML Label PassordRule;
-	@FXML TextField ForNavnField;
-	@FXML TextField EtterNavnField;
 	@FXML TextField BrukerNavnField;
 	@FXML PasswordField PassordField;
 	@FXML Button MeldDegInn;
@@ -50,63 +46,6 @@ public class SignUpKontroller {
 			}
 		});
 	}
-	
-	
-	
-	//sjekke om Fornavn er gyldig
-	private void validateForNavnView(String newValue) {
-		validate(newValue, "[\\p{L}\\.\\-\\s)]*", ForNavnField, ForNavnRule);
-	}
-	
-	//set fornavn lik input
-	private void updateForNavnModel() {
-		model.setFornavn(ForNavnField.getText());
-	}
-	
-	
-	//sjekke om input er riktig/godkjent for fornavn
-	@FXML void ForNavnFieldChange(ObservableValue<? extends String> property, String oldValue, String newValue) {
-		validateForNavnView(newValue);
-	}
-	
-	//prøve å oppdatere/lagre inupt for fornavn
-	@FXML void ForNavnFieldFocusChange(ObservableValue<? extends Boolean> property, Boolean oldValue, Boolean newValue) {
-		if (! newValue) {
-			try {
-				updateForNavnModel();
-			} catch (Exception e) {
-				
-			}
-		}
-	}
-	
-	//sjekke om etternavn er gyldig
-	private void validateEtterNavnView(String newValue) {
-		validate(newValue, "[\\p{L}\\.\\-\\s)]*", EtterNavnField, EtterNavnRule);
-	}
-	
-	//sett etternavn lik input
-	private void updateEtterNavnModel() {
-		model.setEtternavn(ForNavnField.getText());
-	}
-	
-	//sjekke om input er riktig/godkjent for etternavn
-	@FXML void EtterNavnFieldChange(ObservableValue<? extends String> property, String oldValue, String newValue) {
-		validateEtterNavnView(newValue);
-	}
-		
-	//prøve å oppdatere/lagre inupt for etternavn
-	@FXML void EtterNavnFieldFocusChange(ObservableValue<? extends Boolean> property, Boolean oldValue, Boolean newValue) {
-		if (! newValue) {
-			try {
-				updateEtterNavnModel();
-				} 
-			catch (Exception e) {
-					
-			}
-		}
-		
-	}	
 	
 	//sjekke om Brukernavn er gyldig
 		private void validateBrukerNavnView(String newValue) {
