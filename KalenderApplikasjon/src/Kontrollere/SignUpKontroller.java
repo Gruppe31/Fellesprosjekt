@@ -50,7 +50,7 @@ public class SignUpKontroller {
 					try {
 						Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
 						Context.getInstance().getPerson().setPassord(PassordField.getText());
-						launchGUI.startSignup(mainStage);
+						launchGUI.startMain(mainStage);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
