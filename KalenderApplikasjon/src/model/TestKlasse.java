@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class TestKlasse extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/GUI/loggInn.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/GUI/SignUp.fxml"));
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 	}

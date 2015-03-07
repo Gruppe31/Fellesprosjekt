@@ -193,7 +193,7 @@
       <Text layoutX="20.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine kalendere:" AnchorPane.leftAnchor="20.0" />
       <ListView fx:id="mineKalendere" layoutX="20.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varslinger:" AnchorPane.leftAnchor="20.0" />
-      <ListView fx:id="varslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
+      <ListView fx:id="mineVarslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <TextField fx:id="sok" alignment="CENTER" layoutX="33.0" layoutY="24.0" onKeyPressed="#sokTrykkEnter" promptText="Søk + Enter" AnchorPane.bottomAnchor="546.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>
