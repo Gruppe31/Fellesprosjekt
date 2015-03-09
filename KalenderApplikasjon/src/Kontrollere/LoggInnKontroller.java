@@ -44,6 +44,9 @@ public class LoggInnKontroller {
 			try{
 				Context.getInstance().getPerson().setBrukernavn(brukernavn.getText());
 				Context.getInstance().getPerson().setPassord(passord.getText());
+				//Skal lukke loggInn vinduet etter at main er aapnet.
+				//Stage stage = (Stage) loggInn.getScene().getWindow(); 
+				//stage.close();
 				launchGUI.startMain(mainStage);
 			}catch(IOException e){
 				e.printStackTrace();
