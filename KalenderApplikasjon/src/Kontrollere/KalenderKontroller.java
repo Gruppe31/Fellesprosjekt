@@ -98,20 +98,13 @@ public class KalenderKontroller implements Initializable{
 	}
 	
 	@FXML 
-	void NyAvtale(){//trenger ikke den handlingen innerst her.
+	void NyAvtale(){
 		// nyAvtale-vinduet skal komme opp
-		nyAvtale.requestFocus(); //Virker ikke?
-		nyAvtale.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent event) {
-				try {
-					launchGUI.startSkjema(skjemaStage);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		});
+		try {
+			launchGUI.startSkjema(skjemaStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML void LoggUt(){
