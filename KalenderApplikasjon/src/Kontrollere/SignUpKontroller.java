@@ -44,26 +44,23 @@ public class SignUpKontroller {
 	public void meldDegInn(){
 		MeldDegInn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
-				if(riktigPassord(PassordField.getText()))
-					sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "')";
-					try {
-						con.skriv(sql);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					try {
-						Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
-						Context.getInstance().getPerson().setPassord(PassordField.getText());
-						launchGUI.startMain(mainStage);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-				}
+			sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "','1')";
+			try {
+				con.skriv(sql);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			try {
+				Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
+				Context.getInstance().getPerson().setPassord(PassordField.getText());
+				launchGUI.startMain(mainStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 				
 			}
 		});
 	}
-<<<<<<< HEAD
 	public boolean riktigPassord(String passord){
 		if(passord.length() < 3){
 			return false;
@@ -71,9 +68,4 @@ public class SignUpKontroller {
 		return true;
 		
 	}
-		
-
-
-=======
->>>>>>> origin/master
 }
