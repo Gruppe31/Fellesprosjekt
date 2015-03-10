@@ -12,13 +12,16 @@ public class Kalender {
 	private int id;
 	ArrayList<Avtale> avtaler;
 	
-	public Kalender(int i){
-		this.id = i;
+	public Kalender(){
 		con = new Connector();
 	}
 	
 	public ArrayList<Avtale> getAvtaler() throws Exception{
-		// Maa endre paa databasetabellen saa de blir riktig i forhold til kontrolleren og fxml skjema.
+		ResultSet rs1 = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')");
+		while(rs1.next()){
+			this.id = rs1.getInt("KalenderID");
+		}
+		
 		ResultSet rs = con.les("SELECT * FROM avtale WHERE(KalenderID =" + this.id + ")");
 		avtaler = new ArrayList<Avtale>();
 		while(rs.next()){

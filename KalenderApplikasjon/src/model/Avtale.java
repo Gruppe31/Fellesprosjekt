@@ -29,6 +29,10 @@ public class Avtale{
 	private ArrayList<String> folkSomIkkeKommer;
 	
 	
+	public Avtale(){
+		//Default konstruktør
+	}
+	
 	public Avtale(String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String rom){
 		// Herfra lagres ting i databasen.
 		// Må ha en spørring til databasen for å finne avtaleID så den ikke krasjer med andre avtaleIDer
@@ -64,6 +68,7 @@ public class Avtale{
 			autoInc = rs.getString("Auto_Increment");
 		}
 		System.out.println(autoInc);
+		//Legger denne til verdiene i riktig rekkefoelge?
 		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.fraTid + "','" + this.tilTid + "','" + this.dato + "',' " + this.tittel
 				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
 		System.out.println(s1);
@@ -129,6 +134,10 @@ public class Avtale{
 	
 	public void setBeskrivelse(String beskrivelse){
 		this.beskrivelse = beskrivelse;
+	}
+	
+	public String getBeskrivelse(){
+		return this.beskrivelse;
 	}
 	
 	public void addInvitert(String brukerNavn){

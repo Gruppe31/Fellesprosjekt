@@ -44,6 +44,9 @@ public class LoggInnKontroller {
 			try{
 				Context.getInstance().getPerson().setBrukernavn(brukernavn.getText());
 				Context.getInstance().getPerson().setPassord(passord.getText());
+				//Skal lukke loggInn vinduet etter at main er aapnet.
+				Stage stage = (Stage) loggInn.getScene().getWindow(); 
+				stage.close();
 				launchGUI.startMain(mainStage);
 			}catch(IOException e){
 				e.printStackTrace();
@@ -55,6 +58,8 @@ public class LoggInnKontroller {
 	void meldInn(){
 		// her skal ny bruker bli sendt videre til innmeldingsvindu
 		try{
+			Stage stage = (Stage) meldInn.getScene().getWindow();
+			stage.close();
 			launchGUI.startSignup(signUpStage);
 		}catch(IOException e){
 			e.printStackTrace();
@@ -66,7 +71,6 @@ public class LoggInnKontroller {
 		String brukerNavn = brukernavn.getText();
 		String passOrd = passord.getText();
 		String sql = "SELECT Brukernavn, Passord FROM Person WHERE(Brukernavn = '" + brukerNavn + "' AND Passord = '" + passOrd + "')";
-		System.out.println(sql);
 		try {
 			ResultSet rs = con.les(sql);
 			if (!rs.next()) {

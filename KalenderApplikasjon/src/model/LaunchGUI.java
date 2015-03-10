@@ -48,6 +48,15 @@ public class LaunchGUI extends Application{
 	        signupStage.show();
 		
 	}
+	
+	public void startLoggInn(Stage loggInnStage) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/loggInn.fxml"));
+		loggInnStage.setScene(new Scene(root));
+		loggInnStage.setTitle("SIGN UP");
+		loggInnStage.show();
+		
+	}
 
 	public static void main(String[] args) {
 	

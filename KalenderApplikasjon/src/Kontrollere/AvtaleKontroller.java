@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -21,7 +20,7 @@ import model.Avtale;
 import model.Context;
 import mysql.Connector;
 
-public class AvtaleKontroller implements Initializable{
+public class AvtaleKontroller{
 	
 	private String bruker;
 	private Connector con = new Connector();
@@ -48,6 +47,15 @@ public class AvtaleKontroller implements Initializable{
 	@FXML private Button fjernDeltager;
 	@FXML private Button lagre;
 	@FXML private Button avbryt;
+	
+	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
+		this.bruker = Context.getInstance().getPerson().getBrukernavn();
+		if (Context.getInstance().getAvtale().getTittel() != null) {//Initialiserer avtalevinduet med informasjon hvis tittelen til avtale i context ikke er null.
+			tittel.setText(Context.getInstance().getAvtale().getTittel());
+			beskrivelse.setText(Context.getInstance().getAvtale().getBeskrivelse());
+			pane.setDisable(true);
+		}
+	}
 	
 	@FXML
 	void finnRom() throws Exception{
@@ -83,16 +91,22 @@ public class AvtaleKontroller implements Initializable{
 	@FXML
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
-		// Avtale lagrer i databasen.
+		// Avtale lagres i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
+			ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
+			int kalenderID = 0;
+			while(rs.next()){
+				kalenderID = rs.getInt("KalenderID");
+			}
+			//Maa faa ut avtaleID. Kanskje den skal legges til i konstruktoren?
 			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 ,1);
+					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 , kalenderID);
 			
-			//itererer over brukernavn og legger de til.
+			//itererer over brukernavn og legger de til i modelen.
 			for (String brukerNavn : brukere) {
-				System.out.println(brukerNavn);
 				model.addInvitert(brukerNavn);
 			}
+			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			model.databaseSettInn();
 			
 		}else{
@@ -194,9 +208,4 @@ public class AvtaleKontroller implements Initializable{
 		}
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		this.bruker = Context.getInstance().getPerson().getBrukernavn();
-		
-	}
 }

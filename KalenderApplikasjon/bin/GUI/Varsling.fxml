@@ -8,6 +8,7 @@
 
 <AnchorPane fx:id="sidenr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="588.0" style="-fx-background-color: #b8ccc861;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.VarslingKontroller">
    <children>
+      <Pane prefHeight="576.0" prefWidth="588.0" style="-fx-background-color: b8ccc8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label layoutX="188.0" layoutY="37.0" text="Varslinger" AnchorPane.bottomAnchor="480.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="46.0" />
