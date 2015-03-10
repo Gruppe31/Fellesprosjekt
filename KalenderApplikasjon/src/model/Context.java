@@ -7,7 +7,7 @@ public class Context {
 	Stage skjemaStage = new Stage();
 	public static Context instance = new Context();
 	
-	
+	//Kommer kanskje til aa fjerne avtale.
 	Avtale avtale = new Avtale();
 	public Person bruker = new Person();
 	public Kalender kalender = new Kalender();

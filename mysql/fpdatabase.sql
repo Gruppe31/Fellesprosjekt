@@ -76,6 +76,6 @@ avtaleEndret VARCHAR(30),
 hvemKommerIkke VARCHAR(70),
 PRIMARY KEY (Brukernavn, AvtaleID),
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
-FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn)
+FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn),
 FOREIGN KEY (kommerIkke) REFERENCES Person Brukernavn)
 );
