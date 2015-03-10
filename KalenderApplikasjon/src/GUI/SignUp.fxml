@@ -16,7 +16,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <GridPane layoutX="40.0" layoutY="126.0">
+            <GridPane layoutX="40.0" layoutY="126.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +32,7 @@
                   <PasswordField fx:id="PassordField" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" text="Meld deg inn" onAction="#meldDegInn"/>
+            <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldDegInn" text="Meld deg inn" />
             <Button fx:id="Avbryt" layoutX="161.0" layoutY="235.0" mnemonicParsing="false" text="Avbryt" />
          </children>
       </Pane>
