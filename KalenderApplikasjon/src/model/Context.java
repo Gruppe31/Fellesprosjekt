@@ -8,8 +8,9 @@ public class Context {
 	public static Context instance = new Context();
 	
 	
+	Avtale avtale = new Avtale();
 	public Person bruker = new Person();
-	public Kalender kalender;
+	public Kalender kalender = new Kalender();
 	
 	public static Context getInstance(){
 		return instance;
@@ -21,5 +22,13 @@ public class Context {
 	
 	public Kalender getKalender(){
 		return this.kalender;
+	}
+	
+	public Avtale getAvtale(){
+		return this.avtale;
+	}
+	
+	public void setAvtale(Avtale avtale){
+		this.avtale = avtale;
 	}
 }

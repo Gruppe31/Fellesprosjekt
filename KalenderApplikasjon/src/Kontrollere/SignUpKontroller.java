@@ -42,24 +42,20 @@ public class SignUpKontroller {
 	
 	@FXML
 	public void meldDegInn(){
-		MeldDegInn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent event) {
-			sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "','1')";
-			try {
-				con.skriv(sql);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			try {
-				Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
-				Context.getInstance().getPerson().setPassord(PassordField.getText());
-				launchGUI.startMain(mainStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		sql = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "','1')";
+		try {
+			con.skriv(sql);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			Context.getInstance().getPerson().setBrukernavn(BrukerNavnField.getText());
+			Context.getInstance().getPerson().setPassord(PassordField.getText());
+			launchGUI.startMain(mainStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 				
-			}
-		});
 	}
 	public boolean riktigPassord(String passord){
 		if(passord.length() < 3){
