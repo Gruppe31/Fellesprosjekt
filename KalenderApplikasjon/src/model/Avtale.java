@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import mysql.Connector;
 
 public class Avtale{
@@ -19,6 +21,9 @@ public class Avtale{
 	private String tittel;
 	private String beskrivelse;
 	private String oppdatert;
+	
+	private SimpleStringProperty tid = new SimpleStringProperty();
+	private SimpleStringProperty dag = new SimpleStringProperty();
 
 	private ArrayList<String> invitert;
 	private ArrayList<String> folkSomIkkeKommer;
@@ -165,6 +170,14 @@ public class Avtale{
 	
 	public String getTittel(){
 		return this.tittel;
+	}
+	
+	public StringProperty tidProperty(){
+		return tid;
+	}
+	
+	public StringProperty dagProperty(){
+		return dag;
 	}
 	
 	@Override
