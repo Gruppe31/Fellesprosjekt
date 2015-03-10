@@ -48,7 +48,7 @@ public class AvtaleKontroller{
 	@FXML private Button lagre;
 	@FXML private Button avbryt;
 	
-	public void initialize() {
+	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
 		this.bruker = Context.getInstance().getPerson().getBrukernavn();
 		if (Context.getInstance().getAvtale().getTittel() != null) {//Initialiserer avtalevinduet med informasjon hvis tittelen til avtale i context ikke er null.
 			tittel.setText(Context.getInstance().getAvtale().getTittel());
