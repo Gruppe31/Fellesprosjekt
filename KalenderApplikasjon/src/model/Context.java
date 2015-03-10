@@ -10,6 +10,7 @@ public class Context {
 	
 	public Person bruker = new Person();
 	public Kalender kalender;
+	private Avtale avtale;
 	
 	public static Context getInstance(){
 		return instance;
@@ -21,5 +22,9 @@ public class Context {
 	
 	public Kalender getKalender(){
 		return this.kalender;
+	}
+
+	public Avtale getAvtale() {
+		return this.avtale;
 	}
 }
