@@ -37,8 +37,6 @@ public class KalenderKontroller implements Initializable{
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
 	
-	
-	
 	Stage skjemaStage = new Stage();
 	Stage loggInnStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
@@ -111,7 +109,6 @@ public class KalenderKontroller implements Initializable{
 	@FXML void LoggUt(){
 		//sendes tilbake til loggInn-vinduet
 		try{
-			System.out.println("llf");
 			Stage stage = (Stage) loggUt.getScene().getWindow(); 
 			stage.close();
 			launchGUI.startLoggInn(loggInnStage);
@@ -119,7 +116,4 @@ public class KalenderKontroller implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
-	
-
 }
