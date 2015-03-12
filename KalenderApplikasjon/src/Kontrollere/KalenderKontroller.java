@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,7 +21,7 @@ import model.LaunchGUI;
 import model.Person;
 import mysql.Connector;
 
-public class KalenderKontroller implements Initializable{
+public class KalenderKontroller{
 	
 	private Connector con = new Connector();
 	
@@ -36,12 +35,14 @@ public class KalenderKontroller implements Initializable{
 	
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
+	@FXML private Button nyGruppe;
 	
 	Stage skjemaStage = new Stage();
 	Stage loggInnStage = new Stage();
+	Stage gruppeStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
-	public void initialize(URL arg0, ResourceBundle arg1) { //Trenger ikke argumentene her.
+	public void initialize() { //Trenger ikke argumentene her.
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
@@ -101,6 +102,14 @@ public class KalenderKontroller implements Initializable{
 		try {
 			launchGUI.startSkjema(skjemaStage);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML void lagNyGruppe(){
+		try{
+			launchGUI.startGruppe(gruppeStage);
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}

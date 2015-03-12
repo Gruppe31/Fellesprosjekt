@@ -57,6 +57,15 @@ public class LaunchGUI extends Application{
 		loggInnStage.show();
 		
 	}
+	
+	public void startGruppe(Stage gruppeStage) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Gruppe.fxml"));
+		gruppeStage.setScene(new Scene(root));
+		gruppeStage.setTitle("Lag ny gruppe");
+		gruppeStage.show();
+		
+	}
 
 	public static void main(String[] args) {
 	

@@ -23,16 +23,10 @@ public class Gruppe {
 	}
 	
 	public Gruppe(String gruppenavn, int kalenderID){
-		setGruppenavn(gruppenavn);
+		this.gruppenavn = gruppenavn;
 		this.kalenderID = kalenderID;
 	}
 
-	public void setGruppenavn(String gruppenavn){
-		if(gruppenavn != " "){
-			this.gruppenavn = gruppenavn;
-		}
-	}
-	
 	public String getGruppenavn(){
 		return this.gruppenavn;
 	}
@@ -50,15 +44,9 @@ public class Gruppe {
 	}
 	
 	public void databaseSettInn() throws Exception{
-		java.util.Date date= new java.util.Date();
-		ResultSet rs = con.les("SELECT Auto_increment FROM information_schema.tables WHERE table_name='Gruppe'");
-		String autoInc = null;
-		while(rs.next()){
-			autoInc = rs.getString("Auto_Increment");
-		}
 		String s1 = "INSERT INTO Gruppe VALUES ('0','" + gruppenavn + "')";
 		con.skriv(s1);
-		ResultSet rs2 = con.les("SELECT GruppeID FROM Gruppe ");
+		ResultSet rs = con.les("SELECT GruppeID FROM Gruppe ");
 		int gruppeID = 0;
 		while(rs.next()){
 			gruppeID = rs.getInt("GruppeID");
@@ -70,5 +58,7 @@ public class Gruppe {
 		String s3 = "INSERT INTO Kalendergruppe VALUES(" + kalenderID + "," + gruppeID + ")";
 		con.skriv(s3);
 	}
-	
+	public String toString(){
+		return gruppenavn + " " + kalenderID + " " + brukerListe.toString();
+	}
 }
