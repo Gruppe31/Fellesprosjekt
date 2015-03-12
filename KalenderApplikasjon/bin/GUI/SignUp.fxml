@@ -34,6 +34,7 @@
             </GridPane>
             <Button fx:id="MeldDegInn" layoutX="57.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldDegInn" text="Meld deg inn" />
             <Button fx:id="Avbryt" layoutX="161.0" layoutY="235.0" mnemonicParsing="false" text="Avbryt" />
+            <Text fx:id="feilmelding" fill="RED" layoutX="28.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavnet eksisterer fra før av" visible="false"/>
          </children>
       </Pane>
    </children>

@@ -81,6 +81,7 @@ public class LoggInnKontroller {
 				feil.setVisible(false);
 				return true;
 			}
+				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

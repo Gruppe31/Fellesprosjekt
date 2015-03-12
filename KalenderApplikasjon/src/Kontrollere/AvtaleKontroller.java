@@ -59,19 +59,23 @@ public class AvtaleKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
+		for (String romNavn : romListe) {
+			romListe.remove(romNavn);
+		}
+		rom.setItems(romListe);
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
+			
 			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" + fraTid.getText() + "' AND Avtale.Dato ='" + dato.getValue().toString() +"' AND Rom.Antall >'" + brukere.size() + "'))";
 			ResultSet rs = con.les(s);
 			while(rs.next()){
-				romListe.add(rs.getString("romNavn"));
-				rom.setItems(romListe);
+			
+				if(!romListe.contains(rs.getString("romNavn"))){
+					romListe.add(rs.getString("romNavn"));
+					rom.setItems(romListe);
+				}
 			}
 		}else{
 			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
-//			for (String romNavn : romListe) {
-//				romListe.remove(romNavn);
-//			}
-//			rom.setItems(romListe);
 			if (!erFraTidRiktig(fraTid.getText())) {
 				fraTid.setStyle("-fx-background-color: #FF00000");
 			}if(!erTilTidRiktig(tilTid.getText())){
@@ -92,13 +96,12 @@ public class AvtaleKontroller{
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText())){
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
 			ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
 			int kalenderID = 0;
 			while(rs.next()){
 				kalenderID = rs.getInt("KalenderID");
 			}
-			//Maa faa ut avtaleID. Kanskje den skal legges til i konstruktoren?
 			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
 					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 , kalenderID);
 			
@@ -108,14 +111,29 @@ public class AvtaleKontroller{
 			}
 			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			model.databaseSettInn();
+			Stage stage = (Stage) lagre.getScene().getWindow();
+			stage.close();
 			
 		}else{
 			if (!erFraTidRiktig(fraTid.getText())) {
 				fraTid.setStyle("-fx-background-color: #FF00000");
-			}if(!erTilTidRiktig(tilTid.getText())){
+			}else{
+				fraTid.setStyle("-fx-background-color: #FFFFFFF");
+			}
+			if(!erTilTidRiktig(tilTid.getText())){
 				tilTid.setStyle("-fx-background-color: #FF0000");
-			}if(!erDatoRiktig(dato.getValue())){
+			}else{
+				tilTid.setStyle("-fx-background-color: #FFFFFF");
+			}
+			if(!erDatoRiktig(dato.getValue())){
 				dato.setStyle("-fx-background-color: #FF0000");
+			}else{
+				dato.setStyle("-fx-background-color: #FFFFFF");
+			}
+			if(romListe.get(rom.getSelectionModel().getSelectedIndex()) == null){
+				rom.setStyle("-fx-background-color: #FF0000");
+			}else{
+				rom.setStyle("-fx-background-color: #FFFFFF");
 			}
 		}
 	}
@@ -138,8 +156,7 @@ public class AvtaleKontroller{
 		}
 		
 		if(bruker == null){
-			System.out.println("pls");
-			// leggTilPerson.setStyle("-fx-background-color: #FF0000");
+			leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
@@ -149,18 +166,15 @@ public class AvtaleKontroller{
 			deltagere.setItems(brukere);
 		}	
 		while(rs2.next()){
-			System.out.println("YO");
 			gruppe = rs2.getString("Gruppenavn");
-			System.out.println(gruppe);
 		}
 		
 		if(gruppe == null){
-			//leggTilPerson.setStyle("-fx-background-color: #FF0000");
+			leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
 			String s3 = "SELECT Brukernavn From Brukergruppe JOIN Gruppe ON(Brukergruppe.GruppeID = Gruppe.GruppeID) WHERE(Gruppenavn ='" + gruppe + "')";
-			System.out.println(s3);
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
