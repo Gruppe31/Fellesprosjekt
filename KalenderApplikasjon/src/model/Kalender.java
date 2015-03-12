@@ -11,6 +11,7 @@ public class Kalender {
 	private Connector con;
 	private int id;
 	ArrayList<Avtale> avtaler;
+	ArrayList<Gruppe> grupper;
 	
 	public Kalender(){
 		con = new Connector();
@@ -53,7 +54,7 @@ public class Kalender {
 			String kalenderIDString = rs.getString("KalenderID");
 			int kalenderID = Integer.parseInt(kalenderIDString);
 			
-			//Person har ikke konstruktør
+			//Person har ikke konstruktï¿½r
 			bruker.setBrukernavn(brukernavn);
 			bruker.setPassord(passord);
 			//Person klassen har ingen kalenderID felt 
@@ -66,14 +67,12 @@ public class Kalender {
 		ResultSet rs = con.les("SELECT * FROM gruppe WHERE(KalenderID =" + this.id + ")");
 		Gruppe gruppe = new Gruppe();
 		while(rs.next()){
-			String gruppeIDString = rs.getString("GruppeID");
 			String gruppenavn = rs.getString("Gruppenavn");
 			String kalenderIDString = rs.getString("KalenderID");
 			
-			int gruppeID = Integer.parseInt(gruppeIDString);
 			int kalenderID = Integer.parseInt(kalenderIDString);
 			
-			gruppe = new Gruppe(gruppeID, gruppenavn, kalenderID);
+			gruppe = new Gruppe(gruppenavn, kalenderID);
 		}
 		return gruppe;
 	}
@@ -84,6 +83,10 @@ public class Kalender {
 	
 	public void addAvtale(Avtale avtale){
 		avtaler.add(avtale);
+	}
+	
+	public void leggTilGruppe(Gruppe gruppe){
+		grupper.add(gruppe);
 	}
 	
 }
