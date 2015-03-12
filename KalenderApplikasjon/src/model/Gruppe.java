@@ -1,37 +1,30 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import mysql.Connector;
 
 public class Gruppe {
 	
 	private String gruppenavn;
-	private int gruppeid;
 	private int kalenderID;
-	private List<Person> brukerListe = new ArrayList();
+	private List<String> brukerListe = new ArrayList();
+	
+	private Connector con = new Connector();
 	
 	public Gruppe(){
-		// default konstruktør.
+		// default konstruktï¿½r.
 		this.gruppenavn = null;
-		this.gruppeid = 0;
 		this.kalenderID = 0;
 		
 	}
 	
-	public Gruppe(int gruppeid, String gruppenavn, int kalenderID){
+	public Gruppe(String gruppenavn, int kalenderID){
 		setGruppenavn(gruppenavn);
-		setGruppeid(gruppeid);
 		this.kalenderID = kalenderID;
-	}
-	
-	public void setGruppeid(int gruppeid) {
-		if(gruppeid > 0){
-			this.gruppeid = gruppeid;
-		}
-	}
-	
-	public int getGruppeid(){
-		return this.gruppeid;
 	}
 
 	public void setGruppenavn(String gruppenavn){
@@ -44,7 +37,7 @@ public class Gruppe {
 		return this.gruppenavn;
 	}
 
-	public void leggTilGruppe(Person person){
+	public void leggTilGruppe(String person){
 		this.brukerListe.add(person);
 	}
 	
@@ -54,6 +47,28 @@ public class Gruppe {
 	
 	public List getGruppeliste(){
 		return this.brukerListe;
+	}
+	
+	public void databaseSettInn() throws Exception{
+		java.util.Date date= new java.util.Date();
+		ResultSet rs = con.les("SELECT Auto_increment FROM information_schema.tables WHERE table_name='Gruppe'");
+		String autoInc = null;
+		while(rs.next()){
+			autoInc = rs.getString("Auto_Increment");
+		}
+		String s1 = "INSERT INTO Gruppe VALUES ('0','" + gruppenavn + "')";
+		con.skriv(s1);
+		ResultSet rs2 = con.les("SELECT GruppeID FROM Gruppe ");
+		int gruppeID = 0;
+		while(rs.next()){
+			gruppeID = rs.getInt("GruppeID");
+		}
+		for(String deltaker : brukerListe){
+			String s2 = "INSERT INTO Brukergruppe VALUES('" + deltaker + "'," + gruppeID +  ")";
+			con.skriv(s2);
+		}
+		String s3 = "INSERT INTO Kalendergruppe VALUES(" + kalenderID + "," + gruppeID + ")";
+		con.skriv(s3);
 	}
 	
 }
