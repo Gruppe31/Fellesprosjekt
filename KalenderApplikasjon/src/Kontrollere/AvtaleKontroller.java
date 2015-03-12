@@ -64,8 +64,11 @@ public class AvtaleKontroller{
 		}
 		rom.setItems(romListe);
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
-			
-			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" + fraTid.getText() + "' AND Avtale.Dato ='" + dato.getValue().toString() +"' AND Rom.Antall >'" + brukere.size() + "'))";
+			int antall = brukere.size();
+			System.out.println(antall);
+			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" 
+			+ fraTid.getText() + "' AND Avtale.Dato ='"
+			+ dato.getValue().toString() +"')) AND Rom.Antall >" + antall;
 			ResultSet rs = con.les(s);
 			while(rs.next()){
 			
@@ -109,6 +112,7 @@ public class AvtaleKontroller{
 			for (String brukerNavn : brukere) {
 				model.addInvitert(brukerNavn);
 			}
+			model.addInvitert(Context.getInstance().getPerson().getBrukernavn());
 			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			model.databaseSettInn();
 			Stage stage = (Stage) lagre.getScene().getWindow();
@@ -155,7 +159,7 @@ public class AvtaleKontroller{
 			bruker = rs.getString("Brukernavn");
 		}
 		
-		if(bruker == null){
+		if(bruker == null || bruker == Context.getInstance().getPerson().getBrukernavn()){
 			leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
@@ -170,7 +174,7 @@ public class AvtaleKontroller{
 		}
 		
 		if(gruppe == null){
-			leggTilPerson.setStyle("-fx-background-color: #FF0000");
+			//leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
