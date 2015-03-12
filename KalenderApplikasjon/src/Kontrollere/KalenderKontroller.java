@@ -37,8 +37,6 @@ public class KalenderKontroller implements Initializable{
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
 	
-	
-	
 	Stage skjemaStage = new Stage();
 	Stage loggInnStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
@@ -47,7 +45,6 @@ public class KalenderKontroller implements Initializable{
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
-		System.out.println(s);
 		try {
 			ResultSet rs = con.les(s);
 			while(rs.next()){
@@ -62,7 +59,6 @@ public class KalenderKontroller implements Initializable{
 		
 		String sql2 = "SELECT Tittel FROM Avtale JOIN Brukeravtale ON (Avtale.AvtaleID = Brukeravtale.AvtaleID) WHERE (Brukernavn = '" + brukerNavn + "')"
 				+ "";
-		System.out.println(sql2);
 		try {
 			ResultSet rs = con.les(sql2);
 			while(rs.next()){
@@ -81,6 +77,7 @@ public class KalenderKontroller implements Initializable{
 	@FXML
 	public void sokTrykkEnter(){
 		sok.setOnKeyPressed(new EventHandler<KeyEvent>(){
+		// Hva skal vi gjore her.
 			@Override
 			public void handle(KeyEvent ke){
 				try {
@@ -100,7 +97,7 @@ public class KalenderKontroller implements Initializable{
 	
 	@FXML 
 	void NyAvtale(){
-		// nyAvtale-vinduet skal komme opp
+		// nyAvtale-vinduet dukker opp.
 		try {
 			launchGUI.startSkjema(skjemaStage);
 		} catch (IOException e) {
@@ -111,7 +108,6 @@ public class KalenderKontroller implements Initializable{
 	@FXML void LoggUt(){
 		//sendes tilbake til loggInn-vinduet
 		try{
-			System.out.println("llf");
 			Stage stage = (Stage) loggUt.getScene().getWindow(); 
 			stage.close();
 			launchGUI.startLoggInn(loggInnStage);
@@ -119,7 +115,4 @@ public class KalenderKontroller implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
-	
-
 }

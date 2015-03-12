@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import sun.util.resources.LocaleData;
 import mysql.Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -187,6 +188,20 @@ public class KalenderKontrollerTest {
 			}
 			
 		});
+	}
+	
+	public double tidTilDouble(String tid){
+		String[] tallSplittet = tid.split(":");
+		String dou = tallSplittet[0] + "." + (int)((Double.parseDouble(tallSplittet[1])/60.0)*100);
+		return Double.parseDouble(dou);
+	}
+	
+	//2015-03-27	
+	//yyyy-mm-dd
+	public int datoTilDag(String dato){
+		LocalDate dag = LocalDate.parse(dato);
+		//mandag = 1, tirsdag = 2 osv.
+		return dag.getDayOfWeek().getValue();
 	}
 	
 	@FXML 

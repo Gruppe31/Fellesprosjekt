@@ -73,9 +73,9 @@ CREATE TABLE Varsel(
 Brukernavn VARCHAR(70),
 AvtaleID INT,
 avtaleEndret VARCHAR(30),
-hvemKommerIkke VARCHAR(70),
+kommerIkke VARCHAR(70),
 PRIMARY KEY (Brukernavn, AvtaleID),
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID),
 FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn),
-FOREIGN KEY (kommerIkke) REFERENCES Person Brukernavn)
+FOREIGN KEY (kommerIkke) REFERENCES Person (Brukernavn)
 );

@@ -25,9 +25,9 @@
             <PasswordField fx:id="passord" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="loggInn" layoutX="14.0" layoutY="235.0" mnemonicParsing="false" onAction="#loggInn" text="Logg inn" AnchorPane.leftAnchor="14.0" />
-      <Button fx:id="meldInn" layoutX="91.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldInn" text="Ikke bruker? Meld deg inn!" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="8.0" />
-      <Text fx:id="feil" fill="#ff1111" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn/passord er feil!" visible="false">
+      <Button fx:id="loggInn" layoutX="65.0" layoutY="235.0" mnemonicParsing="false" onAction="#loggInn" text="Logg inn" AnchorPane.leftAnchor="65.0" />
+      <Button fx:id="meldInn" layoutX="152.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldInn" prefHeight="31.0" prefWidth="115.0" text="Meld deg inn!" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="8.0" />
+      <Text fx:id="feil" fill="#ff1111" layoutX="37.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn/passord er feil!" visible="false">
          <font>
             <Font size="18.0" />
          </font>
