@@ -67,18 +67,13 @@ public class Avtale{
 		while(rs.next()){
 			autoInc = rs.getString("Auto_Increment");
 		}
-		System.out.println(autoInc);
-		//Legger denne til verdiene i riktig rekkefoelge?
 		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.fraTid + "','" + this.tilTid + "','" + this.dato + "',' " + this.tittel
 				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
-		System.out.println(s1);
 		con.skriv(s1);
 		
 		
 		for(String deltaker : invitert){
-			System.out.println(deltaker);
 			String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + autoInc + "', '0','" + this.dato.toString() + " " + this.fraTid + ":00')";
-			System.out.println(s2);
 			con.skriv(s2);
 		}
 	}

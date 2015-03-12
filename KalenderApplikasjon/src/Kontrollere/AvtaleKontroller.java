@@ -102,7 +102,6 @@ public class AvtaleKontroller{
 			while(rs.next()){
 				kalenderID = rs.getInt("KalenderID");
 			}
-			//Maa faa ut avtaleID. Kanskje den skal legges til i konstruktoren?
 			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
 					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 , kalenderID);
 			
@@ -112,6 +111,8 @@ public class AvtaleKontroller{
 			}
 			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			model.databaseSettInn();
+			Stage stage = (Stage) lagre.getScene().getWindow();
+			stage.close();
 			
 		}else{
 			if (!erFraTidRiktig(fraTid.getText())) {
@@ -166,16 +167,14 @@ public class AvtaleKontroller{
 		}	
 		while(rs2.next()){
 			gruppe = rs2.getString("Gruppenavn");
-			System.out.println(gruppe);
 		}
 		
 		if(gruppe == null){
-			//leggTilPerson.setStyle("-fx-background-color: #FF0000");
+			leggTilPerson.setStyle("-fx-background-color: #FF0000");
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
 			String s3 = "SELECT Brukernavn From Brukergruppe JOIN Gruppe ON(Brukergruppe.GruppeID = Gruppe.GruppeID) WHERE(Gruppenavn ='" + gruppe + "')";
-			System.out.println(s3);
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
