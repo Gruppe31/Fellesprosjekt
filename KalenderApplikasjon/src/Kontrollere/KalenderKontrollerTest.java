@@ -2,6 +2,7 @@ package Kontrollere;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -60,12 +61,42 @@ public class KalenderKontrollerTest {
 			}
 		};
 		
+		
+		Avtale avtale = Context.getInstance().getAvtale();
+		
+		
+		String tid = avtale.getFraTid();
+		String dag = avtale.getDato();
+		
+		//tid.bindBidirectional(contact.tidProperty());
+		//dag.bindBidirectional(contact.dagProperty());
+		
+		
+		double hpos = tidTilDouble(tid);
+		int bpos = datoTilDag(dag);
+		
+		
 		Generator gen = new Generator();
 		
-		kalPane.getChildren().addAll(gen.rectGen(1,1, handler), gen.lblGen(1,1," Møte 01:00", handler));
+		kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,1, handler), gen.lblGen(bpos,hpos," Møte "+tid, handler));
 		
 		
 	}
+	
+	public double tidTilDouble(String tid){
+		String[] tallSplittet = tid.split(":");
+		String dou = tallSplittet[0] + "." + (int)((Double.parseDouble(tallSplittet[1])/60.0)*100);
+		return Double.parseDouble(dou);
+	}
+	//2015-03-27
+	//yyyy-mm-dd
+	
+	public int datoTilDag(String dato){
+		LocalDate dag = LocalDate.parse(dato);
+		//mandag = 1, tirsdag = 2 osv.
+		return dag.getDayOfWeek().getValue();
+		}
+	
 	
 	@FXML
 	void testBtn(){
@@ -87,7 +118,7 @@ public class KalenderKontrollerTest {
 		
 		Generator gen = new Generator();
 		
-		kalPane.getChildren().addAll(gen.rectGen(0,0, handler), gen.lblGen(0,0," Møte 00:00", handler));
+		kalPane.getChildren().addAll(gen.rectGen(0,0,1, handler), gen.lblGen(0,0," Møte 00:00", handler));
 		
 		/*
 		Rectangle rect = new Rectangle(135, 30, Color.CORNSILK);
