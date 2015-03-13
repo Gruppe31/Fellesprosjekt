@@ -36,7 +36,7 @@ public class LoggInnKontroller {
 	private Connector con = new Connector();
 	
 	@FXML
-	void loggInn(){
+	void loggInn() throws Exception{
 		// her skal alt valideres og bruker bli logget inn i systemet
 		if(erBrukernavnOgPassordRiktig()){
 			//logg inn
@@ -44,6 +44,12 @@ public class LoggInnKontroller {
 			try{
 				Context.getInstance().getPerson().setBrukernavn(brukernavn.getText());
 				Context.getInstance().getPerson().setPassord(passord.getText());
+				ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + brukernavn.getText() + "')");
+				int kalenderID = 0;
+				while(rs.next()){
+					kalenderID = rs.getInt("KalenderID");
+				}
+				Context.getInstance().getKalender().setKalenderID(kalenderID);
 				//Skal lukke loggInn vinduet etter at main er aapnet.
 				Stage stage = (Stage) loggInn.getScene().getWindow(); 
 				stage.close();

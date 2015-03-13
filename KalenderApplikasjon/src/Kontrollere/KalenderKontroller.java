@@ -50,7 +50,7 @@ public class KalenderKontroller{
 	Stage gruppeStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
-	public void initialize() {
+	public void initialize() throws Exception{
 		//Egen metode for aa initialisere alle avtalene.
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
@@ -79,6 +79,39 @@ public class KalenderKontroller{
 			mineVarslinger.setItems(varslingListe);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		double hpos = 0;
+		double tilTid = 0;
+		double lengde = 0;
+		String tidText = "";
+		int bpos = 0;
+		String tittel = "";
+		String beskrivelse = "";
+		while(rs.next()){
+			Stage primaryStage = new Stage();
+			//Aapner avtale vinduet etter at rektangelet er trykket paa.
+			hpos = tidTilDouble(rs.getString("fraTid"));
+			tidText = rs.getString("fraTid");
+			tilTid = tidTilDouble(rs.getString("tilTid"));
+			tittel = rs.getString("Tittel");
+			beskrivelse = rs.getString("Beskrivelse");
+			bpos = datoTilDag(rs.getString("Dato"));
+			Generator gen = new Generator();
+			lengde = tilTid - hpos;
+			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
+				public void handle(InputEvent event) {
+					try {
+						System.out.println(gen);
+						launchGUI.start(primaryStage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse), gen.lblGen(bpos,hpos, tittel + " " + tidText.substring(0, 5), handler));
 		}
 	}
 	
@@ -150,67 +183,13 @@ public class KalenderKontroller{
 	void test2Btn() throws Exception{
 		System.out.println("Test 2");
 		
-		Stage primaryStage = new Stage();
-		
-		EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
-			public void handle(InputEvent event) {
-				try {
-					launchGUI.start(primaryStage);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		};
 		
 		
 		
-		
-		
-		ResultSet tid = con.les("SELECT fraTid FROM Avtale");
-		ResultSet tid3 = con.les("SELECT fraTid FROM Avtale");
-		ResultSet tid2 = con.les("SELECT tilTid FROM Avtale");
-		ResultSet dag = con.les("SELECT Dato FROM Avtale");
-		
-		
+		//Skal gjore alle sql sporringene her i ett
 		
 		//tid.bindBidirectional(contact.tidProperty());
 		//dag.bindBidirectional(contact.dagProperty());
-		
-		double hpos = 0;
-		double tilTid = 0;
-		double lengde = 0;
-		String tidText = "";
-		int bpos = 0;
-		
-		
-		while(tid.next()){
-			hpos = tidTilDouble(tid.getString("fraTid"));
-		}
-		
-		while(tid3.next()){
-			tidText = tid3.getString("fraTid");
-		}
-		
-		while(tid2.next()){
-			tilTid = tidTilDouble(tid2.getString("tilTid"));
-		}
-		
-		
-		while(dag.next()){
-			bpos = datoTilDag(dag.getString("Dato"));
-		}
-		
-		lengde = tilTid - hpos;
-		
-		System.out.println(hpos);
-		System.out.println(bpos);
-		
-		Generator gen = new Generator();
-		
-		kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,lengde, handler), gen.lblGen(bpos,hpos," Møte "+tidText, handler));
-		
-		
 	}
 	
 	public double tidTilDouble(String tid){

@@ -90,4 +90,12 @@ public class Kalender {
 		grupper.add(gruppe);
 	}
 	
+	public void setKalenderID(int id){
+		this.id = id;
+	}
+	
+	public int getKalenderID(){
+		return this.id;
+	}
+	
 }
