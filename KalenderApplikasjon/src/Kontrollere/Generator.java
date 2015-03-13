@@ -16,7 +16,7 @@ import model.Context;
 public class Generator {
 	
 
-	Rectangle rectGen(int dag, double tid, int lengde, EventHandler<InputEvent> handler){
+	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler){
 		Rectangle rect = new Rectangle(135, 30*lengde, Color.CORNSILK);
 		rect.setStroke(Color.BLACK);
 		rect.relocate(dag*135, tid*30);
