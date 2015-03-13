@@ -49,6 +49,7 @@ public class Avtale{
 	
 	public Avtale(String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
 		this.kalenderID = kalenderID;
+		this.avtaleID = avtaleID;
 		this.fraTid = fraTid;
 		this.tilTid = tilTid;
 		this.dato = dato;

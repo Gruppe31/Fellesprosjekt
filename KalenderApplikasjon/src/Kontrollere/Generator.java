@@ -16,14 +16,11 @@ import model.Context;
 public class Generator {
 	private int dag;
 	private double tid;
-	private String tittel;
-	private String beskrivelse;
+	Avtale avtale;
 
-	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String tittel, String beskrivelse){
-		this.dag = dag;
-		this.tid = tid;
-		this.tittel = tittel;
-		this.beskrivelse = beskrivelse;
+	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String fraTid, String tilTid, String dato, String tittel, String beskrivelse,
+			String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
+		this.avtale = new Avtale(fraTid, tilTid, dato, tittel, beskrivelse, oppdatert, rom, leder, avtaleID, kalenderID);
 		Rectangle rect = new Rectangle(135, 30*lengde, Color.CORNSILK);
 		rect.setStroke(Color.BLACK);
 		rect.relocate(dag*135, tid*30);
@@ -38,9 +35,8 @@ public class Generator {
 		return lbl;
 	}
 	
-	public String toString(){
-		return dag + " " + tid + " " + tittel + " " + beskrivelse;
+	public Avtale getAvtale(){
+		return this.avtale;
 	}
-	
 	
 }

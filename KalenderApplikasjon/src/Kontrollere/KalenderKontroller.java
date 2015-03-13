@@ -82,36 +82,47 @@ public class KalenderKontroller{
 		}
 		
 		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
-		double hpos = 0;
-		double tilTid = 0;
-		double lengde = 0;
-		String tidText = "";
-		int bpos = 0;
+		String fraTid = "";
+		String tilTid = "";
+		String dato = "";
 		String tittel = "";
 		String beskrivelse = "";
+		String oppdatert = "";
+		String rom = "";
+		String leder = "";
+		int avtaleID = 0;
+		int kalenderID = 0;
+		double lengde = 0;
+		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
 			//Aapner avtale vinduet etter at rektangelet er trykket paa.
-			hpos = tidTilDouble(rs.getString("fraTid"));
-			tidText = rs.getString("fraTid");
-			tilTid = tidTilDouble(rs.getString("tilTid"));
+			fraTid = rs.getString("fraTid");
+			tilTid = rs.getString("tilTid");
+			dato = rs.getString("Dato");
 			tittel = rs.getString("Tittel");
 			beskrivelse = rs.getString("Beskrivelse");
-			bpos = datoTilDag(rs.getString("Dato"));
+			oppdatert = rs.getString("Oppdatert");
+			rom = rs.getString("Romnavn");
+			leder =rs.getString("leder");
+			avtaleID = rs.getInt("AvtaleID");
+			kalenderID = rs.getInt("KalenderID");
+			
 			Generator gen = new Generator();
-			lengde = tilTid - hpos;
+			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
-						System.out.println(gen);
-						launchGUI.start(primaryStage);
+						Context.getInstance().setAvtale(gen.getAvtale());;
+						launchGUI.startInfo(primaryStage);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			};
-			kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse), gen.lblGen(bpos,hpos, tittel + " " + tidText.substring(0, 5), handler));
+			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
+			
 		}
 	}
 	
@@ -182,8 +193,50 @@ public class KalenderKontroller{
 	@FXML
 	void test2Btn() throws Exception{
 		System.out.println("Test 2");
+		//Oppdaterer
+		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		String fraTid = "";
+		String tilTid = "";
+		String dato = "";
+		String tittel = "";
+		String beskrivelse = "";
+		String oppdatert = "";
+		String rom = "";
+		String leder = "";
+		int avtaleID = 0;
+		int kalenderID = 0;
+		double lengde = 0;
 		
-		
+		while(rs.next()){
+			Stage primaryStage = new Stage();
+			//Aapner avtale vinduet etter at rektangelet er trykket paa.
+			fraTid = rs.getString("fraTid");
+			tilTid = rs.getString("tilTid");
+			dato = rs.getString("Dato");
+			tittel = rs.getString("Tittel");
+			beskrivelse = rs.getString("Beskrivelse");
+			oppdatert = rs.getString("Oppdatert");
+			rom = rs.getString("Romnavn");
+			leder =rs.getString("leder");
+			avtaleID = rs.getInt("AvtaleID");
+			kalenderID = rs.getInt("KalenderID");
+			
+			Generator gen = new Generator();
+			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
+			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
+				public void handle(InputEvent event) {
+					try {
+						Context.getInstance().setAvtale(gen.getAvtale());;
+						launchGUI.startInfo(primaryStage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
+			
+		}
 		
 		
 		//Skal gjore alle sql sporringene her i ett
