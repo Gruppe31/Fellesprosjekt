@@ -14,9 +14,16 @@ import model.Avtale;
 import model.Context;
 
 public class Generator {
-	
+	private int dag;
+	private double tid;
+	private String tittel;
+	private String beskrivelse;
 
-	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler){
+	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String tittel, String beskrivelse){
+		this.dag = dag;
+		this.tid = tid;
+		this.tittel = tittel;
+		this.beskrivelse = beskrivelse;
 		Rectangle rect = new Rectangle(135, 30*lengde, Color.CORNSILK);
 		rect.setStroke(Color.BLACK);
 		rect.relocate(dag*135, tid*30);
@@ -30,4 +37,10 @@ public class Generator {
 		lbl.setOnMouseClicked(handler);
 		return lbl;
 	}
+	
+	public String toString(){
+		return dag + " " + tid + " " + tittel + " " + beskrivelse;
+	}
+	
+	
 }
