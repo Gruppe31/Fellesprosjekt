@@ -68,7 +68,6 @@ public class LaunchGUI extends Application{
 	}
 
 	public static void main(String[] args) {
-	
 		launch(args);
 	}
 	
