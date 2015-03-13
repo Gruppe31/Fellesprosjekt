@@ -59,17 +59,30 @@ public class GruppeKontroller {
 		// Lager en ny innstans av Gruppe.
 		// Gruppen lagres i databasen.
 		if(erGruppenavnGyldig()){
-			ResultSet rs = con.les("SELECT KalenderID FROM Kalender");
+			String sql1 = "INSERT INTO Kalender VALUES()";
+			try {
+				con.skriv(sql1);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			int kalenderID = 0;
-			while(rs.next()){
-				kalenderID = rs.getInt("KalenderID");
+			String sql = "SELECT LAST_INSERT_ID(), kalenderID FROM Kalender";
+			try {
+				ResultSet rs = con.les(sql);
+				while(rs.next()){
+					// kalenderID vil da tilslutt vaere den siste ledige nokkelen
+					kalenderID = rs.getInt(2);
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			gruppe = new Gruppe(gruppenavn.getText(),kalenderID);
 			//itererer over brukernavn og legger de til i modelen.
 			for (String brukerNavn : brukere) {
 				gruppe.leggTilGruppe(brukerNavn);
 			}
-			System.out.println(gruppe);
 			Context.getInstance().getKalender().leggTilGruppe(gruppe);//Legger til gruppe i listen over grupper til kalender.
 			gruppe.databaseSettInn();
 			Stage stage = (Stage) leggTilGruppe.getScene().getWindow();

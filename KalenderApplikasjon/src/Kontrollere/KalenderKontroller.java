@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Context;
 import model.LaunchGUI;
@@ -42,7 +43,8 @@ public class KalenderKontroller{
 	Stage gruppeStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
-	public void initialize() { //Trenger ikke argumentene her.
+	public void initialize() {
+		//Egen metode for aa initialisere alle avtalene.
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
@@ -71,14 +73,25 @@ public class KalenderKontroller{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+	}
+	
+	@FXML
+	public void testValg(){
+		//Skal faa til aa aapne kalenderen en klikker paa.
+		mineKalendere.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			@Override
+			public void handle(MouseEvent mo){
+				//Kall metoden for aa initialisere alle avtalene her.
+				System.out.println(kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex()));
+			}
+		});
 	}
 	
 	@FXML
 	public void sokTrykkEnter(){
 		sok.setOnKeyPressed(new EventHandler<KeyEvent>(){
 		// Hva skal vi gjore her.
+		// Fa opp grupper/brukere som har samme brukernavn.
 			@Override
 			public void handle(KeyEvent ke){
 				try {
