@@ -59,16 +59,17 @@ public class GruppeKontroller {
 		// Lager en ny innstans av Gruppe.
 		// Gruppen lagres i databasen.
 		if(erGruppenavnGyldig()){
-			ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
+			ResultSet rs = con.les("SELECT KalenderID FROM Kalender");
 			int kalenderID = 0;
 			while(rs.next()){
 				kalenderID = rs.getInt("KalenderID");
 			}
-			gruppe = new Gruppe(brukernavn.getText(),kalenderID);
+			gruppe = new Gruppe(gruppenavn.getText(),kalenderID);
 			//itererer over brukernavn og legger de til i modelen.
 			for (String brukerNavn : brukere) {
 				gruppe.leggTilGruppe(brukerNavn);
 			}
+			System.out.println(gruppe);
 			Context.getInstance().getKalender().leggTilGruppe(gruppe);//Legger til gruppe i listen over grupper til kalender.
 			gruppe.databaseSettInn();
 			Stage stage = (Stage) leggTilGruppe.getScene().getWindow();

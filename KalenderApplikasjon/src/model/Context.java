@@ -10,8 +10,6 @@ public class Context {
 	//Kommer kanskje til aa fjerne avtale.
 	public Avtale avtale = new Avtale();
 	public Person bruker = new Person();
-
-
 	public Kalender kalender = new Kalender();
 	
 	public static Context getInstance(){
@@ -26,14 +24,11 @@ public class Context {
 		return this.kalender;
 	}
 
-
 	public Avtale getAvtale() {
 		return this.avtale;
 	}
-
 	
 	public void setAvtale(Avtale avtale){
 		this.avtale = avtale;
 	}
-
 }

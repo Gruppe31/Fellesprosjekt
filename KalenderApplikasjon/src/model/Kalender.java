@@ -16,6 +16,7 @@ public class Kalender {
 	public Kalender(){
 		con = new Connector();
 		avtaler = new ArrayList<Avtale>();
+		grupper = new ArrayList<Gruppe>();
 	}
 	
 	public ArrayList<Avtale> getAvtaler() throws Exception{
