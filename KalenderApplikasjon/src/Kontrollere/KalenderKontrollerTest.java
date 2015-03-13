@@ -2,6 +2,7 @@ package Kontrollere;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -46,7 +47,7 @@ public class KalenderKontrollerTest {
 	@FXML private Pane kalPane;
 	
 	@FXML
-	void test2Btn(){
+	void test2Btn() throws Exception{
 		System.out.println("Test 2");
 		
 		Stage primaryStage = new Stage();
@@ -63,23 +64,51 @@ public class KalenderKontrollerTest {
 		};
 		
 		
-		Avtale avtale = Context.getInstance().getAvtale();
 		
 		
-		String tid = avtale.getFraTid();
-		String dag = avtale.getDato();
+		
+		ResultSet tid = con.les("SELECT fraTid FROM Avtale");
+		ResultSet tid3 = con.les("SELECT fraTid FROM Avtale");
+		ResultSet tid2 = con.les("SELECT tilTid FROM Avtale");
+		ResultSet dag = con.les("SELECT Dato FROM Avtale");
+		
+		
 		
 		//tid.bindBidirectional(contact.tidProperty());
 		//dag.bindBidirectional(contact.dagProperty());
 		
+		double hpos = 0;
+		double tilTid = 0;
+		double lengde = 0;
+		String tidText = "";
+		int bpos = 0;
 		
-		double hpos = tidTilDouble(tid);
-		int bpos = datoTilDag(dag);
 		
+		while(tid.next()){
+			hpos = tidTilDouble(tid.getString("fraTid"));
+		}
+		
+		while(tid3.next()){
+			tidText = tid3.getString("fraTid");
+		}
+		
+		while(tid2.next()){
+			tilTid = tidTilDouble(tid2.getString("tilTid"));
+		}
+		
+		
+		while(dag.next()){
+			bpos = datoTilDag(dag.getString("Dato"));
+		}
+		
+		lengde = tilTid - hpos;
+		
+		System.out.println(hpos);
+		System.out.println(bpos);
 		
 		Generator gen = new Generator();
 		
-		kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,1, handler), gen.lblGen(bpos,hpos," Møte "+tid, handler));
+		kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,lengde, handler), gen.lblGen(bpos,hpos," Møte "+tidText, handler));
 		
 		
 	}
@@ -95,7 +124,8 @@ public class KalenderKontrollerTest {
 	public int datoTilDag(String dato){
 		LocalDate dag = LocalDate.parse(dato);
 		//mandag = 1, tirsdag = 2 osv.
-		return dag.getDayOfWeek().getValue();
+		int dagIuken = dag.getDayOfWeek().getValue();
+		return dagIuken-1;
 		}
 	
 	
@@ -190,19 +220,7 @@ public class KalenderKontrollerTest {
 		});
 	}
 	
-	public double tidTilDouble(String tid){
-		String[] tallSplittet = tid.split(":");
-		String dou = tallSplittet[0] + "." + (int)((Double.parseDouble(tallSplittet[1])/60.0)*100);
-		return Double.parseDouble(dou);
-	}
 	
-	//2015-03-27	
-	//yyyy-mm-dd
-	public int datoTilDag(String dato){
-		LocalDate dag = LocalDate.parse(dato);
-		//mandag = 1, tirsdag = 2 osv.
-		return dag.getDayOfWeek().getValue();
-	}
 	
 	@FXML 
 	void NyAvtale(){

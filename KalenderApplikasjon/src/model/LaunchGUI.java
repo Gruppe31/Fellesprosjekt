@@ -24,7 +24,7 @@ public class LaunchGUI extends Application{
 	
 	public void startMain(Stage mainStage) throws IOException{
 		  FXMLLoader fxmlLoader = new FXMLLoader();
-	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/main.fxml"));
+	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/main2.fxml"));
 	        mainStage.setScene(new Scene(root));
 	        mainStage.setTitle("MAIN");
 	        mainStage.show();
