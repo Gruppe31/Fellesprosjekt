@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.DatePicker?>
+
+<AnchorPane prefHeight="630.0" prefWidth="460.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.InfoKontroller">
+   <children>
+      <Text layoutX="204.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møte">
+         <font>
+            <Font size="20.0" />	
+         </font></Text>
+      <Button fx:id="endre" layoutX="21.0" layoutY="35.0" mnemonicParsing="false" onAction="#endreAvtale" text="Endre" />
+      <Button fx:id="slettAvtale" layoutX="86.0" layoutY="35.0" mnemonicParsing="false" onAction="#slettAvtale" text="Slett avtale" />
+      <Pane fx:id="pane" layoutY="66.0" prefHeight="564.0" prefWidth="463.0">
+         <children>
+            <ListView fx:id="rom" layoutX="235.0" layoutY="338.0" prefHeight="163.0" prefWidth="205.0" />
+            <Button fx:id="inviter" layoutX="157.0" layoutY="251.0" mnemonicParsing="false" onAction="#inviter" text="Inviter" />
+            <TextField fx:id="leggTilPerson" layoutX="32.0" layoutY="209.0" prefWidth="187.0" promptText="Legg til person" />
+            <Button fx:id="fjernDeltager" layoutX="107.0" layoutY="519.0" mnemonicParsing="false" onAction="#fjernDeltager" text="Fjern deltager" />
+            <Button fx:id="lagre" layoutX="232.0" layoutY="519.0" mnemonicParsing="false" onAction="#lagre" text="Lagre endringer" />
+            <Button fx:id="avbryt" layoutX="367.0" layoutY="519.0" mnemonicParsing="false" onAction="#avbryt" text="Avbryt" />
+            <TextField fx:id="tittel" layoutX="33.0" layoutY="16.0" prefHeight="31.0" prefWidth="398.0" promptText="Tittel" />
+            <TextArea fx:id="beskrivelse" layoutX="33.0" layoutY="56.0" prefHeight="107.0" prefWidth="398.0" promptText="Beskrivelse" />
+            <DatePicker fx:id="dato" layoutX="32.0" layoutY="171.0" prefHeight="31.0" prefWidth="187.0" promptText="Dato" />
+            <TextField fx:id="fraTid" layoutX="244.0" layoutY="209.0" prefHeight="31.0" prefWidth="187.0" promptText="Fra" />
+            <TextField fx:id="tilTid" layoutX="244.0" layoutY="171.0" prefHeight="31.0" prefWidth="187.0" promptText="Til" />
+            <Text layoutX="235.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
+            <ListView fx:id="deltagere" layoutX="32.0" layoutY="338.0" prefHeight="163.0" prefWidth="187.0" />
+            <Button fx:id="finnRom" layoutX="351.0" layoutY="296.0" mnemonicParsing="false" onAction="#finnRom" text="Finn rom" />
+            <Text layoutX="33.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deltagere:" />
+         </children>
+      </Pane>
+      <TextField fx:id="oppdatert" layoutX="262.0" layoutY="35.0" />
+      <Text layoutX="179.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oppdatert:" wrappingWidth="78.96728515625" />
+   </children>
+</AnchorPane>
