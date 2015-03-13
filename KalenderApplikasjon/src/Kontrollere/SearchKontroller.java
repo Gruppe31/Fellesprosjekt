@@ -20,6 +20,8 @@ public class SearchKontroller {
 	@FXML private ListView<String> sok = new ListView<String>(sokeliste);
 	
 	private Connector con = new Connector();
+	
+	private String soketekst = "";
 
 	@FXML private Button velg;
 	@FXML private Button avbryt;
@@ -46,8 +48,10 @@ public class SearchKontroller {
 	
 	@FXML
 	void Liste() throws Exception{
-		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '...%')");
-		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '...%')");
+		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
+		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
+		//sokeliste.set(FXCollections.observableArrayList(bruker,gruppe));
+		
 	}
 
 }
