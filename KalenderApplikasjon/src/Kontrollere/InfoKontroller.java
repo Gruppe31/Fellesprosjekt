@@ -28,6 +28,7 @@ public class InfoKontroller{
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
 	@FXML private TextField oppdatert;
+	@FXML private TextField leder;
 	
 	@FXML private DatePicker dato;
 	@FXML private TextField fraTid;
@@ -42,6 +43,9 @@ public class InfoKontroller{
 	ObservableList<String> brukere  = FXCollections.observableArrayList();
 	@FXML private ListView<String> deltagere = new ListView<String>(brukere);
 
+	@FXML private Button jaKnapp;
+	@FXML private Button neiKnapp;
+	@FXML private Button endre;
 	@FXML private Button inviter;
 	@FXML private Button fjernDeltager;
 	@FXML private Button lagre;
@@ -52,6 +56,11 @@ public class InfoKontroller{
 	public void initialize() throws Exception{//Skal ogsaa initialisere seg selv med info om avtale.
 		pane.setDisable(true);
 		this.avtale = Context.getInstance().getAvtale();
+		if(!avtale.getLeder().equals(Context.getInstance().getPerson().getBrukernavn())){
+			endre.setVisible(false);
+			slettAvtale.setVisible(false);
+		}
+		leder.setText(avtale.getLeder());
 		tittel.setText(avtale.getTittel());
 		beskrivelse.setText(avtale.getBeskrivelse());
 		String datoString = avtale.getDato();
@@ -61,7 +70,8 @@ public class InfoKontroller{
 		tilTid.setText(avtale.getTilTid());
 		romListe.add(avtale.getRom());
 		rom.setItems(romListe);
-		String sql = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")";
+		String sql = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")"
+				+ "AND(brukerAvtale.statusKommer = 1)";
 		ResultSet rs = con.les(sql);
 		String bruker = "";
 		while(rs.next()){
@@ -69,7 +79,25 @@ public class InfoKontroller{
 			brukere.add(bruker);
 		}
 		deltagere.setItems(brukere);
-		oppdatert.setText(avtale.getOppdatert());;
+		oppdatert.setText(avtale.getOppdatert());
+		leder.setDisable(true);
+		oppdatert.setDisable(true);
+	}
+	
+	@FXML
+	void deltar() throws Exception{
+		String sql = "UPDATE brukeravtale SET statuskommer = 1 "
+				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
+				+ "AND(brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')";
+		con.skriv(sql);
+	}
+	
+	@FXML
+	void deltarIkke() throws Exception{
+		String sql = "UPDATE brukeravtale SET statuskommer = 0 "
+				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
+				+ "AND(brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')";
+		con.skriv(sql);
 	}
 	
 	@FXML
@@ -173,6 +201,7 @@ public class InfoKontroller{
 	void endreAvtale() throws Exception{
 		//Avtalen skal kunne endres.
 		pane.setDisable(false);
+
 	}
 	
 	@FXML

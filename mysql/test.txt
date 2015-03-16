@@ -1,4 +1,5 @@
 SELECT *
-FROM Avtale
+FROM Avtale, brukeravtale
 JOIN Brukeravtale as q
-WHERE(q.Gruppenavn = gruppenavn)
+ON(q.AvtaleID = Brukeravtale.avtaleID)
+WHERE(Brukeravtale.Brukernavn = brukernavn)
