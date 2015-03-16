@@ -1,21 +1,14 @@
 package Kontrollere;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Avtale;
-import model.Context;
 
 public class Generator {
-	private int dag;
-	private double tid;
 	Avtale avtale;
 
 	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String fraTid, String tilTid, String dato, String tittel, String beskrivelse,

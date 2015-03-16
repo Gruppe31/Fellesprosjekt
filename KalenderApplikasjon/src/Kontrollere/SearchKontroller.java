@@ -40,7 +40,11 @@ public class SearchKontroller {
 	
 	@FXML
 	void Velg(){
+		//Skal åpne kalender til personen eller gruppa det blir søkt på.
+		//Denne åpningen skal man da ikke kunne endre på noen av tingene inne på den.
+		
 		//sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+		
 	}
 	
 	@FXML
@@ -51,9 +55,11 @@ public class SearchKontroller {
 		if (!bruker.next() && !gruppe.next()){
 			sokeliste.add("Ingen match for søket.");
 			sok.setItems(sokeliste);
+			Context.getInstance().setKorrektSok(false);
 		}else{
 			sokeliste.add(soketekst);
 			sok.setItems(sokeliste);
+			Context.getInstance().setKorrektSok(true);
 		}
 	}
 

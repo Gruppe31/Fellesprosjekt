@@ -1,10 +1,8 @@
 package Kontrollere;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +21,6 @@ import mysql.Connector;
 public class AvtaleKontroller{
 	
 	private String bruker;
-	private String gruppe;
 	int kalenderID;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
@@ -52,7 +49,6 @@ public class AvtaleKontroller{
 	
 	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
 		this.bruker = Context.getInstance().getPerson().getBrukernavn();
-		this.gruppe = Context.getInstance().getGruppe().getGruppenavn();
 		this.kalenderID = Context.getInstance().getKalender().getKalenderID();
 	}
 	
