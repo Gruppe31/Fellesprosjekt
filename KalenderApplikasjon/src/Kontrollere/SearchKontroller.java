@@ -44,7 +44,8 @@ public class SearchKontroller {
 	
 	@FXML
 	void Velg(){
-		//sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+		sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+		
 	}
 	
 	@FXML
@@ -52,6 +53,7 @@ public class SearchKontroller {
 		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
 		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
 		String brukeradd = null;
+		String gruppeadd = null;
 		
 		while (bruker.next()){
 			brukeradd = bruker.getString("Brukernavn");
@@ -63,6 +65,17 @@ public class SearchKontroller {
 				sokeliste.add(brukeradd);
 			}
 		}
+//		while (gruppe.next()){
+//			gruppeadd = gruppe.getString("Gruppenavn");
+//			
+//			Må gjøre slik at context aksepterer å hente gruppenavn
+//			if(gruppeadd == null || gruppeadd == Context.getInstance().getGruppe().getBrukernavn()){
+//				sokeliste.add("Ingen grupper matchet søket");
+//				
+//			}else{
+//				sokeliste.add(gruppeadd);
+//			}
+//		}
 		sok.setItems(sokeliste);
 	}
 
