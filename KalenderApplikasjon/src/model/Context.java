@@ -13,9 +13,18 @@ public class Context {
 	public Kalender kalender = new Kalender();
 	private Gruppe gruppe = new Gruppe();
 	private String sokeTekst;
+	private boolean typeKalender = true; //true hvis vanlig, false hvis gruppekalender
 	
 	public static Context getInstance(){
 		return instance;
+	}
+	
+	public void setTypeKalender(boolean type){
+		this.typeKalender = type;
+	}
+	
+	public boolean getTypeKalender(){
+		return this.typeKalender;
 	}
 	
 	public Gruppe getGruppe(){

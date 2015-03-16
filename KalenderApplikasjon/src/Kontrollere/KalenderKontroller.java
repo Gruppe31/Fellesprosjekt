@@ -97,7 +97,22 @@ public class KalenderKontroller{
 			e.printStackTrace();
 		}
 		
-		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		String sql;
+		System.out.println(brukerNavn);
+		if (Context.getInstance().getTypeKalender()) {
+			sql = "SELECT * "
+					+ "FROM Avtale,brukeravtale "
+					+ "WHERE(AVTALE.AvtaleID = brukeravtale.avtaleID) "
+					+ "AND(brukeravtale.Brukernavn = '" + brukerNavn + "')";
+			initialiserKalender(sql);
+		}else{
+			sql = "SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")";
+			initialiserKalender(sql);
+		}
+	}
+	
+	public void initialiserKalender(String sql) throws Exception{
+		ResultSet rs = con.les(sql);
 		String fraTid = "";
 		String tilTid = "";
 		String dato = "";
@@ -105,7 +120,6 @@ public class KalenderKontroller{
 		String beskrivelse = "";
 		Calendar now  = Calendar.getInstance();
 		Date date = now.getTime();
-		
 		
 		String oppdatert = "";
 		String rom = "";
@@ -132,7 +146,7 @@ public class KalenderKontroller{
 			
 			//if(String.valueOf(uke).length() < 1){
 			int uke = hvilkenUke(date);//Testing
-			int uke2  = hvilkenUke(rs.getDate("Dato"));
+			//int uke  = hvilkenUke(rs.getDate("Dato"));
 			ukelbl.textProperty().set("Uke: "+uke);
 			//}
 			
@@ -165,8 +179,16 @@ public class KalenderKontroller{
 	public void initializeNext(int uke) throws Exception{
 		
 		kalPane.setStyle("-fx-background-color: transparent;");
-		
-		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		String sql;
+		if (Context.getInstance().getTypeKalender()) {
+			sql =  "SELECT * "
+					+ "FROM Avtale,brukeravtale "
+					+ "WHERE(AVTALE.AvtaleID = brukeravtale.avtaleID) "
+					+ "AND(brukeravtale.Brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')";
+		}else{
+			sql = "SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")";
+		}
+		ResultSet rs = con.les(sql);
 		double hpos = 0;
 		double tilTid = 0;
 		double lengde = 0;
@@ -237,28 +259,48 @@ public class KalenderKontroller{
 		
 	@FXML
 	public void testValg() throws Exception{
+		//Faa til uten aa lukke vinduet for saa aa aapne et nytt et.
 		//Skal faa til aa aapne kalenderen en klikker paa.
 		mineKalendere.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent mo){
 				//Kall metoden for aa initialisere alle avtalene her.
-				String navn = kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex());
-				String sql = "SELECT kalenderID "
-						+ "FROM Kalendergruppe "
-						+ "JOIN Gruppe as q "
-						+ "WHERE(q.Gruppenavn = '" + navn + "')";
-				try{
-					ResultSet rs = con.les(sql);
-					int kalenderID = 0;
-					while(rs.next()){
-						kalenderID = rs.getInt("KalenderID");
+				if (mineKalendere.getSelectionModel().getSelectedIndex() == 0) {
+					String sql = "SELECT kalenderID FROM Person WHERE (Brukernavn = '" +  Context.getInstance().getPerson().getBrukernavn() + "')";
+					try{
+						ResultSet rs = con.les(sql);
+						int kalenderID = 0;
+						while(rs.next()){
+							kalenderID = rs.getInt("KalenderID");
+						}
+						Context.getInstance().getKalender().setKalenderID(kalenderID);
+						Context.getInstance().getGruppe().setGruppenavn(null);
+						Context.getInstance().setTypeKalender(true);
+						launchGUI.startMain(mainStage);
+					}catch(Exception e){
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					Context.getInstance().getKalender().setKalenderID(kalenderID);
-					Context.getInstance().getGruppe().setGruppenavn(navn);
-					launchGUI.startMain(mainStage);
-				}catch(Exception e){
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}else{
+					String navn = kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex());
+					String sql = "SELECT kalenderID "
+							+ "FROM Kalendergruppe, gruppe "
+							+ "WHERE(gruppe.Gruppenavn = '" + navn + "') "
+							+ "AND(Gruppe.gruppeID = kalendergruppe.gruppeid)";
+					try{
+						ResultSet rs = con.les(sql);
+						int kalenderID = 0;
+						while(rs.next()){
+							kalenderID = rs.getInt("KalenderID");
+						}
+						Context.getInstance().getKalender().setKalenderID(kalenderID);
+						Context.getInstance().getGruppe().setGruppenavn(navn);
+						Context.getInstance().setTypeKalender(false);
+						launchGUI.startMain(mainStage);
+					}catch(Exception e){
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				Stage stage = (Stage) mineKalendere.getScene().getWindow(); 
 				stage.close();
