@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import model.Context;
 import model.LaunchGUI;
 import model.Person;
 import mysql.Connector;
@@ -30,7 +31,7 @@ public class SearchKontroller {
 	LaunchGUI launchGUI = new LaunchGUI();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubs
 
 	}
 	
@@ -42,16 +43,27 @@ public class SearchKontroller {
 	}
 	
 	@FXML
-	void Lagre(){
-		sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+	void Velg(){
+		//sokeliste.get(sok.getSelectionModel().getSelectedIndex());
 	}
 	
 	@FXML
 	void Liste() throws Exception{
 		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
 		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
-		//sokeliste.set(FXCollections.observableArrayList(bruker,gruppe));
+		String brukeradd = null;
 		
+		while (bruker.next()){
+			brukeradd = bruker.getString("Brukernavn");
+			
+			if(brukeradd == null || brukeradd == Context.getInstance().getPerson().getBrukernavn()){
+				sokeliste.add("Ingen brukere matchet søket");
+				
+			}else{
+				sokeliste.add(brukeradd);
+			}
+		}
+		sok.setItems(sokeliste);
 	}
 
 }
