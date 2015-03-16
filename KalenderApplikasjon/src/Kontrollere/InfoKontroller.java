@@ -21,7 +21,6 @@ import mysql.Connector;
 
 public class InfoKontroller{
 	
-	private String bruker;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
 	@FXML private Pane pane;
@@ -75,10 +74,6 @@ public class InfoKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
-//		for (String romNavn : romListe) {
-//			System.out.println("økjnbøkjln");
-//			romListe.remove(romNavn);
-//		}
 		romListe.removeAll();
 		rom.setItems(romListe);
 		String sql = "UPDATE Avtale SET Romnavn = NULL"; 
@@ -96,8 +91,6 @@ public class InfoKontroller{
 					rom.setItems(romListe);
 				}
 			}
-//			romListe.add(Context.getInstance().getAvtale().getRom());
-//			rom.setItems(romListe);
 		}else{
 			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
 			if (!erFraTidRiktig(fraTid.getText())) {
@@ -121,12 +114,7 @@ public class InfoKontroller{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
-			ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
 			java.util.Date date= new java.util.Date();
-			int kalenderID = 0;
-			while(rs.next()){
-				kalenderID = rs.getInt("KalenderID");
-			}
 			Avtale model = new Avtale(fraTid.getText().substring(0, 5),tilTid.getText().substring(0, 5), dato.getValue().toString(), tittel.getText(), 
 					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), avtale.getLeder() , 0 , avtale.getKalenderID());
 			
@@ -134,24 +122,19 @@ public class InfoKontroller{
 			for (String brukerNavn : brukere) {
 				model.addInvitert(brukerNavn);
 			}
-			System.out.println(brukere.toString());
 			model.addInvitert(Context.getInstance().getPerson().getBrukernavn());
 			String sql1 = "UPDATE avtale SET fraTid= '" + fraTid.getText() + "', tilTid = '" + tilTid.getText() + "',Dato = '" + dato.getValue().toString()+ "'"
 					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + new Timestamp(date.getTime())
 					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'";
-			System.out.println(sql1);
 			con.skriv(sql1);
 			
 			String sql2 = "DELETE FROM Brukeravtale WHERE(Brukeravtale.avtaleID = " + Context.getInstance().getAvtale().getAvtaleID() + ")";
 			con.skriv(sql2);
-			System.out.println(sql2);
-			System.out.println();
 			for(String deltaker : brukere){
 				String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + Context.getInstance().getAvtale().getAvtaleID() + "', '0','" + dato.getValue().toString() + " " + fraTid.getText() + "')";
-				System.out.println(s2);
 				con.skriv(s2);
 			}
-			//model.databaseSettInn();
+			
 			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			Stage stage = (Stage) lagre.getScene().getWindow();
 			stage.close();
@@ -182,9 +165,6 @@ public class InfoKontroller{
 	
 	@FXML
 	void avbryt() throws Exception{
-//		if (!pane.isDisabled()) {
-//			Context.getInstance().getAvtale().databaseSettInn();
-//		}
 		Stage stage = (Stage) avbryt.getScene().getWindow();
 		stage.close();
 	}
@@ -192,8 +172,6 @@ public class InfoKontroller{
 	@FXML
 	void endreAvtale() throws Exception{
 		//Avtalen skal kunne endres.
-//		String sql = "DELETE FROM Avtale WHERE(Avtale.AvtaleID = " + avtale.getAvtaleID() + ")";
-//		con.skriv(sql);
 		pane.setDisable(false);
 	}
 	
@@ -240,7 +218,7 @@ public class InfoKontroller{
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
-				if(!brukere.contains(bruker2)){
+				if(!brukere.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
 					brukere.add(bruker2);
 				}
 			}

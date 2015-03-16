@@ -46,8 +46,10 @@ public class KalenderKontroller{
 	@FXML private Button nyGruppe;
 	
 	Stage skjemaStage = new Stage();
+	Stage searchStage = new Stage();
 	Stage loggInnStage = new Stage();
 	Stage gruppeStage = new Stage();
+	Stage mainStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
 	public void initialize() throws Exception{
@@ -127,13 +129,32 @@ public class KalenderKontroller{
 	}
 	
 	@FXML
-	public void testValg(){
+	public void testValg() throws Exception{
 		//Skal faa til aa aapne kalenderen en klikker paa.
 		mineKalendere.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent mo){
 				//Kall metoden for aa initialisere alle avtalene her.
-				System.out.println(kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex()));
+				String navn = kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex());
+				String sql = "SELECT kalenderID "
+						+ "FROM Kalendergruppe "
+						+ "JOIN Gruppe as q "
+						+ "WHERE(q.Gruppenavn = '" + navn + "')";
+				System.out.println(sql);
+				try{
+					ResultSet rs = con.les(sql);
+					int kalenderID = 0;
+					while(rs.next()){
+						kalenderID = rs.getInt("KalenderID");
+					}
+					Context.getInstance().getKalender().setKalenderID(kalenderID);
+					launchGUI.startMain(mainStage);
+				}catch(Exception e){
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Stage stage = (Stage) mineKalendere.getScene().getWindow(); 
+				stage.close();
 			}
 		});
 	}
@@ -147,8 +168,8 @@ public class KalenderKontroller{
 			public void handle(KeyEvent ke){
 				try {
 					if(ke.getCode().equals(KeyCode.ENTER)){
-						launchGUI.startSkjema(skjemaStage);
-						System.out.println("test");
+						Context.getInstance().setSokeTekst(sok.getText());
+						launchGUI.startSearch(searchStage);
 					}
 				} catch (IOException e) {
 						// TODO Auto-generated catch block

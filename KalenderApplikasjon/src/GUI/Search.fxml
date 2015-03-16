@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="308.0" prefWidth="259.0" style="-fx-background-color: b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.SearchKontroller">
    <children>
-      <ListView fx:id="sokeliste" layoutX="30.0" layoutY="56.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="sok" layoutX="30.0" layoutY="56.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="velg" layoutX="105.0" layoutY="264.0" mnemonicParsing="false" text="Velg" />
       <Button fx:id="avbryt" layoutX="166.0" layoutY="264.0" mnemonicParsing="false" onAction="#Avbryt" text="Avbryt" />
       <Label layoutX="35.0" layoutY="11.0" text="Søkeresultater">

@@ -181,7 +181,7 @@ public class AvtaleKontroller{
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
-				if(!brukere.contains(bruker2)){
+				if(!brukere.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
 					brukere.add(bruker2);
 				}
 			}

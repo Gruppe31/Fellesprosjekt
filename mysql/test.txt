@@ -1,0 +1,4 @@
+SELECT kalenderID
+FROM Kalendergruppe
+JOIN Gruppe as q
+WHERE(q.Gruppenavn = gruppenavn)
