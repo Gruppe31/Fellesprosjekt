@@ -24,18 +24,24 @@ public class Generator {
 		this.tid = tid;
 		this.tittel = tittel;
 		this.beskrivelse = beskrivelse;
-		Rectangle rect = new Rectangle(135, 30*lengde, Color.CORNSILK);
+		Rectangle rect = new Rectangle(132, 30*lengde, Color.CORNSILK);
 		rect.setStroke(Color.BLACK);
-		rect.relocate(dag*135, tid*30);
+		rect.relocate((dag*135)+2, tid*30);
 		rect.setOnMouseClicked(handler);
 		return rect;
 	}
 	
-	Label lblGen(int dag, double tid, String text, EventHandler<InputEvent> handler){
-		Label lbl = new Label(text); //avtale.toString());
-		lbl.relocate(dag*135, tid*30);
-		lbl.setOnMouseClicked(handler);
-		return lbl;
+	Label lblGen(int dag, double tid,double lengde, String text, EventHandler<InputEvent> handler){
+		if(lengde <= 0.50){
+			Label lbl = new Label("");
+			return lbl;
+		}
+		else{
+			Label lbl = new Label(text);
+			lbl.relocate((dag*135)+2, tid*30);
+			lbl.setOnMouseClicked(handler);
+			return lbl;
+		}
 	}
 	
 	public String toString(){

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -11,7 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
@@ -19,7 +24,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.Context;
 import model.LaunchGUI;
 import model.Person;
@@ -44,14 +53,19 @@ public class KalenderKontroller{
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
 	@FXML private Button nyGruppe;
+	@FXML private Button nesteUke;
+	@FXML private Button forrigeUke;
+	@FXML private Label ukelbl;
 	
 	Stage skjemaStage = new Stage();
 	Stage loggInnStage = new Stage();
 	Stage gruppeStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
+	ArrayList<Rectangle> list = new ArrayList<Rectangle>(); 
 	
 	public void initialize() throws Exception{
 		//Egen metode for aa initialisere alle avtalene.
+		kalPane.setStyle("-fx-background-color: transparent;");
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
@@ -89,6 +103,11 @@ public class KalenderKontroller{
 		int bpos = 0;
 		String tittel = "";
 		String beskrivelse = "";
+		Calendar now  = Calendar.getInstance();
+		Date date = now.getTime();
+		
+		
+		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
 			//Aapner avtale vinduet etter at rektangelet er trykket paa.
@@ -100,6 +119,14 @@ public class KalenderKontroller{
 			bpos = datoTilDag(rs.getString("Dato"));
 			Generator gen = new Generator();
 			lengde = tilTid - hpos;
+			
+			//if(String.valueOf(uke).length() < 1){
+			int uke = hvilkenUke(date);//Testing
+			int uke2  = hvilkenUke(rs.getDate("Dato"));
+			ukelbl.textProperty().set("Uke: "+uke);
+			//}
+			
+			
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
@@ -111,10 +138,77 @@ public class KalenderKontroller{
 					}
 				}
 			};
-			kalPane.getChildren().addAll(gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse), gen.lblGen(bpos,hpos, tittel + " " + tidText.substring(0, 5), handler));
+			
+			Rectangle rect = gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse);
+			
+			if(hvilkenUke(rs.getDate("Dato")) == uke){
+				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel + " " + tidText.substring(0, 5), handler));
+			}
+			
+			list.add(rect);
+			sjekkRectKollisjon(rect);
+			
+
+			
 		}
 	}
 	
+	//For aa initialisere neste uke paa kalPane
+	public void initializeNext(int uke) throws Exception{
+		
+		kalPane.setStyle("-fx-background-color: transparent;");
+		
+		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		double hpos = 0;
+		double tilTid = 0;
+		double lengde = 0;
+		String tidText = "";
+		int bpos = 0;
+		String tittel = "";
+		String beskrivelse = "";
+		Calendar now  = Calendar.getInstance();
+		Date date = now.getTime();
+		
+		
+		
+		while(rs.next()){
+			Stage primaryStage = new Stage();
+			//Aapner avtale vinduet etter at rektangelet er trykket paa.
+			hpos = tidTilDouble(rs.getString("fraTid"));
+			tidText = rs.getString("fraTid");
+			tilTid = tidTilDouble(rs.getString("tilTid"));
+			tittel = rs.getString("Tittel");
+			beskrivelse = rs.getString("Beskrivelse");
+			bpos = datoTilDag(rs.getString("Dato"));
+			Generator gen = new Generator();
+			lengde = tilTid - hpos;
+			
+			
+			ukelbl.textProperty().set("Uke: "+uke);
+			
+			
+			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
+				public void handle(InputEvent event) {
+					try {
+						System.out.println(gen);
+						launchGUI.start(primaryStage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			
+			Rectangle rect = gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse);
+			
+			if(hvilkenUke(rs.getDate("Dato")) == uke){
+				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel + " " + tidText.substring(0, 5), handler));
+			}
+			list.add(rect);
+			sjekkRectKollisjon(rect);
+		}
+	}
+		
 	@FXML
 	public void testValg(){
 		//Skal faa til aa aapne kalenderen en klikker paa.
@@ -148,6 +242,7 @@ public class KalenderKontroller{
 			
 		});
 	}
+	
 	
 	@FXML 
 	void NyAvtale(){
@@ -205,6 +300,80 @@ public class KalenderKontroller{
 		return dagIuken-1;
 	}
 	
+	public static int hvilkenUke(Date date){
+		Calendar now = Calendar.getInstance();
+		now.setTime(date);
+		int uke = now.get(Calendar.WEEK_OF_YEAR);
+		return uke;
+		
+	}
+	
+	
+	private void sjekkRectKollisjon(Shape rect){
+		boolean kollisjonFunnet = false;
+		for(Shape static_rect : list){
+			if(static_rect != rect){
+				
+				Shape intersect = Shape.intersect(rect, static_rect);
+				if(intersect.getBoundsInLocal().getWidth() != -1 && intersect.getBoundsInLocal().getHeight() != -1){
+					kollisjonFunnet = true;
+					if(rect.getBoundsInLocal().getHeight() > static_rect.getBoundsInLocal().getHeight()){
+						rect.toBack();
+					}
+				}
+				
+				
+			}
+		}
+		
+		if(kollisjonFunnet){
+			rect.setOpacity(0.6);
+		}
+		
+	}
+	
+	
+	Calendar now = Calendar.getInstance();
+	Date date = now.getTime();
+	int denneUke = hvilkenUke(date);
+	int ukeTeller;
+	
+	@FXML
+	void nesteUke() throws Exception{
+		list.clear();
+		int nesteUke;
+		nesteUke = denneUke + 1;
+		
+		
+		kalPane.getChildren().clear();
+		initializeNext(nesteUke);
+		if(nesteUke == 54){
+			nesteUke = 1;
+			denneUke = nesteUke;
+		}
+		else{
+			denneUke = nesteUke;			
+		}
+	}
+	 
+	@FXML
+	void forrigeUke() throws Exception{
+		list.clear();
+		int nesteUke;
+		nesteUke = denneUke - 1;			
+	
+		
+		kalPane.getChildren().clear();
+		initializeNext(nesteUke);
+		if(nesteUke == 1){
+			nesteUke = 54;
+			denneUke = nesteUke;
+		}
+		else{
+			denneUke = nesteUke;			
+		}
+		
+	}
 	
 	@FXML
 	void testBtn(){
@@ -224,9 +393,11 @@ public class KalenderKontroller{
 			}
 		};
 		
-		Generator gen = new Generator();
 		
-		kalPane.getChildren().addAll(gen.rectGen(0,0,1, handler), gen.lblGen(0,0," Møte 00:00", handler));
+		
+		//Generator gen = new Generator();
+		
+		//kalPane.getChildren().addAll(gen.rectGen(0,0,1, handler), gen.lblGen(0,0," Møte 00:00", handler));
 		
 		/*
 		Rectangle rect = new Rectangle(135, 30, Color.CORNSILK);

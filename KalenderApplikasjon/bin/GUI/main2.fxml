@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="776.0" prefWidth="1300.0" style="-fx-background-color: b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.KalenderKontroller">
    <children>
-      <Pane fx:id="kalPane" layoutX="356.0" layoutY="55.0" prefHeight="720.0" prefWidth="943.0" style="-fx-background-color: WHITE;" />
+      <Pane fx:id="kalPane" layoutX="356.0" layoutY="55.0" prefHeight="720.0" prefWidth="943.0" />
       <Button fx:id="nyAvtale" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#NyAvtale" prefHeight="39.0" prefWidth="200.0" text="Ny avtale" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="70.0" />
       <Button fx:id="loggUt" layoutX="20.0" layoutY="552.0" mnemonicParsing="false" onAction="#LoggUt" prefHeight="25.0" prefWidth="200.0" text="Logg ut" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine kalendere:" AnchorPane.leftAnchor="20.0" />
@@ -16,36 +17,50 @@
       <Text layoutX="20.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varslinger:" AnchorPane.leftAnchor="20.0" />
       <ListView fx:id="varslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <TextField fx:id="sok" alignment="CENTER" layoutX="33.0" layoutY="24.0" onKeyPressed="#sokTrykkEnter" prefHeight="39.0" prefWidth="200.0" promptText="Søk + Enter" AnchorPane.bottomAnchor="717.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="20.0" />
-      <Label layoutX="382.0" layoutY="27.0" text="Mandag">
+      <Label layoutX="388.0" layoutY="26.0" text="Mandag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="521.0" layoutY="27.0" text="Tirsdag">
+      <Label layoutX="528.0" layoutY="27.0" text="Tirsdag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="671.0" layoutY="27.0" text="Onsdag">
+      <Label layoutX="664.0" layoutY="27.0" text="Onsdag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="809.0" layoutY="27.0" text="Torsdag">
+      <Label layoutX="795.0" layoutY="27.0" text="Torsdag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="957.0" layoutY="27.0" text="Fredag">
+      <Label layoutX="939.0" layoutY="27.0" text="Fredag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="1086.0" layoutY="27.0" text="Lørdag">
+      <Label layoutX="1076.0" layoutY="27.0" text="Lørdag">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="1227.0" layoutY="27.0" text="Søndag">
+      <Label layoutX="1201.0" layoutY="26.0" text="Søndag">
          <font>
             <Font size="18.0" />
          </font></Label>
       <Button layoutX="238.0" layoutY="115.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="57.0" prefWidth="90.0" text="TEST1.3" />
       <Button layoutX="237.0" layoutY="224.0" mnemonicParsing="false" onAction="#test2Btn" prefHeight="57.0" prefWidth="90.0" text="TEST1.4" />
       <Button fx:id="nyGruppe" layoutX="20.0" layoutY="124.0" mnemonicParsing="false" onAction="#lagNyGruppe" prefHeight="39.0" prefWidth="200.0" text="Ny gruppe" />
+      <Button layoutX="242.0" layoutY="323.0" mnemonicParsing="false" onAction="#nesteUke" prefHeight="31.0" prefWidth="98.0" text="Neste Uke" />
+      <Button layoutX="241.0" layoutY="373.0" mnemonicParsing="false" onAction="#forrigeUke" prefHeight="31.0" prefWidth="98.0" text="Forrige Uke" />
+      <Label fx:id="ukelbl" layoutX="245.0" layoutY="450.0" prefHeight="51.0" prefWidth="90.0" text="Uke: ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endY="780.0" layoutX="357.0" startY="56.0" />
+      <Line endY="780.0" layoutX="492.0" startY="56.0" />
+      <Line endY="780.0" layoutX="627.0" startY="56.0" />
+      <Line endY="780.0" layoutX="762.0" startY="56.0" />
+      <Line endY="780.0" layoutX="897.0" startY="56.0" />
+      <Line endY="780.0" layoutX="1032.0" startY="56.0" />
+      <Line endY="780.0" layoutX="1167.0" startY="56.0" />
    </children>
 </AnchorPane>
