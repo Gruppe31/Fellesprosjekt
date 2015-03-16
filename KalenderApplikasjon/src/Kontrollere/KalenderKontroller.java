@@ -141,7 +141,7 @@ public class KalenderKontroller{
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
-						Context.getInstance().setAvtale(gen.getAvtale());;
+						Context.getInstance().setAvtale(gen.getAvtale());
 						launchGUI.startInfo(primaryStage);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -216,8 +216,8 @@ public class KalenderKontroller{
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
-						System.out.println(gen);
-						launchGUI.start(primaryStage);
+						Context.getInstance().setAvtale(gen.getAvtale());
+						launchGUI.startInfo(primaryStage);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
