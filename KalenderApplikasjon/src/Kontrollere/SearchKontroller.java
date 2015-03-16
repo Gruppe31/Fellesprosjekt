@@ -22,7 +22,7 @@ public class SearchKontroller {
 	
 	private Connector con = new Connector();
 	
-	private String soketekst = "";
+	private String soketekst = Context.getInstance().getSokeTekst();
 
 	@FXML private Button velg;
 	@FXML private Button avbryt;
@@ -30,10 +30,6 @@ public class SearchKontroller {
 	Stage Stage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stubs
-
-	}
 	
 	@FXML
 	void Avbryt(){
@@ -48,22 +44,17 @@ public class SearchKontroller {
 	}
 	
 	@FXML
-	void Liste() throws Exception{
-		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
-		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
-		String brukeradd = null;
+	void initialize() throws Exception{
+		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn = '" + soketekst + "')" );
+		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn = '" + soketekst + "')" );
 		
-		while (bruker.next()){
-			brukeradd = bruker.getString("Brukernavn");
-			
-			if(brukeradd == null || brukeradd == Context.getInstance().getPerson().getBrukernavn()){
-				sokeliste.add("Ingen brukere matchet søket");
-				
-			}else{
-				sokeliste.add(brukeradd);
-			}
+		if (!bruker.next() && !gruppe.next()){
+			sokeliste.add("Ingen match for søket.");
+			sok.setItems(sokeliste);
+		}else{
+			sokeliste.add(soketekst);
+			sok.setItems(sokeliste);
 		}
-		sok.setItems(sokeliste);
 	}
 
 }

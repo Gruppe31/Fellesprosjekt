@@ -74,6 +74,15 @@ public class LaunchGUI extends Application{
 		gruppeStage.show();
 		
 	}
+	
+	public void startSearch(Stage searchStage) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Search.fxml"));
+		searchStage.setScene(new Scene(root));
+		searchStage.setTitle("Lag ny gruppe");
+		searchStage.show();
+		
+	}
 
 	public static void main(String[] args) {
 		launch(args);
