@@ -11,7 +11,7 @@
    <children>
       <Pane fx:id="kalPane" layoutX="356.0" layoutY="55.0" prefHeight="720.0" prefWidth="943.0" />
       <Button fx:id="nyAvtale" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#NyAvtale" prefHeight="39.0" prefWidth="200.0" text="Ny avtale" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="70.0" />
-      <Button fx:id="loggUt" layoutX="20.0" layoutY="552.0" mnemonicParsing="false" onAction="#LoggUt" prefHeight="25.0" prefWidth="200.0" text="Logg ut" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
+      <Button fx:id="loggUt" layoutX="20.0" layoutY="722.0" mnemonicParsing="false" onAction="#LoggUt" prefHeight="25.0" prefWidth="200.0" text="Logg ut" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine kalendere:" AnchorPane.leftAnchor="20.0" />
       <ListView fx:id="mineKalendere" layoutX="20.0" layoutY="200.0" onMouseClicked="#testValg" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varslinger:" AnchorPane.leftAnchor="20.0" />
@@ -45,12 +45,12 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Button layoutX="238.0" layoutY="115.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="57.0" prefWidth="90.0" text="TEST1.3" />
-      <Button layoutX="237.0" layoutY="224.0" mnemonicParsing="false" onAction="#test2Btn" prefHeight="57.0" prefWidth="90.0" text="TEST1.4" />
+      <Button layoutX="238.0" layoutY="200.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="57.0" prefWidth="90.0" text="TEST1.3" />
+      <Button layoutX="20.0" layoutY="558.0" mnemonicParsing="false" onAction="#test2Btn" prefHeight="31.0" prefWidth="200.0" text="Oppdater" />
       <Button fx:id="nyGruppe" layoutX="20.0" layoutY="124.0" mnemonicParsing="false" onAction="#lagNyGruppe" prefHeight="39.0" prefWidth="200.0" text="Ny gruppe" />
-      <Button layoutX="242.0" layoutY="323.0" mnemonicParsing="false" onAction="#nesteUke" prefHeight="31.0" prefWidth="98.0" text="Neste Uke" />
-      <Button layoutX="241.0" layoutY="373.0" mnemonicParsing="false" onAction="#forrigeUke" prefHeight="31.0" prefWidth="98.0" text="Forrige Uke" />
-      <Label fx:id="ukelbl" layoutX="245.0" layoutY="450.0" prefHeight="51.0" prefWidth="90.0" text="Uke: ">
+      <Button layoutX="225.0" layoutY="682.0" mnemonicParsing="false" onAction="#nesteUke" prefHeight="31.0" prefWidth="123.0" text="Neste Uke" />
+      <Button layoutX="226.0" layoutY="722.0" mnemonicParsing="false" onAction="#forrigeUke" prefHeight="31.0" prefWidth="123.0" text="Forrige Uke" />
+      <Label fx:id="ukelbl" layoutX="238.0" layoutY="45.0" prefHeight="51.0" prefWidth="90.0" text="Uke: ">
          <font>
             <Font size="24.0" />
          </font>

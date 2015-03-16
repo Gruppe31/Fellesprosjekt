@@ -7,34 +7,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="275.0" maxWidth="275.0" prefHeight="275.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.SignUpKontroller">
+<AnchorPane maxHeight="250.0" maxWidth="250.0" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.SignUpKontroller">
    <children>
-      <Pane prefHeight="275.0" prefWidth="275.0" style="-fx-background-color: b8ccc8;">
+      <Pane prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: b8ccc8;">
          <children>
-            <Label layoutX="77.0" layoutY="69.0" text="Innmelding">
+            <TextField fx:id="BrukerNavnField" layoutX="104.0" layoutY="88.0" prefHeight="31.0" prefWidth="132.0" promptText="Brukernavn" />
+            <PasswordField fx:id="PassordField" layoutX="104.0" layoutY="129.0" prefHeight="31.0" prefWidth="132.0" promptText="Passord" />
+            <Button fx:id="MeldDegInn" layoutX="53.0" layoutY="199.0" mnemonicParsing="false" onAction="#meldDegInn" text="Meld deg inn" />
+            <Button fx:id="avbryt" layoutX="170.0" layoutY="199.0" mnemonicParsing="false" onAction="#avbryt" text="Avbryt" />
+            <Text fx:id="feilmelding" fill="RED" layoutX="28.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavnet eksisterer fra før av" visible="false" />
+            <Text layoutX="65.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innmelding">
                <font>
                   <Font size="24.0" />
                </font>
-            </Label>
-            <GridPane layoutX="40.0" layoutY="126.0" vgap="5.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="BrukerNavnRule" text="Brukernavn:" />
-                  <Label fx:id="PassordRule" text="Passord:" GridPane.rowIndex="1" />
-                  <TextField fx:id="BrukerNavnField" promptText="Brukernavn" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="PassordField" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <Button fx:id="MeldDegInn" layoutX="77.0" layoutY="235.0" mnemonicParsing="false" onAction="#meldDegInn" text="Meld deg inn" />
-            <Button fx:id="Avbryt" layoutX="189.0" layoutY="235.0" mnemonicParsing="false" text="Avbryt" />
-            <Text fx:id="feilmelding" fill="RED" layoutX="28.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavnet eksisterer fra før av" visible="false" />
+            </Text>
+            <Label layoutX="15.0" layoutY="92.0" prefHeight="21.0" prefWidth="92.0" text="Brukernavn:" />
+            <Label layoutX="15.0" layoutY="134.0" text="Passord:" />
          </children>
       </Pane>
    </children>

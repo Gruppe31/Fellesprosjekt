@@ -42,6 +42,8 @@ public class InfoKontroller{
 	@FXML private TextField leggTilPerson;
 	ObservableList<String> brukere  = FXCollections.observableArrayList();
 	@FXML private ListView<String> deltagere = new ListView<String>(brukere);
+	ObservableList<String> inviterte  = FXCollections.observableArrayList();
+	@FXML private ListView<String> invitertListe = new ListView<String>(inviterte);
 
 	@FXML private Button jaKnapp;
 	@FXML private Button neiKnapp;
@@ -79,6 +81,14 @@ public class InfoKontroller{
 			brukere.add(bruker);
 		}
 		deltagere.setItems(brukere);
+		String sql2 = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")";
+		ResultSet rs2 = con.les(sql2);
+		bruker = "";
+		while(rs2.next()){
+			bruker = rs2.getString("Brukernavn");
+			inviterte.add(bruker);
+		}
+		invitertListe.setItems(inviterte);
 		oppdatert.setText(avtale.getOppdatert());
 		leder.setDisable(true);
 		oppdatert.setDisable(true);
@@ -86,18 +96,23 @@ public class InfoKontroller{
 	
 	@FXML
 	void deltar() throws Exception{
+		String bruker = Context.getInstance().getPerson().getBrukernavn();
 		String sql = "UPDATE brukeravtale SET statuskommer = 1 "
 				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
-				+ "AND(brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')";
+				+ "AND(brukernavn = '" + bruker + "')";
 		con.skriv(sql);
+		brukere.add(bruker);
+		deltagere.setItems(brukere);
 	}
 	
 	@FXML
 	void deltarIkke() throws Exception{
+		String bruker = Context.getInstance().getPerson().getBrukernavn();
 		String sql = "UPDATE brukeravtale SET statuskommer = 0 "
 				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
-				+ "AND(brukernavn = '" + Context.getInstance().getPerson().getBrukernavn() + "')";
+				+ "AND(brukernavn = '" + bruker + "')";
 		con.skriv(sql);
+		brukere.remove(bruker);
 	}
 	
 	@FXML
@@ -132,9 +147,16 @@ public class InfoKontroller{
 	}
 	
 	@FXML
-	void fjernDeltager(){
+	void fjernDeltager() throws Exception{
 		//Fjerner deltagere fra listen
-		brukere.remove(deltagere.getSelectionModel().getSelectedIndex());
+		String bruker = inviterte.get(invitertListe.getSelectionModel().getSelectedIndex());
+		String sql = "DELETE FROM brukeravtale WHERE(brukerNavn = '" + bruker + "')";
+		con.skriv(sql);
+		if (brukere.contains(bruker)) {
+			brukere.remove(bruker);
+		}
+		brukere.remove(bruker);
+		inviterte.remove(bruker);
 	}
 	
 	@FXML
@@ -229,10 +251,10 @@ public class InfoKontroller{
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
-			if(!brukere.contains(bruker)){
-				brukere.add(bruker);
+			if(!inviterte.contains(bruker)){
+				inviterte.add(bruker);
 			}
-			deltagere.setItems(brukere);
+			invitertListe.setItems(brukere);
 		}	
 		while(rs2.next()){
 			gruppe = rs2.getString("Gruppenavn");
@@ -247,11 +269,11 @@ public class InfoKontroller{
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
-				if(!brukere.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
-					brukere.add(bruker2);
+				if(!inviterte.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
+					inviterte.add(bruker2);
 				}
 			}
-			deltagere.setItems(brukere);
+			invitertListe.setItems(brukere);
 		}
 				
 		}
