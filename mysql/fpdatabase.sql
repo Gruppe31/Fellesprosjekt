@@ -65,8 +65,12 @@ AvtaleID INT,
 statusKommer BOOL,
 alarmtid DATETIME,
 PRIMARY KEY (Brukernavn, AvtaleID),
-FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn),
+FOREIGN KEY (Brukernavn) REFERENCES Person(Brukernavn)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
 FOREIGN KEY (AvtaleID) REFERENCES Avtale(AvtaleID)
+ON DELETE CASCADE
+ON UPDATE CASCADE
 );
 
 CREATE TABLE Varsel(

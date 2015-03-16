@@ -58,8 +58,10 @@ public class KalenderKontroller{
 	@FXML private Label ukelbl;
 	
 	Stage skjemaStage = new Stage();
+	Stage searchStage = new Stage();
 	Stage loggInnStage = new Stage();
 	Stage gruppeStage = new Stage();
+	Stage mainStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	ArrayList<Rectangle> list = new ArrayList<Rectangle>(); 
 	
@@ -96,28 +98,41 @@ public class KalenderKontroller{
 		}
 		
 		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
-		double hpos = 0;
-		double tilTid = 0;
-		double lengde = 0;
-		String tidText = "";
-		int bpos = 0;
+		String fraTid = "";
+		String tilTid = "";
+		String dato = "";
 		String tittel = "";
 		String beskrivelse = "";
+<<<<<<< HEAD
 		Calendar now  = Calendar.getInstance();
 		Date date = now.getTime();
 		
 		
+=======
+		String oppdatert = "";
+		String rom = "";
+		String leder = "";
+		int avtaleID = 0;
+		int kalenderID = 0;
+		double lengde = 0;
+>>>>>>> master
 		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
 			//Aapner avtale vinduet etter at rektangelet er trykket paa.
-			hpos = tidTilDouble(rs.getString("fraTid"));
-			tidText = rs.getString("fraTid");
-			tilTid = tidTilDouble(rs.getString("tilTid"));
+			fraTid = rs.getString("fraTid");
+			tilTid = rs.getString("tilTid");
+			dato = rs.getString("Dato");
 			tittel = rs.getString("Tittel");
 			beskrivelse = rs.getString("Beskrivelse");
-			bpos = datoTilDag(rs.getString("Dato"));
+			oppdatert = rs.getString("Oppdatert");
+			rom = rs.getString("Romnavn");
+			leder =rs.getString("leder");
+			avtaleID = rs.getInt("AvtaleID");
+			kalenderID = rs.getInt("KalenderID");
+			
 			Generator gen = new Generator();
+<<<<<<< HEAD
 			lengde = tilTid - hpos;
 			
 			//if(String.valueOf(uke).length() < 1){
@@ -127,17 +142,21 @@ public class KalenderKontroller{
 			//}
 			
 			
+=======
+			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
+>>>>>>> master
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
-						System.out.println(gen);
-						launchGUI.start(primaryStage);
+						Context.getInstance().setAvtale(gen.getAvtale());;
+						launchGUI.startInfo(primaryStage);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			};
+<<<<<<< HEAD
 			
 			Rectangle rect = gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse);
 			
@@ -149,6 +168,9 @@ public class KalenderKontroller{
 			sjekkRectKollisjon(rect);
 			
 
+=======
+			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
+>>>>>>> master
 			
 		}
 	}
@@ -210,13 +232,32 @@ public class KalenderKontroller{
 	}
 		
 	@FXML
-	public void testValg(){
+	public void testValg() throws Exception{
 		//Skal faa til aa aapne kalenderen en klikker paa.
 		mineKalendere.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent mo){
 				//Kall metoden for aa initialisere alle avtalene her.
-				System.out.println(kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex()));
+				String navn = kalenderListe.get(mineKalendere.getSelectionModel().getSelectedIndex());
+				String sql = "SELECT kalenderID "
+						+ "FROM Kalendergruppe "
+						+ "JOIN Gruppe as q "
+						+ "WHERE(q.Gruppenavn = '" + navn + "')";
+				try{
+					ResultSet rs = con.les(sql);
+					int kalenderID = 0;
+					while(rs.next()){
+						kalenderID = rs.getInt("KalenderID");
+					}
+					Context.getInstance().getKalender().setKalenderID(kalenderID);
+					Context.getInstance().getGruppe().setGruppenavn(navn);
+					launchGUI.startMain(mainStage);
+				}catch(Exception e){
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Stage stage = (Stage) mineKalendere.getScene().getWindow(); 
+				stage.close();
 			}
 		});
 	}
@@ -230,8 +271,8 @@ public class KalenderKontroller{
 			public void handle(KeyEvent ke){
 				try {
 					if(ke.getCode().equals(KeyCode.ENTER)){
-						launchGUI.startSkjema(skjemaStage);
-						System.out.println("test");
+						Context.getInstance().setSokeTekst(sok.getText());
+						launchGUI.startSearch(searchStage);
 					}
 				} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -277,8 +318,50 @@ public class KalenderKontroller{
 	@FXML
 	void test2Btn() throws Exception{
 		System.out.println("Test 2");
+		//Oppdaterer
+		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
+		String fraTid = "";
+		String tilTid = "";
+		String dato = "";
+		String tittel = "";
+		String beskrivelse = "";
+		String oppdatert = "";
+		String rom = "";
+		String leder = "";
+		int avtaleID = 0;
+		int kalenderID = 0;
+		double lengde = 0;
 		
-		
+		while(rs.next()){
+			Stage primaryStage = new Stage();
+			//Aapner avtale vinduet etter at rektangelet er trykket paa.
+			fraTid = rs.getString("fraTid");
+			tilTid = rs.getString("tilTid");
+			dato = rs.getString("Dato");
+			tittel = rs.getString("Tittel");
+			beskrivelse = rs.getString("Beskrivelse");
+			oppdatert = rs.getString("Oppdatert");
+			rom = rs.getString("Romnavn");
+			leder =rs.getString("leder");
+			avtaleID = rs.getInt("AvtaleID");
+			kalenderID = rs.getInt("KalenderID");
+			
+			Generator gen = new Generator();
+			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
+			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
+				public void handle(InputEvent event) {
+					try {
+						Context.getInstance().setAvtale(gen.getAvtale());;
+						launchGUI.startInfo(primaryStage);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
+			
+		}
 		
 		
 		//Skal gjore alle sql sporringene her i ett

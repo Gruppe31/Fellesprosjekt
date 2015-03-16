@@ -1,0 +1,4 @@
+SELECT *
+FROM Avtale
+JOIN Brukeravtale as q
+WHERE(q.Gruppenavn = gruppenavn)

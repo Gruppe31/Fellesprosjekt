@@ -13,7 +13,7 @@
       <Button fx:id="nyAvtale" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#NyAvtale" prefHeight="39.0" prefWidth="200.0" text="Ny avtale" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="70.0" />
       <Button fx:id="loggUt" layoutX="20.0" layoutY="552.0" mnemonicParsing="false" onAction="#LoggUt" prefHeight="25.0" prefWidth="200.0" text="Logg ut" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine kalendere:" AnchorPane.leftAnchor="20.0" />
-      <ListView fx:id="mineKalendere" layoutX="20.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
+      <ListView fx:id="mineKalendere" layoutX="20.0" layoutY="200.0" onMouseClicked="#testValg" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <Text layoutX="20.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varslinger:" AnchorPane.leftAnchor="20.0" />
       <ListView fx:id="varslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <TextField fx:id="sok" alignment="CENTER" layoutX="33.0" layoutY="24.0" onKeyPressed="#sokTrykkEnter" prefHeight="39.0" prefWidth="200.0" promptText="Søk + Enter" AnchorPane.bottomAnchor="717.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="20.0" />

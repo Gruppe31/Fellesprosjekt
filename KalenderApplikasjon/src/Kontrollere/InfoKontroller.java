@@ -1,10 +1,9 @@
 package Kontrollere;
 
-import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,23 +13,21 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Avtale;
 import model.Context;
 import mysql.Connector;
 
-public class AvtaleKontroller{
+public class InfoKontroller{
 	
-	private String bruker;
-	private String gruppe;
-	int kalenderID;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
-	@FXML private AnchorPane pane;
+	@FXML private Pane pane;
 	
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
+	@FXML private TextField oppdatert;
 	
 	@FXML private DatePicker dato;
 	@FXML private TextField fraTid;
@@ -49,19 +46,38 @@ public class AvtaleKontroller{
 	@FXML private Button fjernDeltager;
 	@FXML private Button lagre;
 	@FXML private Button avbryt;
+	@FXML private Button slettAvtale;
+	Avtale avtale;
 	
-	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
-		this.bruker = Context.getInstance().getPerson().getBrukernavn();
-		this.gruppe = Context.getInstance().getGruppe().getGruppenavn();
-		this.kalenderID = Context.getInstance().getKalender().getKalenderID();
+	public void initialize() throws Exception{//Skal ogsaa initialisere seg selv med info om avtale.
+		pane.setDisable(true);
+		this.avtale = Context.getInstance().getAvtale();
+		tittel.setText(avtale.getTittel());
+		beskrivelse.setText(avtale.getBeskrivelse());
+		String datoString = avtale.getDato();
+		LocalDate datoA = LocalDate.parse(datoString);
+		dato.setValue(datoA);
+		fraTid.setText(avtale.getFraTid());
+		tilTid.setText(avtale.getTilTid());
+		romListe.add(avtale.getRom());
+		rom.setItems(romListe);
+		String sql = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")";
+		ResultSet rs = con.les(sql);
+		String bruker = "";
+		while(rs.next()){
+			bruker = rs.getString("Brukernavn");
+			brukere.add(bruker);
+		}
+		deltagere.setItems(brukere);
+		oppdatert.setText(avtale.getOppdatert());;
 	}
 	
 	@FXML
 	void finnRom() throws Exception{
-		for (String romNavn : romListe) {
-			romListe.remove(romNavn);
-		}
+		romListe.removeAll();
 		rom.setItems(romListe);
+		String sql = "UPDATE Avtale SET Romnavn = NULL"; 
+		con.skriv(sql);
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
 			int antall = brukere.size();
 			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" 
@@ -98,21 +114,28 @@ public class AvtaleKontroller{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
-			//ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
-			int kalenderID = this.kalenderID;
-			//while(rs.next()){
-			//	kalenderID = rs.getInt("KalenderID");
-			//}
-			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 , kalenderID);
+			java.util.Date date= new java.util.Date();
+			Avtale model = new Avtale(fraTid.getText().substring(0, 5),tilTid.getText().substring(0, 5), dato.getValue().toString(), tittel.getText(), 
+					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), avtale.getLeder() , 0 , avtale.getKalenderID());
 			
 			//itererer over brukernavn og legger de til i modelen.
 			for (String brukerNavn : brukere) {
 				model.addInvitert(brukerNavn);
 			}
 			model.addInvitert(Context.getInstance().getPerson().getBrukernavn());
+			String sql1 = "UPDATE avtale SET fraTid= '" + fraTid.getText() + "', tilTid = '" + tilTid.getText() + "',Dato = '" + dato.getValue().toString()+ "'"
+					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + new Timestamp(date.getTime())
+					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'";
+			con.skriv(sql1);
+			
+			String sql2 = "DELETE FROM Brukeravtale WHERE(Brukeravtale.avtaleID = " + Context.getInstance().getAvtale().getAvtaleID() + ")";
+			con.skriv(sql2);
+			for(String deltaker : brukere){
+				String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + Context.getInstance().getAvtale().getAvtaleID() + "', '0','" + dato.getValue().toString() + " " + fraTid.getText() + "')";
+				con.skriv(s2);
+			}
+			
 			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
-			model.databaseSettInn();
 			Stage stage = (Stage) lagre.getScene().getWindow();
 			stage.close();
 			
@@ -141,8 +164,23 @@ public class AvtaleKontroller{
 	}
 	
 	@FXML
-	void avbryt(){
+	void avbryt() throws Exception{
 		Stage stage = (Stage) avbryt.getScene().getWindow();
+		stage.close();
+	}
+	
+	@FXML
+	void endreAvtale() throws Exception{
+		//Avtalen skal kunne endres.
+		pane.setDisable(false);
+	}
+	
+	@FXML
+	void slettAvtale() throws Exception{
+		//skal slette avtalen
+		String sql = "DELETE FROM Avtale WHERE(Avtale.AvtaleID = " + avtale.getAvtaleID() + ")";
+		con.skriv(sql);
+		Stage stage = (Stage) slettAvtale.getScene().getWindow();
 		stage.close();
 	}
 	

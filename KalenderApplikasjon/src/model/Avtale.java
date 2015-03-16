@@ -49,6 +49,7 @@ public class Avtale{
 	
 	public Avtale(String fraTid, String tilTid, String dato, String tittel, String beskrivelse, String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
 		this.kalenderID = kalenderID;
+		this.avtaleID = avtaleID;
 		this.fraTid = fraTid;
 		this.tilTid = tilTid;
 		this.dato = dato;
@@ -68,9 +69,8 @@ public class Avtale{
 			autoInc = rs.getString("Auto_Increment");
 		}
 		String s1 = "INSERT INTO Avtale VALUES ('0','" + this.fraTid + "','" + this.tilTid + "','" + this.dato + "',' " + this.tittel
-				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','"+this.rom+ "')";
+				+ "','" + this.beskrivelse + "','" + new Timestamp(date.getTime()) + "','" + this.kalenderID + "','" + this.leder + "','" + this.rom+ "')";
 		con.skriv(s1);
-		
 		
 		for(String deltaker : invitert){
 			String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + autoInc + "', '0','" + this.dato.toString() + " " + this.fraTid + ":00')";

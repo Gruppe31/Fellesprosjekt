@@ -11,9 +11,23 @@ public class Context {
 	public Avtale avtale = new Avtale();
 	public Person bruker = new Person();
 	public Kalender kalender = new Kalender();
+	private Gruppe gruppe = new Gruppe();
+	private String sokeTekst;
 	
 	public static Context getInstance(){
 		return instance;
+	}
+	
+	public Gruppe getGruppe(){
+		return this.gruppe;
+	}
+	
+	public void setSokeTekst(String sok){
+		this.sokeTekst = sok;
+	}
+	
+	public String getSokeTekst(){
+		return this.sokeTekst;
 	}
 	
 	public Person getPerson(){

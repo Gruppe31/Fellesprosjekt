@@ -39,6 +39,15 @@ public class LaunchGUI extends Application{
 		
 	}
 	
+	public void startInfo(Stage infoStage) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/info.fxml"));
+		infoStage.setScene(new Scene(root));
+		infoStage.setTitle("AVTALE");
+		infoStage.show();
+		
+	}
+	
 	public void startSignup(Stage signupStage) throws IOException{
 		  FXMLLoader fxmlLoader = new FXMLLoader();
 	        Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/SignUp.fxml"));
@@ -63,6 +72,15 @@ public class LaunchGUI extends Application{
 		gruppeStage.setScene(new Scene(root));
 		gruppeStage.setTitle("Lag ny gruppe");
 		gruppeStage.show();
+		
+	}
+	
+	public void startSearch(Stage searchStage) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Search.fxml"));
+		searchStage.setScene(new Scene(root));
+		searchStage.setTitle("Lag ny gruppe");
+		searchStage.show();
 		
 	}
 
