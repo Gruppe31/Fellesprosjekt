@@ -103,19 +103,16 @@ public class KalenderKontroller{
 		String dato = "";
 		String tittel = "";
 		String beskrivelse = "";
-<<<<<<< HEAD
 		Calendar now  = Calendar.getInstance();
 		Date date = now.getTime();
 		
 		
-=======
 		String oppdatert = "";
 		String rom = "";
 		String leder = "";
 		int avtaleID = 0;
 		int kalenderID = 0;
 		double lengde = 0;
->>>>>>> master
 		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
@@ -132,8 +129,6 @@ public class KalenderKontroller{
 			kalenderID = rs.getInt("KalenderID");
 			
 			Generator gen = new Generator();
-<<<<<<< HEAD
-			lengde = tilTid - hpos;
 			
 			//if(String.valueOf(uke).length() < 1){
 			int uke = hvilkenUke(date);//Testing
@@ -142,9 +137,7 @@ public class KalenderKontroller{
 			//}
 			
 			
-=======
 			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
->>>>>>> master
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
@@ -156,22 +149,15 @@ public class KalenderKontroller{
 					}
 				}
 			};
-<<<<<<< HEAD
 			
-			Rectangle rect = gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse);
+			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
 			if(hvilkenUke(rs.getDate("Dato")) == uke){
-				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel + " " + tidText.substring(0, 5), handler));
+				kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, tittel + " " + fraTid.substring(0, 5), handler));
 			}
 			
 			list.add(rect);
 			sjekkRectKollisjon(rect);
-			
-
-=======
-			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
->>>>>>> master
-			
 		}
 	}
 	
@@ -184,14 +170,23 @@ public class KalenderKontroller{
 		double hpos = 0;
 		double tilTid = 0;
 		double lengde = 0;
+		
+		String leder = "";
+		String fraTid = "";
+		String oppdatert = "";
+		String rom = "";
+		int avtaleID = 0;
+		int kalenderID = 0;
+		String dato = "";
+		String tid = "";
+		
 		String tidText = "";
 		int bpos = 0;
 		String tittel = "";
 		String beskrivelse = "";
+		
 		Calendar now  = Calendar.getInstance();
 		Date date = now.getTime();
-		
-		
 		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
@@ -204,6 +199,15 @@ public class KalenderKontroller{
 			bpos = datoTilDag(rs.getString("Dato"));
 			Generator gen = new Generator();
 			lengde = tilTid - hpos;
+			
+			leder = rs.getString("leder");
+			fraTid = rs.getString("fraTid");
+			oppdatert = rs.getString("oppdatert");
+			rom = rs.getString("romNavn");
+			avtaleID = rs.getInt("avtaleID");
+			kalenderID = rs.getInt("kalenderID");
+			dato = rs.getString("dato");
+			tid = rs.getString("tilTid");
 			
 			
 			ukelbl.textProperty().set("Uke: "+uke);
@@ -221,7 +225,7 @@ public class KalenderKontroller{
 				}
 			};
 			
-			Rectangle rect = gen.rectGen(bpos,hpos,lengde, handler, tittel, beskrivelse);
+			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
 			if(hvilkenUke(rs.getDate("Dato")) == uke){
 				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel + " " + tidText.substring(0, 5), handler));
@@ -359,7 +363,7 @@ public class KalenderKontroller{
 					}
 				}
 			};
-			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), tittel + " " + fraTid.substring(0, 5), handler));
+			kalPane.getChildren().addAll(gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID), gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel + " " + fraTid.substring(0, 5), handler));
 			
 		}
 		

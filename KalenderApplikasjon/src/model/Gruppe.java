@@ -15,6 +15,11 @@ public class Gruppe {
 	
 	private Connector con = new Connector();
 	
+	public Gruppe(String gruppenavn, int id){
+		this.gruppenavn = gruppenavn;
+		this.kalenderID = id;
+	}
+	
 	public Gruppe(){
 		// default konstrukt�r.
 		this.gruppenavn = null;

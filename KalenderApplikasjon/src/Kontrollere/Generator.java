@@ -18,19 +18,10 @@ public class Generator {
 	private double tid;
 	Avtale avtale;
 
-<<<<<<< HEAD
-	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String tittel, String beskrivelse){
-		this.dag = dag;
-		this.tid = tid;
-		this.tittel = tittel;
-		this.beskrivelse = beskrivelse;
-		Rectangle rect = new Rectangle(132, 30*lengde, Color.CORNSILK);
-=======
 	Rectangle rectGen(int dag, double tid, double lengde, EventHandler<InputEvent> handler, String fraTid, String tilTid, String dato, String tittel, String beskrivelse,
 			String oppdatert, String rom, String leder, int avtaleID, int kalenderID){
 		this.avtale = new Avtale(fraTid, tilTid, dato, tittel, beskrivelse, oppdatert, rom, leder, avtaleID, kalenderID);
-		Rectangle rect = new Rectangle(135, 30*lengde, Color.CORNSILK);
->>>>>>> master
+		Rectangle rect = new Rectangle(132, 30*lengde, Color.CORNSILK);
 		rect.setStroke(Color.BLACK);
 		rect.relocate((dag*135)+2, tid*30);
 		rect.setOnMouseClicked(handler);
