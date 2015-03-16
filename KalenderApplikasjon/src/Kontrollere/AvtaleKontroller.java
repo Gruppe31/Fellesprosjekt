@@ -23,6 +23,8 @@ import mysql.Connector;
 public class AvtaleKontroller{
 	
 	private String bruker;
+	private String gruppe;
+	int kalenderID;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
 	@FXML private AnchorPane pane;
@@ -50,11 +52,8 @@ public class AvtaleKontroller{
 	
 	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
 		this.bruker = Context.getInstance().getPerson().getBrukernavn();
-		if (Context.getInstance().getAvtale().getTittel() != null) {//Initialiserer avtalevinduet med informasjon hvis tittelen til avtale i context ikke er null.
-			tittel.setText(Context.getInstance().getAvtale().getTittel());
-			beskrivelse.setText(Context.getInstance().getAvtale().getBeskrivelse());
-			pane.setDisable(true);
-		}
+		this.gruppe = Context.getInstance().getGruppe().getGruppenavn();
+		this.kalenderID = Context.getInstance().getKalender().getKalenderID();
 	}
 	
 	@FXML
@@ -99,11 +98,11 @@ public class AvtaleKontroller{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
 		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
-			ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
-			int kalenderID = 0;
-			while(rs.next()){
-				kalenderID = rs.getInt("KalenderID");
-			}
+			//ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
+			int kalenderID = this.kalenderID;
+			//while(rs.next()){
+			//	kalenderID = rs.getInt("KalenderID");
+			//}
 			Avtale model = new Avtale(fraTid.getText(),tilTid.getText(), dato.getValue().toString(), tittel.getText(), 
 					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), this.bruker , 0 , kalenderID);
 			
