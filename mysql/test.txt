@@ -1,4 +1,4 @@
-SELECT kalenderID
-FROM Kalendergruppe
-JOIN Gruppe as q
+SELECT *
+FROM Avtale
+JOIN Brukeravtale as q
 WHERE(q.Gruppenavn = gruppenavn)

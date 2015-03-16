@@ -140,7 +140,6 @@ public class KalenderKontroller{
 						+ "FROM Kalendergruppe "
 						+ "JOIN Gruppe as q "
 						+ "WHERE(q.Gruppenavn = '" + navn + "')";
-				System.out.println(sql);
 				try{
 					ResultSet rs = con.les(sql);
 					int kalenderID = 0;
@@ -148,6 +147,7 @@ public class KalenderKontroller{
 						kalenderID = rs.getInt("KalenderID");
 					}
 					Context.getInstance().getKalender().setKalenderID(kalenderID);
+					Context.getInstance().getGruppe().setGruppenavn(navn);
 					launchGUI.startMain(mainStage);
 				}catch(Exception e){
 					// TODO Auto-generated catch block
