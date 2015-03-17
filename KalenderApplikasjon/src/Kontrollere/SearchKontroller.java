@@ -48,7 +48,7 @@ public class SearchKontroller {
 		
 	}
 	
-	void initialize() throws Exception{
+	public void initialize() throws Exception{
 		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn = '" + soketekst + "')" );
 		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn = '" + soketekst + "')" );
 		
