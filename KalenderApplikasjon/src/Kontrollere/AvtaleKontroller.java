@@ -54,7 +54,6 @@ public class AvtaleKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
-		//rom.setSelectionModel(null);
 		romListe.clear();
 		rom.setItems(romListe);
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
