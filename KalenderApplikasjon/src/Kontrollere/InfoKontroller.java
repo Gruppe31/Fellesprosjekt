@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,8 +28,8 @@ public class InfoKontroller{
 	
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
-	@FXML private TextField oppdatert;
-	@FXML private TextField leder;
+	@FXML private Label oppdatert;
+	@FXML private Label leder;
 	
 	@FXML private DatePicker dato;
 	@FXML private TextField fraTid;
@@ -90,8 +91,6 @@ public class InfoKontroller{
 		}
 		invitertListe.setItems(inviterte);
 		oppdatert.setText(avtale.getOppdatert());
-		leder.setDisable(true);
-		oppdatert.setDisable(true);
 	}
 	
 	@FXML
@@ -101,7 +100,9 @@ public class InfoKontroller{
 				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
 				+ "AND(brukernavn = '" + bruker + "')";
 		con.skriv(sql);
-		brukere.add(bruker);
+		if(!brukere.contains(bruker)){
+			brukere.add(bruker);
+		}
 		deltagere.setItems(brukere);
 	}
 	
@@ -163,29 +164,32 @@ public class InfoKontroller{
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && rom.getSelectionModel().getSelectedIndex() != -1){
 			java.util.Date date= new java.util.Date();
-			Avtale model = new Avtale(fraTid.getText().substring(0, 5),tilTid.getText().substring(0, 5), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), avtale.getLeder() , 0 , avtale.getKalenderID());
-			
+			Timestamp timestamp = new Timestamp(date.getTime());
 			//itererer over brukernavn og legger de til i modelen.
-			for (String brukerNavn : brukere) {
-				model.addInvitert(brukerNavn);
-			}
-			model.addInvitert(Context.getInstance().getPerson().getBrukernavn());
 			String sql1 = "UPDATE avtale SET fraTid= '" + fraTid.getText() + "', tilTid = '" + tilTid.getText() + "',Dato = '" + dato.getValue().toString()+ "'"
-					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + new Timestamp(date.getTime())
-					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'";
+					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + timestamp
+					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'" 
+					+  "WHERE(avtale.avtaleID = " + avtale.getAvtaleID() + ")";
+			
+			Avtale avtale = Context.getInstance().getAvtale();
+			avtale.setBeskrivelse(beskrivelse.getText());
+			avtale.setFraTid(fraTid.getText());
+			avtale.setTilTid(tilTid.getText());
+			avtale.setDato(dato.getValue().toString());
+			avtale.setTittel(tittel.getText());
+			avtale.setOppdatert(timestamp.toString());
+			avtale.setRom(romListe.get(rom.getSelectionModel().getSelectedIndex()));
 			con.skriv(sql1);
 			
 			String sql2 = "DELETE FROM Brukeravtale WHERE(Brukeravtale.avtaleID = " + Context.getInstance().getAvtale().getAvtaleID() + ")";
 			con.skriv(sql2);
-			for(String deltaker : brukere){
+			for(String deltaker : inviterte){
 				String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + Context.getInstance().getAvtale().getAvtaleID() + "', '0','" + dato.getValue().toString() + " " + fraTid.getText() + "')";
 				con.skriv(s2);
 			}
 			
-			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			Stage stage = (Stage) lagre.getScene().getWindow();
 			stage.close();
 			
@@ -205,7 +209,7 @@ public class InfoKontroller{
 			}else{
 				dato.setStyle("-fx-background-color: #FFFFFF");
 			}
-			if(romListe.get(rom.getSelectionModel().getSelectedIndex()) == null){
+			if(rom.getSelectionModel().getSelectedIndex() == -1){
 				rom.setStyle("-fx-background-color: #FF0000");
 			}else{
 				rom.setStyle("-fx-background-color: #FFFFFF");
@@ -254,7 +258,7 @@ public class InfoKontroller{
 			if(!inviterte.contains(bruker)){
 				inviterte.add(bruker);
 			}
-			invitertListe.setItems(brukere);
+			invitertListe.setItems(inviterte);
 		}	
 		while(rs2.next()){
 			gruppe = rs2.getString("Gruppenavn");
@@ -273,7 +277,7 @@ public class InfoKontroller{
 					inviterte.add(bruker2);
 				}
 			}
-			invitertListe.setItems(brukere);
+			invitertListe.setItems(inviterte);
 		}
 				
 		}
