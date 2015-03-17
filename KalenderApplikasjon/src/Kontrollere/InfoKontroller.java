@@ -118,7 +118,8 @@ public class InfoKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
-		romListe.removeAll();
+		//rom.setSelectionModel(null);
+		romListe.clear();
 		rom.setItems(romListe);
 		String sql = "UPDATE Avtale SET Romnavn = NULL"; 
 		con.skriv(sql);
