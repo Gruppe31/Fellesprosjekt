@@ -40,9 +40,6 @@ public class SearchKontroller {
 	
 	@FXML
 	void Velg(){
-
-		sokeliste.get(sok.getSelectionModel().getSelectedIndex());
-=======
 		//Skal åpne kalender til personen eller gruppa det blir søkt på.
 		//Denne åpningen skal man da ikke kunne endre på noen av tingene inne på den.
 		
@@ -51,14 +48,7 @@ public class SearchKontroller {
 		
 	}
 	
-	@FXML
-	void Liste() throws Exception{
-		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
-		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
-		String brukeradd = null;
-		String gruppeadd = null;
-=======
-	void initialize() throws Exception{
+	public void initialize() throws Exception{
 		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn = '" + soketekst + "')" );
 		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn = '" + soketekst + "')" );
 		

@@ -356,10 +356,24 @@ public class KalenderKontroller{
 	
 	@FXML
 	void test2Btn() throws Exception{
-
+		kalenderListe.clear();
+		mineKalendere.setItems(kalenderListe);
+		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
+		kalenderListe.add(brukerNavn + " sin kalender");
+		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
+		try {
+			ResultSet rs = con.les(s);
+			while(rs.next()){
+				String gruppeNavn = rs.getString("Gruppenavn");
+				
+				kalenderListe.add(gruppeNavn);
+			}
+			mineKalendere.setItems(kalenderListe);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//Oppdaterer hele kalenderen
 		String sql;
-		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		if (Context.getInstance().getTypeKalender()) {
 			sql = "SELECT * "
 					+ "FROM Avtale,brukeravtale "
