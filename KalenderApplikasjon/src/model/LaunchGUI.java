@@ -61,7 +61,7 @@ public class LaunchGUI extends Application{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/loggInn.fxml"));
 		loggInnStage.setScene(new Scene(root));
-		loggInnStage.setTitle("SIGN UP");
+		loggInnStage.setTitle("Logg Inn");
 		loggInnStage.show();
 		
 	}
@@ -79,7 +79,7 @@ public class LaunchGUI extends Application{
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Search.fxml"));
 		searchStage.setScene(new Scene(root));
-		searchStage.setTitle("Lag ny gruppe");
+		searchStage.setTitle("Søkeresultater");
 		searchStage.show();
 		
 	}
