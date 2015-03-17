@@ -68,6 +68,9 @@ public class KalenderKontroller{
 	public void initialize() throws Exception{
 		//Egen metode for aa initialisere alle avtalene.
 		kalPane.setStyle("-fx-background-color: transparent;");
+		int ukeNaa = hvilkenUke(date);
+		ukelbl.textProperty().set("Uke: "+ukeNaa);
+		
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
@@ -161,10 +164,11 @@ public class KalenderKontroller{
 		}
 	}
 	
-	//For aa initialisere neste uke paa kalPane
+	//For aa initialisere neste eller forrige uke paa kalPane
 	public void initializeNext(int uke) throws Exception{
 		
 		kalPane.setStyle("-fx-background-color: transparent;");
+		ukelbl.textProperty().set("Uke: "+uke);
 		
 		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
 		double hpos = 0;
@@ -322,6 +326,7 @@ public class KalenderKontroller{
 	@FXML
 	void test2Btn() throws Exception{
 		System.out.println("Test 2");
+		kalPane.getChildren().clear();
 		//Oppdaterer
 		ResultSet rs = con.les("SELECT * FROM Avtale WHERE (Avtale.kalenderID =" + Context.getInstance().getKalender().getKalenderID() + ")");
 		String fraTid = "";
