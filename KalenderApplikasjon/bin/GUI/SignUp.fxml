@@ -15,7 +15,7 @@
             <PasswordField fx:id="PassordField" layoutX="104.0" layoutY="129.0" prefHeight="31.0" prefWidth="132.0" promptText="Passord" />
             <Button fx:id="MeldDegInn" layoutX="53.0" layoutY="199.0" mnemonicParsing="false" onAction="#meldDegInn" text="Meld deg inn" />
             <Button fx:id="avbryt" layoutX="170.0" layoutY="199.0" mnemonicParsing="false" onAction="#avbryt" text="Avbryt" />
-            <Text fx:id="feilmelding" fill="RED" layoutX="28.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavnet eksisterer fra før av" visible="false" />
+            <Text fx:id="feilmelding" fill="RED" layoutX="18.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavnet eksisterer fra før av" visible="false" />
             <Text layoutX="65.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innmelding">
                <font>
                   <Font size="24.0" />

@@ -41,7 +41,7 @@ public class LaunchGUI extends Application{
 	
 	public void startInfo(Stage infoStage) throws IOException{
 		FXMLLoader fxmlLoader = new FXMLLoader();
-		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/info.fxml"));
+		Parent root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("/GUI/Info.fxml"));
 		infoStage.setScene(new Scene(root));
 		infoStage.setTitle("AVTALE");
 		infoStage.show();

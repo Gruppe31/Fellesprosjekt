@@ -127,7 +127,7 @@ public class InfoKontroller{
 			int antall = brukere.size();
 			String s = "SELECT Rom.Romnavn FROM Rom WHERE Romnavn NOT IN(SELECT Rom.Romnavn FROM Rom JOIN Avtale ON (Rom.Romnavn = Avtale.Romnavn) WHERE(Avtale.fraTid = '" 
 			+ fraTid.getText() + "' AND Avtale.Dato ='"
-			+ dato.getValue().toString() +"')) AND Rom.Antall >" + antall;
+			+ dato.getValue().toString() +"')) AND Rom.Antall >=" + antall;
 			ResultSet rs = con.les(s);
 			while(rs.next()){
 			
