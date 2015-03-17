@@ -57,13 +57,14 @@ public class KalenderKontroller{
 	Stage gruppeStage = new Stage();
 	Stage mainStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
-	ArrayList<Rectangle> list = new ArrayList<Rectangle>(); 
+	ArrayList<Rectangle> list = new ArrayList<>();
 	
 	public void initialize() throws Exception{
 		//Egen metode for aa initialisere alle avtalene.
 		kalPane.setStyle("-fx-background-color: transparent;");
 		int ukeNaa = hvilkenUke(date);
 		ukelbl.textProperty().set("Uke: "+ukeNaa);
+		
 		
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
@@ -124,6 +125,10 @@ public class KalenderKontroller{
 		int kalenderID = 0;
 		double lengde = 0;
 		
+		Calendar now  = Calendar.getInstance();
+		Date date = now.getTime();
+		int uke = hvilkenUke(date);
+		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
 			//Aapner avtale vinduet etter at rektangelet er trykket paa.
@@ -137,6 +142,9 @@ public class KalenderKontroller{
 			leder =rs.getString("leder");
 			avtaleID = rs.getInt("AvtaleID");
 			kalenderID = rs.getInt("KalenderID");
+			
+			
+			ukelbl.textProperty().set("Uke: "+uke);
 			
 			Generator gen = new Generator();
 			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
@@ -154,9 +162,9 @@ public class KalenderKontroller{
 			
 			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
-			
-			kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel + " " + fraTid.substring(0, 5), handler));
-			
+			if(hvilkenUke(rs.getDate("Dato")) == uke){
+				kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel + " " + fraTid.substring(0, 5), handler));
+			}
 			
 			list.add(rect);
 			sjekkRectKollisjon(rect);
@@ -197,8 +205,6 @@ public class KalenderKontroller{
 		String tittel = "";
 		String beskrivelse = "";
 		
-		Calendar now  = Calendar.getInstance();
-		Date date = now.getTime();
 		
 		while(rs.next()){
 			Stage primaryStage = new Stage();
