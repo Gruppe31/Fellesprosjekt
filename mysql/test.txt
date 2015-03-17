@@ -1,0 +1,5 @@
+SELECT *
+FROM Avtale, brukeravtale
+JOIN Brukeravtale as q
+ON(q.AvtaleID = Brukeravtale.avtaleID)
+WHERE(Brukeravtale.Brukernavn = brukernavn)

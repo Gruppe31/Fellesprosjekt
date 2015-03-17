@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import mysql.Connector;
@@ -10,6 +9,7 @@ public class Kalender {
 	// Alt initialiseres i denne klassen. Derfor vil denne opprette alle nye avtaler som ligger i databasen.
 	private Connector con;
 	private int id;
+	private int uke;
 	ArrayList<Avtale> avtaler;
 	ArrayList<Gruppe> grupper;
 	
@@ -96,6 +96,15 @@ public class Kalender {
 	
 	public int getKalenderID(){
 		return this.id;
+	}
+	
+	public void setUke(int uke){
+		this.uke = uke;
+	}
+	
+	public int getUke(){
+		return this.uke;
+		
 	}
 	
 }
