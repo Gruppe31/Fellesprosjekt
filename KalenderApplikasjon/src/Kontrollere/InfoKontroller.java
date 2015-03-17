@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,7 +28,8 @@ public class InfoKontroller{
 	
 	@FXML private TextField tittel;
 	@FXML private TextArea beskrivelse;
-	@FXML private TextField oppdatert;
+	@FXML private Label oppdatert;
+	@FXML private Label leder;
 	
 	@FXML private DatePicker dato;
 	@FXML private TextField fraTid;
@@ -41,7 +43,12 @@ public class InfoKontroller{
 	@FXML private TextField leggTilPerson;
 	ObservableList<String> brukere  = FXCollections.observableArrayList();
 	@FXML private ListView<String> deltagere = new ListView<String>(brukere);
+	ObservableList<String> inviterte  = FXCollections.observableArrayList();
+	@FXML private ListView<String> invitertListe = new ListView<String>(inviterte);
 
+	@FXML private Button jaKnapp;
+	@FXML private Button neiKnapp;
+	@FXML private Button endre;
 	@FXML private Button inviter;
 	@FXML private Button fjernDeltager;
 	@FXML private Button lagre;
@@ -52,6 +59,11 @@ public class InfoKontroller{
 	public void initialize() throws Exception{//Skal ogsaa initialisere seg selv med info om avtale.
 		pane.setDisable(true);
 		this.avtale = Context.getInstance().getAvtale();
+		if(!avtale.getLeder().equals(Context.getInstance().getPerson().getBrukernavn())){
+			endre.setVisible(false);
+			slettAvtale.setVisible(false);
+		}
+		leder.setText(avtale.getLeder());
 		tittel.setText(avtale.getTittel());
 		beskrivelse.setText(avtale.getBeskrivelse());
 		String datoString = avtale.getDato();
@@ -61,7 +73,8 @@ public class InfoKontroller{
 		tilTid.setText(avtale.getTilTid());
 		romListe.add(avtale.getRom());
 		rom.setItems(romListe);
-		String sql = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")";
+		String sql = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")"
+				+ "AND(brukerAvtale.statusKommer = 1)";
 		ResultSet rs = con.les(sql);
 		String bruker = "";
 		while(rs.next()){
@@ -69,7 +82,38 @@ public class InfoKontroller{
 			brukere.add(bruker);
 		}
 		deltagere.setItems(brukere);
-		oppdatert.setText(avtale.getOppdatert());;
+		String sql2 = "SELECT Brukernavn FROM brukerAvtale WHERE(brukerAvtale.avtaleID = " + avtale.getAvtaleID() + ")";
+		ResultSet rs2 = con.les(sql2);
+		bruker = "";
+		while(rs2.next()){
+			bruker = rs2.getString("Brukernavn");
+			inviterte.add(bruker);
+		}
+		invitertListe.setItems(inviterte);
+		oppdatert.setText(avtale.getOppdatert());
+	}
+	
+	@FXML
+	void deltar() throws Exception{
+		String bruker = Context.getInstance().getPerson().getBrukernavn();
+		String sql = "UPDATE brukeravtale SET statuskommer = 1 "
+				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
+				+ "AND(brukernavn = '" + bruker + "')";
+		con.skriv(sql);
+		if(!brukere.contains(bruker)){
+			brukere.add(bruker);
+		}
+		deltagere.setItems(brukere);
+	}
+	
+	@FXML
+	void deltarIkke() throws Exception{
+		String bruker = Context.getInstance().getPerson().getBrukernavn();
+		String sql = "UPDATE brukeravtale SET statuskommer = 0 "
+				+ "WHERE(avtaleID = " +avtale.getAvtaleID() + ") "
+				+ "AND(brukernavn = '" + bruker + "')";
+		con.skriv(sql);
+		brukere.remove(bruker);
 	}
 	
 	@FXML
@@ -104,38 +148,48 @@ public class InfoKontroller{
 	}
 	
 	@FXML
-	void fjernDeltager(){
+	void fjernDeltager() throws Exception{
 		//Fjerner deltagere fra listen
-		brukere.remove(deltagere.getSelectionModel().getSelectedIndex());
+		String bruker = inviterte.get(invitertListe.getSelectionModel().getSelectedIndex());
+		String sql = "DELETE FROM brukeravtale WHERE(brukerNavn = '" + bruker + "')";
+		con.skriv(sql);
+		if (brukere.contains(bruker)) {
+			brukere.remove(bruker);
+		}
+		brukere.remove(bruker);
+		inviterte.remove(bruker);
 	}
 	
 	@FXML
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && rom.getSelectionModel().getSelectedIndex() != -1){
 			java.util.Date date= new java.util.Date();
-			Avtale model = new Avtale(fraTid.getText().substring(0, 5),tilTid.getText().substring(0, 5), dato.getValue().toString(), tittel.getText(), 
-					beskrivelse.getText(),"CURRENT_TIMESTAMP" ,romListe.get(rom.getSelectionModel().getSelectedIndex()), avtale.getLeder() , 0 , avtale.getKalenderID());
-			
+			Timestamp timestamp = new Timestamp(date.getTime());
 			//itererer over brukernavn og legger de til i modelen.
-			for (String brukerNavn : brukere) {
-				model.addInvitert(brukerNavn);
-			}
-			model.addInvitert(Context.getInstance().getPerson().getBrukernavn());
 			String sql1 = "UPDATE avtale SET fraTid= '" + fraTid.getText() + "', tilTid = '" + tilTid.getText() + "',Dato = '" + dato.getValue().toString()+ "'"
-					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + new Timestamp(date.getTime())
-					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'";
+					+ ",Tittel = '" + tittel.getText() + "', Beskrivelse = '" +  beskrivelse.getText() + "', Oppdatert = '" + timestamp
+					 + "', Romnavn = '" + romListe.get(rom.getSelectionModel().getSelectedIndex()) + "'" 
+					+  "WHERE(avtale.avtaleID = " + avtale.getAvtaleID() + ")";
+			
+			Avtale avtale = Context.getInstance().getAvtale();
+			avtale.setBeskrivelse(beskrivelse.getText());
+			avtale.setFraTid(fraTid.getText());
+			avtale.setTilTid(tilTid.getText());
+			avtale.setDato(dato.getValue().toString());
+			avtale.setTittel(tittel.getText());
+			avtale.setOppdatert(timestamp.toString());
+			avtale.setRom(romListe.get(rom.getSelectionModel().getSelectedIndex()));
 			con.skriv(sql1);
 			
 			String sql2 = "DELETE FROM Brukeravtale WHERE(Brukeravtale.avtaleID = " + Context.getInstance().getAvtale().getAvtaleID() + ")";
 			con.skriv(sql2);
-			for(String deltaker : brukere){
+			for(String deltaker : inviterte){
 				String s2 = "INSERT INTO Brukeravtale VALUES('" + deltaker + "','" + Context.getInstance().getAvtale().getAvtaleID() + "', '0','" + dato.getValue().toString() + " " + fraTid.getText() + "')";
 				con.skriv(s2);
 			}
 			
-			Context.getInstance().getKalender().addAvtale(model);//Legger til avtale i listen over avtaler til kalender.
 			Stage stage = (Stage) lagre.getScene().getWindow();
 			stage.close();
 			
@@ -155,7 +209,7 @@ public class InfoKontroller{
 			}else{
 				dato.setStyle("-fx-background-color: #FFFFFF");
 			}
-			if(romListe.get(rom.getSelectionModel().getSelectedIndex()) == null){
+			if(rom.getSelectionModel().getSelectedIndex() == -1){
 				rom.setStyle("-fx-background-color: #FF0000");
 			}else{
 				rom.setStyle("-fx-background-color: #FFFFFF");
@@ -173,6 +227,7 @@ public class InfoKontroller{
 	void endreAvtale() throws Exception{
 		//Avtalen skal kunne endres.
 		pane.setDisable(false);
+
 	}
 	
 	@FXML
@@ -200,10 +255,10 @@ public class InfoKontroller{
 		}else{
 			leggTilPerson.setStyle("-fx-background-color: #FFFFFF");
 			leggTilPerson.setText("");
-			if(!brukere.contains(bruker)){
-				brukere.add(bruker);
+			if(!inviterte.contains(bruker)){
+				inviterte.add(bruker);
 			}
-			deltagere.setItems(brukere);
+			invitertListe.setItems(inviterte);
 		}	
 		while(rs2.next()){
 			gruppe = rs2.getString("Gruppenavn");
@@ -218,11 +273,11 @@ public class InfoKontroller{
 			ResultSet rs3 = con.les(s3);
 			while(rs3.next()){
 				String bruker2 = rs3.getString("Brukernavn");
-				if(!brukere.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
-					brukere.add(bruker2);
+				if(!inviterte.contains(bruker2) && !bruker2.equals(Context.getInstance().getPerson().getBrukernavn())){
+					inviterte.add(bruker2);
 				}
 			}
-			deltagere.setItems(brukere);
+			invitertListe.setItems(inviterte);
 		}
 				
 		}

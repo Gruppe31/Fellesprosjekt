@@ -40,10 +40,24 @@ public class SearchKontroller {
 	
 	@FXML
 	void Velg(){
+
+		sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+=======
+		//Skal åpne kalender til personen eller gruppa det blir søkt på.
+		//Denne åpningen skal man da ikke kunne endre på noen av tingene inne på den.
+		
 		//sokeliste.get(sok.getSelectionModel().getSelectedIndex());
+
+		
 	}
 	
 	@FXML
+	void Liste() throws Exception{
+		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn like '"+soketekst+"%')");
+		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn like '"+soketekst+"%')");
+		String brukeradd = null;
+		String gruppeadd = null;
+=======
 	void initialize() throws Exception{
 		ResultSet bruker = con.les("SELECT Brukernavn FROM Person WHERE (Brukernavn = '" + soketekst + "')" );
 		ResultSet gruppe = con.les("SELECT Gruppenavn FROM Gruppe WHERE (Gruppenavn = '" + soketekst + "')" );
@@ -51,10 +65,24 @@ public class SearchKontroller {
 		if (!bruker.next() && !gruppe.next()){
 			sokeliste.add("Ingen match for søket.");
 			sok.setItems(sokeliste);
+			Context.getInstance().setKorrektSok(false);
 		}else{
 			sokeliste.add(soketekst);
 			sok.setItems(sokeliste);
+			Context.getInstance().setKorrektSok(true);
 		}
+//		while (gruppe.next()){
+//			gruppeadd = gruppe.getString("Gruppenavn");
+//			
+//			Må gjøre slik at context aksepterer å hente gruppenavn
+//			if(gruppeadd == null || gruppeadd == Context.getInstance().getGruppe().getBrukernavn()){
+//				sokeliste.add("Ingen grupper matchet søket");
+//				
+//			}else{
+//				sokeliste.add(gruppeadd);
+//			}
+//		}
+		sok.setItems(sokeliste);
 	}
 
 }

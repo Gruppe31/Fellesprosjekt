@@ -3,39 +3,27 @@ package Kontrollere;
 import java.io.IOException;
 import java.sql.ResultSet;
 
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Context;
 import model.LaunchGUI;
-import model.Person;
-import model.LaunchGUI;
 import mysql.Connector;
 
 public class SignUpKontroller {
-	
-	private Person model;
-	
-
-	@FXML Label BrukerNavnRule;
-	@FXML Label PassordRule;
-
 	Connector con = new Connector();
 
 	@FXML TextField BrukerNavnField;
 	@FXML PasswordField PassordField;
 	@FXML Button MeldDegInn;
-	@FXML Button Avbryt;
+	@FXML Button avbryt;
 	@FXML Text feilmelding;
 	
 	Stage mainStage = new Stage();
+	Stage loggInnStage = new Stage();
 	LaunchGUI launchGUI = new LaunchGUI();
 	
 	@FXML
@@ -57,7 +45,6 @@ public class SignUpKontroller {
 				}
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			String sql2 = "INSERT INTO Person VALUES('" + BrukerNavnField.getText() + "','" + PassordField.getText() + "'," + kalenderID +  ")";
@@ -96,6 +83,13 @@ public class SignUpKontroller {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	@FXML
+	private void avbryt() throws Exception{
+		Stage stage = (Stage) avbryt.getScene().getWindow();
+		stage.close();
+		launchGUI.startLoggInn(loggInnStage);
 	}
 	
 	public boolean riktigPassord(String passord){

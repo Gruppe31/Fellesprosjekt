@@ -1,10 +1,8 @@
 package Kontrollere;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +21,6 @@ import mysql.Connector;
 public class AvtaleKontroller{
 	
 	private String bruker;
-	private String gruppe;
 	int kalenderID;
 	private Connector con = new Connector();
 	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
@@ -52,13 +49,12 @@ public class AvtaleKontroller{
 	
 	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
 		this.bruker = Context.getInstance().getPerson().getBrukernavn();
-		this.gruppe = Context.getInstance().getGruppe().getGruppenavn();
 		this.kalenderID = Context.getInstance().getKalender().getKalenderID();
 	}
 	
 	@FXML
 	void finnRom() throws Exception{
-		for (String romNavn : romListe) {
+		for (String romNavn : romListe) {//Kan skape problemer hvis rom er selected.
 			romListe.remove(romNavn);
 		}
 		rom.setItems(romListe);
@@ -97,7 +93,7 @@ public class AvtaleKontroller{
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && rom.getSelectionModel().getSelectedIndex() != -1){
 			//ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
 			int kalenderID = this.kalenderID;
 			//while(rs.next()){
@@ -132,7 +128,7 @@ public class AvtaleKontroller{
 			}else{
 				dato.setStyle("-fx-background-color: #FFFFFF");
 			}
-			if(romListe.get(rom.getSelectionModel().getSelectedIndex()) == null){
+			if(rom.getSelectionModel().getSelectedIndex() == -1){
 				rom.setStyle("-fx-background-color: #FF0000");
 			}else{
 				rom.setStyle("-fx-background-color: #FFFFFF");
