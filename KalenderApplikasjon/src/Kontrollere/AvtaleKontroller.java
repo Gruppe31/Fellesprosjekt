@@ -23,7 +23,7 @@ public class AvtaleKontroller{
 	private String bruker;
 	int kalenderID;
 	private Connector con = new Connector();
-	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
+	//MÃ¥ legge til Ã¥ kunne velge hvor mange som kommer som et rent tall.
 	@FXML private AnchorPane pane;
 	
 	@FXML private TextField tittel;
@@ -34,7 +34,7 @@ public class AvtaleKontroller{
 	@FXML private TextField tilTid;
 	
 	@FXML private Button finnRom;
-	// ObservableList må brukes for å oppdatere ListViewet
+	// ObservableList mÃ¥ brukes for Ã¥ oppdatere ListViewet
 	ObservableList<String> romListe  = FXCollections.observableArrayList();
 	@FXML private ListView<String> rom = new ListView<String>(romListe);
 	
@@ -49,6 +49,8 @@ public class AvtaleKontroller{
 	
 	public void initialize() {//Skal ogsaa initialisere seg selv med info om avtale.
 		this.bruker = Context.getInstance().getPerson().getBrukernavn();
+		brukere.add(bruker);
+		deltagere.setItems(brukere);
 		this.kalenderID = Context.getInstance().getKalender().getKalenderID();
 	}
 	
@@ -70,7 +72,7 @@ public class AvtaleKontroller{
 				}
 			}
 		}else{
-			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
+			//sjekker hvilke felt som er galt og hvis det er galt setter det til rÃ¸dt.
 			if (!erFraTidRiktig(fraTid.getText())) {
 				fraTid.setStyle("-fx-background-color: #FF00000");
 			}if(!erTilTidRiktig(tilTid.getText())){
