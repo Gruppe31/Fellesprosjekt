@@ -40,8 +40,6 @@ public class KalenderKontroller{
 	@FXML private ListView<String> mineVarslinger = new ListView<String>(kalenderListe);
 	
 	@FXML private TextField Varslinger;
-	@FXML private Button testBtn;
-	@FXML private Button test2Btn;
 	@FXML private Pane kalPane;
 	@FXML private Button nyAvtale;
 	@FXML private Button loggUt;
@@ -355,7 +353,7 @@ public class KalenderKontroller{
 	
 	
 	@FXML
-	void test2Btn() throws Exception{
+	void oppdater() throws Exception{
 		kalenderListe.clear();
 		mineKalendere.setItems(kalenderListe);
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
@@ -478,73 +476,4 @@ public class KalenderKontroller{
 		}
 		
 	}
-	
-	@FXML
-	void testBtn(){
-		
-		System.out.println("Test");
-		
-		Stage primaryStage = new Stage();
-		
-		EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
-			public void handle(InputEvent event) {
-				try {
-					launchGUI.start(primaryStage);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		
-		
-		
-		//Generator gen = new Generator();
-		
-		//kalPane.getChildren().addAll(gen.rectGen(0,0,1, handler), gen.lblGen(0,0," Møte 00:00", handler));
-		
-		/*
-		Rectangle rect = new Rectangle(135, 30, Color.CORNSILK);
-		Label testlbl = new Label(" Møte 00:00");
-		rect.setStroke(Color.BLACK);
-		rect.relocate(0,0);
-		testlbl.relocate(0, 0);
-		kalPane.getChildren().addAll(rect,testlbl);
-		
-		*/
-		
-		
-		/*
-		
-		/*
-		rect.setOnMouseClicked(handler);
-		testlbl.setOnMouseClicked(handler);
-		
-		/*
-	
-		
-		tid.bind(fraTid.textProperty());
-		dag.bind(dagText.textProperty());
-		text.bind(avtaleText.textProperty());
-		
-		stage.setScene(scene);
-		
-		stage.tidProperty().bind(tid);
-		stage.dagProperty().bind(dag);
-		stage.textProperty().bind(text);
-		
-		stage.show();
-		
-        IntegerProperty text  = new SimpleIntegerProperty(1);
-        NumberBinding sum = num1.add(num2);
-        System.out.println(sum.getValue());
-        num1.set(2);
-        System.out.println(sum.getValue());
-    }
-}
-		
-		 */
-				
-		
-	}
-	
 }

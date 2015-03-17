@@ -45,8 +45,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Button layoutX="238.0" layoutY="200.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="57.0" prefWidth="90.0" text="TEST1.3" />
-      <Button layoutX="20.0" layoutY="558.0" mnemonicParsing="false" onAction="#test2Btn" prefHeight="31.0" prefWidth="200.0" text="Oppdater" />
+      <Button layoutX="20.0" layoutY="558.0" mnemonicParsing="false" onAction="#oppdater" prefHeight="31.0" prefWidth="200.0" text="Oppdater" />
       <Button fx:id="nyGruppe" layoutX="20.0" layoutY="124.0" mnemonicParsing="false" onAction="#lagNyGruppe" prefHeight="39.0" prefWidth="200.0" text="Ny gruppe" />
       <Button layoutX="225.0" layoutY="682.0" mnemonicParsing="false" onAction="#nesteUke" prefHeight="31.0" prefWidth="123.0" text="Neste Uke" />
       <Button layoutX="226.0" layoutY="722.0" mnemonicParsing="false" onAction="#forrigeUke" prefHeight="31.0" prefWidth="123.0" text="Forrige Uke" />
