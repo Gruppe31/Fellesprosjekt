@@ -54,9 +54,7 @@ public class AvtaleKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
-		for (String romNavn : romListe) {//Kan skape problemer hvis rom er selected.
-			romListe.remove(romNavn);
-		}
+		romListe.clear();
 		rom.setItems(romListe);
 		if(erFraTidRiktig(fraTid.getText()) && erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue())){
 			int antall = brukere.size();

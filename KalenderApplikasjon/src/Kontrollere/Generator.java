@@ -21,13 +21,21 @@ public class Generator {
 		return rect;
 	}
 	
-	Label lblGen(int dag, double tid,double lengde, String text, EventHandler<InputEvent> handler){
+	Label lblGen(int dag, double tid,double lengde, String text,String text2, EventHandler<InputEvent> handler){
 		if(lengde <= 0.50){
 			Label lbl = new Label("");
 			return lbl;
 		}
+		
+		if(text.length() > 11){
+			Label lbl = new Label(" ... "+text2);
+			lbl.relocate((dag*135)+2, tid*30);
+			lbl.setOnMouseClicked(handler);
+			return lbl;
+		}
+		
 		else{
-			Label lbl = new Label(text);
+			Label lbl = new Label(text+" "+text2);
 			lbl.relocate((dag*135)+2, tid*30);
 			lbl.setOnMouseClicked(handler);
 			return lbl;

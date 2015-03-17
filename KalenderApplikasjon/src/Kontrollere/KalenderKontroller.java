@@ -160,10 +160,11 @@ public class KalenderKontroller{
 				}
 			};
 			
+			
 			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
 			if(hvilkenUke(rs.getDate("Dato")) == uke){
-				kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel + " " + fraTid.substring(0, 5), handler));
+				kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel," " + fraTid.substring(0, 5), handler));
 			}
 			
 			list.add(rect);
@@ -245,7 +246,7 @@ public class KalenderKontroller{
 			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
 			if(hvilkenUke(rs.getDate("Dato")) == uke){
-				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel + " " + tidText.substring(0, 5), handler));
+				kalPane.getChildren().addAll(rect, gen.lblGen(bpos,hpos,lengde, tittel," " + tidText.substring(0, 5), handler));
 			}
 			list.add(rect);
 			sjekkRectKollisjon(rect);
@@ -387,6 +388,7 @@ public class KalenderKontroller{
 		int dagIuken = dag.getDayOfWeek().getValue();
 		return dagIuken-1;
 	}
+	
 	
 	public static int hvilkenUke(Date date){
 		Calendar now = Calendar.getInstance();

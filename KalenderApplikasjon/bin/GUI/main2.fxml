@@ -17,7 +17,7 @@
       <Text layoutX="20.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varslinger:" AnchorPane.leftAnchor="20.0" />
       <ListView fx:id="varslinger" layoutX="20.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" />
       <TextField fx:id="sok" alignment="CENTER" layoutX="33.0" layoutY="24.0" onKeyPressed="#sokTrykkEnter" prefHeight="39.0" prefWidth="200.0" promptText="Søk + Enter" AnchorPane.bottomAnchor="717.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1080.0" AnchorPane.topAnchor="20.0" />
-      <Label layoutX="388.0" layoutY="26.0" text="Mandag">
+      <Label layoutX="389.0" layoutY="27.0" text="Mandag">
          <font>
             <Font size="18.0" />
          </font></Label>
