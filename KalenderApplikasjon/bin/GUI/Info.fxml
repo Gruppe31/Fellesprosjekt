@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.DatePicker?>
+
+<AnchorPane prefHeight="673.0" prefWidth="483.0" style="-fx-background-color: #b8ccc8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Kontrollere.InfoKontroller">
+   <children>
+      <Text layoutX="204.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møte">
+         <font>
+            <Font size="20.0" />	
+         </font></Text>
+      <Button fx:id="endre" layoutX="31.0" layoutY="35.0" mnemonicParsing="false" onAction="#endreAvtale" text="Endre" />
+      <Button fx:id="slettAvtale" layoutX="100.0" layoutY="35.0" mnemonicParsing="false" onAction="#slettAvtale" text="Slett avtale" />
+      <Pane fx:id="pane" layoutY="160.0" prefHeight="525.0" prefWidth="483.0">
+         <children>
+            <ListView fx:id="rom" layoutX="310.0" layoutY="304.0" prefHeight="163.0" prefWidth="142.0" />
+            <Button fx:id="inviter" layoutX="25.0" layoutY="246.0" mnemonicParsing="false" onAction="#inviter" text="Inviter" />
+            <TextField fx:id="leggTilPerson" layoutX="25.0" layoutY="210.0" prefHeight="31.0" prefWidth="200.0" promptText="Legg til person" />
+            <Button fx:id="fjernDeltager" layoutX="25.0" layoutY="474.0" mnemonicParsing="false" onAction="#fjernDeltager" text="Fjern deltager" />
+            <Button fx:id="lagre" layoutX="255.0" layoutY="474.0" mnemonicParsing="false" onAction="#lagre" text="Lagre endringer" />
+            <Button fx:id="avbryt" layoutX="388.0" layoutY="474.0" mnemonicParsing="false" onAction="#avbryt" text="Avbryt" />
+            <TextField fx:id="tittel" layoutX="26.0" layoutY="14.0" prefHeight="31.0" prefWidth="427.0" promptText="Tittel" />
+            <TextArea fx:id="beskrivelse" layoutX="26.0" layoutY="51.0" prefHeight="107.0" prefWidth="427.0" promptText="Beskrivelse" />
+            <DatePicker fx:id="dato" layoutX="25.0" layoutY="172.0" prefHeight="31.0" prefWidth="200.0" promptText="Dato" />
+            <TextField fx:id="fraTid" layoutX="252.0" layoutY="172.0" prefHeight="31.0" prefWidth="200.0" promptText="Fra" />
+            <TextField fx:id="tilTid" layoutX="252.0" layoutY="210.0" prefHeight="31.0" prefWidth="200.0" promptText="Til" />
+            <Text layoutX="310.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rom:" />
+            <ListView fx:id="deltagere" layoutX="25.0" layoutY="304.0" prefHeight="163.0" prefWidth="125.0" />
+            <Button fx:id="finnRom" layoutX="372.0" layoutY="268.0" mnemonicParsing="false" onAction="#finnRom" text="Finn rom" />
+            <Text layoutX="25.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deltagere:" />
+            <ListView fx:id="invitertListe" layoutX="170.0" layoutY="304.0" prefHeight="163.0" prefWidth="125.0" />
+            <Text layoutX="169.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alle inviterte:" />
+         </children>
+      </Pane>
+      <Text layoutX="31.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oppdatert:" wrappingWidth="78.96728515625" />
+      <Text layoutX="31.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møteleder:" />
+      <Button fx:id="jaKnapp" layoutX="349.0" layoutY="121.0" mnemonicParsing="false" onAction="#deltar" text="Ja" />
+      <Button fx:id="neiKnapp" layoutX="389.0" layoutY="121.0" mnemonicParsing="false" onAction="#deltarIkke" text="Nei" />
+      <Text layoutX="294.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RSVP:" />
+      <Label fx:id="oppdatert" layoutX="117.0" layoutY="82.0" prefHeight="21.0" prefWidth="159.0" />
+      <Label fx:id="leder" layoutX="114.0" layoutY="126.0" prefHeight="21.0" prefWidth="159.0" />
+   </children>
+</AnchorPane>
