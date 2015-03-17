@@ -62,6 +62,9 @@ public class KalenderKontroller{
 	public void initialize() throws Exception{
 		//Egen metode for aa initialisere alle avtalene.
 		kalPane.setStyle("-fx-background-color: transparent;");
+		int ukeNaa = hvilkenUke(date);
+		ukelbl.textProperty().set("Uke: "+ukeNaa);
+		
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
 		kalenderListe.add(brukerNavn + " sin kalender");
 		String s = "SELECT Gruppenavn FROM Gruppe JOIN Brukergruppe ON(Gruppe.GruppeID = Brukergruppe.GruppeID) WHERE(Brukernavn='" + brukerNavn + "')";
@@ -105,15 +108,15 @@ public class KalenderKontroller{
 	}
 	
 	public void initialiserKalender(String sql) throws Exception{
+		System.out.println("Test 2");
+		kalPane.getChildren().clear();
+		//Oppdaterer
 		ResultSet rs = con.les(sql);
 		String fraTid = "";
 		String tilTid = "";
 		String dato = "";
 		String tittel = "";
 		String beskrivelse = "";
-		Calendar now  = Calendar.getInstance();
-		Date date = now.getTime();
-		
 		String oppdatert = "";
 		String rom = "";
 		String leder = "";
@@ -136,21 +139,14 @@ public class KalenderKontroller{
 			kalenderID = rs.getInt("KalenderID");
 			
 			Generator gen = new Generator();
-			
-			//if(String.valueOf(uke).length() < 1){
-			int uke = hvilkenUke(date);//Testing
-			//int uke  = hvilkenUke(rs.getDate("Dato"));
-			ukelbl.textProperty().set("Uke: "+uke);
-			//}
-			
-			
 			lengde = tidTilDouble(tilTid) - tidTilDouble(fraTid);
 			EventHandler<InputEvent> handler = new EventHandler<InputEvent>() {
 				public void handle(InputEvent event) {
 					try {
-						Context.getInstance().setAvtale(gen.getAvtale());
+						Context.getInstance().setAvtale(gen.getAvtale());;
 						launchGUI.startInfo(primaryStage);
 					} catch (IOException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -158,19 +154,21 @@ public class KalenderKontroller{
 			
 			Rectangle rect = gen.rectGen(datoTilDag(dato),tidTilDouble(fraTid),lengde,handler, fraTid, tilTid,dato,tittel,beskrivelse,oppdatert,rom,leder,avtaleID,kalenderID);
 			
-			if(hvilkenUke(rs.getDate("Dato")) == uke){
-				kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid),lengde, tittel + " " + fraTid.substring(0, 5), handler));
-			}
+			
+			kalPane.getChildren().addAll(rect, gen.lblGen(datoTilDag(dato),tidTilDouble(fraTid), lengde,tittel + " " + fraTid.substring(0, 5), handler));
+			
 			
 			list.add(rect);
 			sjekkRectKollisjon(rect);
 		}
 	}
 	
-	//For aa initialisere neste uke paa kalPane
+	//For aa initialisere neste eller forrige uke paa kalPane
 	public void initializeNext(int uke) throws Exception{
 		//Pga av diverse kluss er det mye repitisjon i metoden her.
 		kalPane.setStyle("-fx-background-color: transparent;");
+		ukelbl.textProperty().set("Uke: "+uke);
+		
 		String sql;
 		if (Context.getInstance().getTypeKalender()) {
 			sql =  "SELECT * "
@@ -351,6 +349,7 @@ public class KalenderKontroller{
 	
 	@FXML
 	void test2Btn() throws Exception{
+
 		//Oppdaterer hele kalenderen
 		String sql;
 		String brukerNavn = Context.getInstance().getPerson().getBrukernavn();
