@@ -54,7 +54,7 @@ public class AvtaleKontroller{
 	
 	@FXML
 	void finnRom() throws Exception{
-		for (String romNavn : romListe) {
+		for (String romNavn : romListe) {//Kan skape problemer hvis rom er selected.
 			romListe.remove(romNavn);
 		}
 		rom.setItems(romListe);
@@ -93,7 +93,7 @@ public class AvtaleKontroller{
 	void lagre() throws Exception{
 		// Lager en ny innstans av Avtale.
 		// Avtale lagres i databasen.
-		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && romListe.get(rom.getSelectionModel().getSelectedIndex()) != null){
+		if(erTilTidRiktig(tilTid.getText()) && erDatoRiktig(dato.getValue()) && erFraTidRiktig(fraTid.getText()) && rom.getSelectionModel().getSelectedIndex() != -1){
 			//ResultSet rs = con.les("SELECT KalenderID FROM Person WHERE(Brukernavn = '" + bruker + "')");
 			int kalenderID = this.kalenderID;
 			//while(rs.next()){
@@ -128,7 +128,7 @@ public class AvtaleKontroller{
 			}else{
 				dato.setStyle("-fx-background-color: #FFFFFF");
 			}
-			if(romListe.get(rom.getSelectionModel().getSelectedIndex()) == null){
+			if(rom.getSelectionModel().getSelectedIndex() == -1){
 				rom.setStyle("-fx-background-color: #FF0000");
 			}else{
 				rom.setStyle("-fx-background-color: #FFFFFF");
