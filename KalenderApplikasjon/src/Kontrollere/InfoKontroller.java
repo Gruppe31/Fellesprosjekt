@@ -23,7 +23,7 @@ import mysql.Connector;
 public class InfoKontroller{
 	
 	private Connector con = new Connector();
-	//Må legge til å kunne velge hvor mange som kommer som et rent tall.
+	//MÃ¥ legge til Ã¥ kunne velge hvor mange som kommer som et rent tall.
 	@FXML private Pane pane;
 	
 	@FXML private TextField tittel;
@@ -36,7 +36,7 @@ public class InfoKontroller{
 	@FXML private TextField tilTid;
 	
 	@FXML private Button finnRom;
-	// ObservableList må brukes for å oppdatere ListViewet
+	// ObservableList mÃ¥ brukes for Ã¥ oppdatere ListViewet
 	ObservableList<String> romListe  = FXCollections.observableArrayList();
 	@FXML private ListView<String> rom = new ListView<String>(romListe);
 	
@@ -137,7 +137,7 @@ public class InfoKontroller{
 				}
 			}
 		}else{
-			//sjekker hvilke felt som er galt og hvis det er galt setter det til rødt.
+			//sjekker hvilke felt som er galt og hvis det er galt setter det til rÃ¸dt.
 			if (!erFraTidRiktig(fraTid.getText())) {
 				fraTid.setStyle("-fx-background-color: #FF00000");
 			}if(!erTilTidRiktig(tilTid.getText())){
@@ -227,6 +227,8 @@ public class InfoKontroller{
 	@FXML
 	void endreAvtale() throws Exception{
 		//Avtalen skal kunne endres.
+		romListe.clear();
+		rom.setItems(romListe);
 		pane.setDisable(false);
 
 	}
